@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Membuat login dengan codeigniter | www.malasngoding.com</title>
+	<title>SIAKAD</title>
 </head>
 <body>
 	<h1>Login berhasil !</h1>
