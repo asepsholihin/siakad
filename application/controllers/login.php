@@ -37,7 +37,8 @@ class Login extends CI_Controller {
 			redirect(base_url("dashboard"));
  
 		} else {
-			echo "Username atau password salah!";
+			$this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Username atau password salah</div>');
+	redirect(base_url()."login");
 		}
 	}
  
