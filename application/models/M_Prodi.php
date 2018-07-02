@@ -1,12 +1,12 @@
 <?php 
  
-class M_Mahasiswa extends CI_Model{	
+class M_Prodi extends CI_Model{	
 	function get_data(){
-		return $this->db->get('mahasiswa');
+		return $this->db->get('prodi');
 	}
  
-	function input_data($data,$table){
-		$this->db->insert($table,$data);
+	function input_data($data, $table){
+		$this->db->insert($table, $data);
 	}
 
 	function edit_data($where, $table){		

@@ -1,19 +1,20 @@
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Edit Dosen</h4> 
+            <h4 class="page-title">Edit Mahasiswa</h4> 
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-                <?php foreach($dosen as $u){ ?>
-                <form class="form-horizontal form-material" autocomplete="off" action="<?php echo base_url('dosen/proses_edit'); ?>" method="post">
+
+                <?php foreach($mahasiswa as $u){ ?>
+                <form class="form-horizontal form-material" autocomplete="off" action="<?php echo base_url('mahasiswa/proses_edit'); ?>" method="post">
                     <div class="form-group">
-                        <label for="nidn" class="col-md-12">NIDN <i class="text-muted">(Tidak dapat diubah)</i></label>
+                        <label for="nim" class="col-md-12">NIM</label>
                         <div class="col-md-12">
-                            <input id="nidn" type="hidden" name="nidn" value="<?php echo $u->nidn; ?>" class="form-control form-control-line">
-                            <input id="nidn" type="text"  disabled value="<?php echo $u->nidn; ?>" class="form-control form-control-line">
+                            <input id="nim" type="hidden" name="nim" value="<?php echo $u->nim; ?>"  class="form-control form-control-line">
+                            <input id="nim" type="text" disabled value="<?php echo $u->nim; ?>" class="form-control form-control-line">
                         </div>
                     </div>
                     <div class="form-group">
@@ -56,14 +57,9 @@
                             <input id="id_prodi" type="text" name="id_prodi" value="<?php echo $u->id_prodi; ?>" class="form-control form-control-line"> </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_matkul" class="col-md-12">Mata Kuliah</label>
+                        <label for="id_dosen" class="col-md-12">Dosen Wali</label>
                         <div class="col-md-12">
-                            <input id="id_matkul" type="text" name="id_matkul" value="<?php echo $u->id_matkul; ?>" class="form-control form-control-line"> </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="jabatan" class="col-md-12">Jabatan</label>
-                        <div class="col-md-12">
-                            <input id="jabatan" type="text" name="jabatan" value="<?php echo $u->jabatan; ?>" class="form-control form-control-line"> </div>
+                            <input id="id_dosen" type="text" name="id_dosen" value="<?php echo $u->id_dosen; ?>" class="form-control form-control-line"> </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">

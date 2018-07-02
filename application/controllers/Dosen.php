@@ -51,7 +51,7 @@ class Dosen extends MY_Controller {
     
     function edit($id){
         $where = array('nidn' => $id);
-        $data['dosen'] = $this->M_Dosen->edit_data($where,'dosen')->result();
+        $data['dosen'] = $this->M_Dosen->edit_data($where, 'dosen')->result();
         $this->render_page('pages/dosen/v_edit_dosen', $data);
     }
 

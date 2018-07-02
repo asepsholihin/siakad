@@ -29,16 +29,13 @@
                 <a href="<?php echo base_url('mahasiswa') ?>"></i>Mahasiswa</a>
             </li>
             <li>
-                <a href="basic-table.html">Kelas</a>
-            </li>
-            <li>
-                <a href="fontawesome.html">Program Studi</a>
+                <a href="<?php echo base_url('prodi') ?>">Program Studi</a>
             </li>
             <li>
                 <a href="<?php echo base_url('dosen') ?>">Dosen</a>
             </li>
             <li>
-                <a href="blank.html">Mata Kuliah</a>
+                <a href="<?php echo base_url('matkul') ?>">Mata Kuliah</a>
             </li>
             <li>
                 <a href="404.html">Nilai</a>
