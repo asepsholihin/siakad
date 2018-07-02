@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>Login</title>
+	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<h1>Login SIAKAD</h1>
