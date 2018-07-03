@@ -14,12 +14,14 @@ class Dosen extends MY_Controller {
 	}
  
 	public function index() {
-		$data['dosen'] = $this->M_Dosen->get_data()->result();
+		$data['dosen'] = $this->M_Dosen->get_data();
 		$this->render_page('pages/dosen/v_dosen', $data);
 	}
 
 	function input() {
-		$this->render_page('pages/dosen/v_input_dosen');
+		$data['prodi'] = $this->M_Dosen->ambil_prodi();
+		$data['matkul'] = $this->M_Dosen->ambil_matkul();
+		$this->render_page('pages/dosen/v_input_dosen', $data);
 	}
  
 	function proses_input() {
@@ -50,7 +52,9 @@ class Dosen extends MY_Controller {
     }
     
     function edit($id){
-        $where = array('nidn' => $id);
+		$where = array('nidn' => $id);
+		$data['prodi'] = $this->M_Dosen->ambil_prodi();
+		$data['matkul'] = $this->M_Dosen->ambil_matkul();
         $data['dosen'] = $this->M_Dosen->edit_data($where, 'dosen')->result();
         $this->render_page('pages/dosen/v_edit_dosen', $data);
     }

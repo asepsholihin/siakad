@@ -2,7 +2,11 @@
  
 class M_Matkul extends CI_Model{	
 	function get_data(){
-		return $this->db->get('matkul');
+		$this->db->select('matkul.*, prodi.nama as prodi');
+		$this->db->from('matkul');
+		$this->db->join('prodi', 'prodi.id = matkul.id_prodi');
+		$query = $this->db->get();
+		return $query->result();
 	}
  
 	function input_data($data, $table){
@@ -21,5 +25,16 @@ class M_Matkul extends CI_Model{
     function hapus_data($where, $table){
         $this->db->where($where);
         $this->db->delete($table);
-    }
+	}
+
+	function ambil_prodi() {
+		$this->db->select('id, nama');
+		$this->db->from('prodi');
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
+	}
 }

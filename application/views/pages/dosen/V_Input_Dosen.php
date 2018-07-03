@@ -52,12 +52,14 @@
                     <div class="form-group">
                         <label for="id_prodi" class="col-md-12">Program Studi</label>
                         <div class="col-md-12">
-                            <input id="id_prodi" type="text" name="id_prodi" class="form-control form-control-line"> </div>
+                            <?php echo form_dropdown('id_prodi', $prodi, null, 'class="form-control"'); ?>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_matkul" class="col-md-12">Mata Kuliah</label>
+                        <label for="id_dosen" class="col-md-12">Mata Kuliah</label>
                         <div class="col-md-12">
-                            <input id="id_matkul" type="text" name="id_matkul" class="form-control form-control-line"> </div>
+                            <?php echo form_dropdown('id_matkul', $matkul, null, 'class="form-control"'); ?>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="jabatan" class="col-md-12">Jabatan</label>

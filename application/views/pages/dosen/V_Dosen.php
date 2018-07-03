@@ -34,8 +34,8 @@
                             <td><?php echo $u->nidn ?></td>
                             <td><?php echo $u->nama ?></td>
                             <td><?php echo $u->jabatan ?></td>
-                            <td><?php echo $u->id_prodi ?></td>
-                            <td><?php echo $u->id_matkul ?></td>
+                            <td><?php echo $u->prodi ?></td>
+                            <td><?php echo $u->matkul ?></td>
                             <td>
                                 <a href="<?php echo base_url('dosen/edit/'.$u->nidn.'');?>" class="btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('dosen/hapus/'.$u->nidn.'');?>" class="btn btn-outline-danger">Hapus</a>

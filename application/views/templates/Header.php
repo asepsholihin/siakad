@@ -23,31 +23,34 @@
         </div>
         <ul class="nav" id="side-menu">
             <li style="padding: 70px 0 0;">
-                <a href="<?php echo base_url('dashboard')?>">Dashboard</a>
+                <a href="<?php echo base_url('dashboard'); ?>">Dashboard</a>
             </li>
             <li>
-                <a href="<?php echo base_url('mahasiswa') ?>"></i>Mahasiswa</a>
+                <a href="<?php echo base_url('mahasiswa'); ?>"></i>Mahasiswa</a>
             </li>
             <li>
-                <a href="<?php echo base_url('prodi') ?>">Program Studi</a>
+                <a href="<?php echo base_url('prodi'); ?>">Program Studi</a>
             </li>
             <li>
-                <a href="<?php echo base_url('dosen') ?>">Dosen</a>
+                <a href="<?php echo base_url('dosen'); ?>">Dosen</a>
             </li>
             <li>
-                <a href="<?php echo base_url('matkul') ?>">Mata Kuliah</a>
+                <a href="<?php echo base_url('matkul'); ?>">Mata Kuliah</a>
             </li>
             <li>
-                <a href="404.html">Nilai</a>
+                <a href="<?php echo base_url('kriteria_nilai'); ?>">Kriteria Nilai</a>
             </li>
             <li>
-                <a href="404.html">Laporan Nilai</a>
+                <a href="<?php echo base_url('nilai'); ?>">Nilai</a>
             </li>
             <li>
-                <a href="404.html">Profil</a>
+                <a href="<?php echo base_url(); ?>">Laporan Nilai</a>
             </li>
             <li>
-                <a href="404.html">Transkip Nilai</a>
+                <a href="<?php echo base_url(); ?>">Profil</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url(); ?>">Transkip Nilai</a>
             </li>
         </ul>
     </div>

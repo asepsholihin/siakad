@@ -54,26 +54,13 @@
                     <div class="form-group">
                         <label for="id_prodi" class="col-md-12">Program Studi</label>
                         <div class="col-md-12">
-                            <input id="id_prodi" type="text" name="id_prodi" value="<?php echo $u->id_prodi; ?>" class="form-control form-control-line"> </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_prodi" class="col-md-12">Program Studi</label>
-                        <div class="col-md-12">
-                            <select class="form-control" name="id_prodi">                   
-                                <?php foreach($prodi as $u) { ?>
-                                    <option value="<?php echo $u->id;?>"><?php echo $u->nama;?></option>
-                                <?php } ?>
-                            </select>
+                            <?php echo form_dropdown('id_prodi', $prodi, $u->id_prodi, 'class="form-control"'); ?>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_dosen" class="col-md-12">Dosen Wali</label>
+                        <label for="id_dosen" class="col-md-12">Dosen Wali </label>
                         <div class="col-md-12">
-                            <select class="form-control" name="id_dosen">                   
-                                <?php foreach($dosen as $u) { ?>
-                                    <option value="<?php echo $u->nidn;?>"><?php echo $u->nama;?></option>
-                                <?php } ?>
-                            </select>
+                            <?php echo form_dropdown('id_dosen', $dosen, $u->id_dosen, 'class="form-control"'); ?>
                         </div>
                     </div>
                     <div class="form-group">

@@ -14,7 +14,7 @@ class Mahasiswa extends MY_Controller {
 	}
  
 	public function index() {
-		$data['mahasiswa'] = $this->M_Mahasiswa->get_data()->result();
+		$data['mahasiswa'] = $this->M_Mahasiswa->get_data();
 		$this->render_page('pages/mahasiswa/v_mahasiswa', $data);
 	}
 
@@ -34,18 +34,18 @@ class Mahasiswa extends MY_Controller {
 		$id_prodi 	= $this->input->post('id_prodi');
 		$id_dosen 	= $this->input->post('id_dosen');
  
-		$data = array(
+		$post = array(
 			'nim' 		=> $nim,
 			'nama'		=> $nama,
 			'tgl_lahir'	=> $tgl_lahir,
 			'tmp_lahir'	=> $tmp_lahir,
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
-			'id_prodi'		=> $id_prodi,
+			'id_prodi'	=> $id_prodi,
 			'id_dosen'	=> $id_dosen
 			);
-
-		$this->M_Mahasiswa->input_data($data, 'mahasiswa');
+		
+		$this->M_Mahasiswa->input_data($post, 'mahasiswa');
 		redirect('mahasiswa');
 	}
 
@@ -67,14 +67,14 @@ class Mahasiswa extends MY_Controller {
 		$id_prodi 	= $this->input->post('id_prodi');
 		$id_dosen 	= $this->input->post('id_dosen');
  
-		$data = array(
+		$post = array(
 			'nim' 		=> $nim,
 			'nama'		=> $nama,
 			'tgl_lahir'	=> $tgl_lahir,
 			'tmp_lahir'	=> $tmp_lahir,
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
-			'id_prodi'		=> $id_prodi,
+			'id_prodi'	=> $id_prodi,
 			'id_dosen'	=> $id_dosen
 			);
 
@@ -82,7 +82,7 @@ class Mahasiswa extends MY_Controller {
 			'nim' => $nim
 		);
 
-		$this->M_Mahasiswa->update_data($where, $data, 'mahasiswa');
+		$this->M_Mahasiswa->update_data($where, $post, 'mahasiswa');
 		redirect('mahasiswa');
 	}
 

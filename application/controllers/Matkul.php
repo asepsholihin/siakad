@@ -14,12 +14,13 @@ class Matkul extends MY_Controller {
 	}
  
 	public function index() {
-		$data['matkul'] = $this->M_Matkul->get_data()->result();
+		$data['matkul'] = $this->M_Matkul->get_data();
 		$this->render_page('pages/matkul/v_matkul', $data);
 	}
 
 	function input() {
-		$this->render_page('pages/matkul/v_input_matkul');
+		$data['prodi'] = $this->M_Matkul->ambil_prodi();
+		$this->render_page('pages/matkul/v_input_matkul', $data);
 	}
  
 	function proses_input() {
@@ -38,7 +39,8 @@ class Matkul extends MY_Controller {
 	}
 
 	function edit($id){
-        $where = array('id' => $id);
+		$where = array('id' => $id);
+		$data['prodi'] = $this->M_Matkul->ambil_prodi();
         $data['matkul'] = $this->M_Matkul->edit_data($where, 'matkul')->result();
         $this->render_page('pages/matkul/v_edit_matkul', $data);
 	}

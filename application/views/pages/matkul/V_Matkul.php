@@ -16,7 +16,6 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>ID</th>
                                 <th>Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Program Studi</th>
@@ -30,10 +29,9 @@
                         ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
-                            <td><?php echo $u->id ?></td>
                             <td><?php echo $u->nama ?></td>
                             <td><?php echo $u->sks ?></td>
-                            <td><?php echo $u->id_prodi ?></td>
+                            <td><?php echo $u->prodi ?></td>
                             <td>
                                 <a href="<?php echo base_url('matkul/edit/'.$u->id.'');?>" class="btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('matkul/hapus/'.$u->id.'');?>" class="btn btn-outline-danger">Hapus</a>

@@ -2,7 +2,13 @@
  
 class M_Mahasiswa extends CI_Model{	
 	function get_data(){
-		return $this->db->get('mahasiswa');
+		$this->db->select('mahasiswa.*, prodi.nama as prodi, dosen.nama as dosen_wali');
+		$this->db->from('mahasiswa');
+		$this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
+		$this->db->join('dosen', 'dosen.nidn = mahasiswa.id_dosen');
+		$this->db->order_by('mahasiswa.nim'); 
+		$query = $this->db->get();
+		return $query->result();
 	}
  
 	function input_data($data,$table){
@@ -27,13 +33,10 @@ class M_Mahasiswa extends CI_Model{
 		$this->db->select('id, nama');
 		$this->db->from('prodi');
 		$query = $this->db->get();
-		return $query->result();
-	}
-	
-	function ambil_dosen() {
-		$this->db->select('nidn, nama');
-		$this->db->from('dosen');
-		$query = $this->db->get();
-		return $query->result();
+		foreach ($query->result() as $row)
+		{
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
 	}
 }

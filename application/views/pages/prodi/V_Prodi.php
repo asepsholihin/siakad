@@ -16,7 +16,6 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>ID</th>
                                 <th>Program Studi</th>
                                 <th></th>
                             </tr>
@@ -28,7 +27,6 @@
                         ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
-                            <td><?php echo $u->id ?></td>
                             <td><?php echo $u->nama ?></td>
                             <td>
                                 <a href="<?php echo base_url('prodi/edit/'.$u->id.'');?>" class="btn btn-outline-warning">Edit</a>
