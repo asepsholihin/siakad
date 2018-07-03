@@ -40,12 +40,10 @@
                         <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $mahasiswa->nama ?></td>
-                            <!-- <?php foreach($nilai as $u) { ?>
-                            <td><a href="#" id="uts" data-type="text" data-pk="<?php echo $u->id_mahasiswa ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/"><?php echo $u->uts ?></a></td>
-                            <td><a href="#" id="uas" data-type="text" data-pk="<?php echo $u->id_mahasiswa ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/"><?php echo $u->uas ?></a></td>
-                            <td><a href="#" id="tugas" data-type="text" data-pk="<?php echo $u->id_mahasiswa ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/"><?php echo $u->tugas ?></a></td>
-                            <td><?php echo $u->grade ?></td>
-                            <?php } ?> -->
+                            <td><a href="#" class="uts" data-name="uts" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->uts ?></a></td>
+                            <td><a href="#" class="uas" data-name="uas" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->uas ?></a></td>
+                            <td><a href="#" class="tugas" data-name="tugas" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->tugas ?></a></td>
+                            <td><a href="#" class="grade" data-name="grade" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->grade ?></a></td>
                         </tr>
                         <?php } ?>
                         </tbody>

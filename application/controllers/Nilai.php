@@ -14,29 +14,17 @@ class Nilai extends MY_Controller {
 	}
  
 	public function index() {
-		$data['nilai'] = array();
+		$data['mahasiswa'] = array();
 		$data['matkul'] = $this->M_Nilai->ambil_matkul();
 		$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 		$this->render_page('pages/nilai/v_nilai', $data);
 	}
 
 	public function matkul($id_matkul) {
-		$data['mahasiswa'] = $this->M_Nilai->ambil_mahasiswa();
-		$data_nilais = array();
-
-		$data_mahasiswa = $this->M_Nilai->ambil_mahasiswa();
-		foreach($data_mahasiswa as $row) {
-			$data_nilai = $this->M_Nilai->ambil_nilai($row->nim, $id_matkul);
-			foreach($data_nilai as $row_nilai) {
-				$data_nilais[] = $row_nilai;
-			}
-
-		}
-		echo json_encode($data_nilais);
-		//echo $this->db->last_query(); 
+		$data['mahasiswa'] = $this->M_Nilai->get_data($id_matkul);
 		$data['matkul'] = $this->M_Nilai->ambil_matkul();
 		$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
-		//$this->render_page('pages/nilai/v_nilai', $data);
+		$this->render_page('pages/nilai/v_nilai', $data);
 	}
  
 	function proses_edit($id_matkul) {
@@ -48,12 +36,23 @@ class Nilai extends MY_Controller {
 			$name => $value
 		);
 
+		$input = array(
+			'id_mahasiswa' => $pk,
+			'id_matkul' => $id_matkul,
+			$name => $value
+		);
+
 		$where = array(
 			'id_mahasiswa' => $pk,
 			'id_matkul' => $id_matkul
 		);
 
-		$this->M_Nilai->update_data($where, $data, 'nilai');
+		$cek = $this->M_Nilai->cek_nilai($where, 'nilai');
+		if($cek){
+			$this->M_Nilai->update_data($where, $data, 'nilai');
+		} else {
+			$this->M_Nilai->insert_data($input, 'nilai');
+		}
 	}
 
 	function hapus($id){

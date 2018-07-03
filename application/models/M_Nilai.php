@@ -1,21 +1,36 @@
 <?php 
  
-class M_Nilai extends CI_Model{	
-	function ambil_mahasiswa(){
-		$query = $this->db->get('mahasiswa');
-		return $query->result();
-	}
-	function ambil_nilai($id_mahasiswa, $id_matkul){
-		$query = $this->db->query("SELECT uts,uas,tugas FROM nilai WHERE id_mahasiswa='".$id_mahasiswa."' AND id_matkul='".$id_matkul."'");
-		return $query->result();
+class M_Nilai extends CI_Model{
+	function get_data($id_matkul){
+		$query = $this->db->query("
+		SELECT
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts ELSE '' END) AS uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas ELSE '' END) AS uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas ELSE '' END) AS tugas,
+		(CASE WHEN nilai.grade IS NOT NULL THEN nilai.grade ELSE '' END) AS grade,
+		mahasiswa.nim,
+		mahasiswa.nama, nilai.id_matkul FROM nilai
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul=".$id_matkul."");
+		if($query->num_rows()==0){
+			return FALSE;
+		} 
+		else{
+			return $query->result();
+		}
 	}
  
-	function input_data($data, $table){
+	function insert_data($data, $table){
 		$this->db->insert($table, $data);
 	}
 
-	function edit_data($where, $table){		
-        return $this->db->get_where($table, $where);
+	function cek_nilai($where, $table){		
+		$query = $this->db->get_where($table, $where);
+		if($query->num_rows()==0){
+			return FALSE;
+		} 
+		else{
+			return $query->result();
+		}
     }
 
     function update_data($where, $data, $table){
