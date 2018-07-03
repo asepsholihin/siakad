@@ -21,5 +21,19 @@ class M_Mahasiswa extends CI_Model{
     function hapus_data($where, $table){
         $this->db->where($where);
         $this->db->delete($table);
-    }
+	}
+	
+	function ambil_prodi() {
+		$this->db->select('id, nama');
+		$this->db->from('prodi');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	function ambil_dosen() {
+		$this->db->select('nidn, nama');
+		$this->db->from('dosen');
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

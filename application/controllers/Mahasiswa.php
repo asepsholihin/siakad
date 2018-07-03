@@ -19,7 +19,9 @@ class Mahasiswa extends MY_Controller {
 	}
 
 	function input() {
-		$this->render_page('pages/mahasiswa/v_input_mahasiswa');
+		$data['prodi'] = $this->M_Mahasiswa->ambil_prodi();
+		$data['dosen'] = $this->M_Mahasiswa->ambil_dosen();
+		$this->render_page('pages/mahasiswa/v_input_mahasiswa', $data);
 	}
  
 	function proses_input() {
@@ -49,6 +51,8 @@ class Mahasiswa extends MY_Controller {
 
 	function edit($id){
         $where = array('nim' => $id);
+		$data['prodi'] = $this->M_Mahasiswa->ambil_prodi();
+		$data['dosen'] = $this->M_Mahasiswa->ambil_dosen();
         $data['mahasiswa'] = $this->M_Mahasiswa->edit_data($where, 'mahasiswa')->result();
         $this->render_page('pages/mahasiswa/v_edit_mahasiswa', $data);
 	}
