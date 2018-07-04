@@ -39,4 +39,15 @@ class M_Mahasiswa extends CI_Model{
 		}
 		return $return;
 	}
+
+	function ambil_dosen() {
+		$this->db->select('nidn, nama');
+		$this->db->from('dosen');
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[$row->nidn] = $row->nama;
+		}
+		return $return;
+	}
 }

@@ -9,7 +9,7 @@
             <div class="white-box">
 
                 <h3 class="box-title float-left mt-1 mb-4">Mata Kuliah</h3>
-                <div class="box-title float-left ml-3 mb-4">
+                <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
                     <?php
                         $js = 'class="form-control" onChange="window.location = \''.base_url().'nilai/matkul/\' + $(this).val();"'; 
                         echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);

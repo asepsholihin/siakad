@@ -47,6 +47,15 @@
                 <a href="<?php echo base_url(); ?>">Laporan Nilai</a>
             </li>
             <li>
+                <a href="<?php echo base_url('referensi_kuisioner'); ?>">Referensi Kuisioner</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('kuisioner'); ?>">Kuisioner</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('laporan_kuisioner'); ?>">Laporan Kuisioner</a>
+            </li>
+            <li>
                 <a href="<?php echo base_url(); ?>">Profil</a>
             </li>
             <li>
