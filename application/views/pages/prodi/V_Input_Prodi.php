@@ -12,7 +12,7 @@
                     <div class="form-group">
                         <label for="nama" class="col-md-12">Program Studi</label>
                         <div class="col-md-12">
-                            <input id="nama" type="text" name="nama" class="form-control form-control-line">
+                            <input id="nama" type="text" name="nama" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">

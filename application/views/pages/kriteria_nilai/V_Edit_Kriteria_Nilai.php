@@ -14,13 +14,13 @@
                         <label for="nama" class="col-md-12">Kriteria Nilai</label>
                         <div class="col-md-12">
                             <input type="hidden" name="id" value="<?php echo $u->id; ?>">
-                            <input id="nama" type="text" name="nama" value="<?php echo $u->nama; ?>" class="form-control form-control-line">
+                            <input id="nama" type="text" name="nama" value="<?php echo $u->nama; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="skala" class="col-md-12">Skala Penilaian</label>
                         <div class="col-md-12">
-                            <input id="skala" type="text" name="skala" value="<?php echo $u->skala; ?>" class="form-control form-control-line">
+                            <input id="skala" type="text" name="skala" value="<?php echo $u->skala; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">

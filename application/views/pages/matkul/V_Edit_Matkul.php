@@ -14,13 +14,13 @@
                         <label for="nama" class="col-md-12">Matak Kuliah</label>
                         <div class="col-md-12">
                             <input type="hidden" name="id" value="<?php echo $u->id; ?>">
-                            <input id="nama" type="text" name="nama" value="<?php echo $u->nama; ?>" class="form-control form-control-line">
+                            <input id="nama" type="text" name="nama" value="<?php echo $u->nama; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="sks" class="col-md-12">Bobot SKS</label>
                         <div class="col-md-12">
-                            <input id="sks" type="text" name="sks" value="<?php echo $u->sks; ?>" class="form-control form-control-line">
+                            <input id="sks" type="text" name="sks" value="<?php echo $u->sks; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">

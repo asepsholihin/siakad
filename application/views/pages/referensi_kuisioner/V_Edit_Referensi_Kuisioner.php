@@ -13,14 +13,14 @@
                     <div class="form-group">
                         <label for="kategori" class="col-md-12">Kategori</label>
                         <div class="col-md-12">
-                            <input id="kategori" type="text" name="kategori" value="<?php echo $u->kategori; ?>" class="form-control form-control-line">
+                            <input id="kategori" type="text" name="kategori" value="<?php echo $u->kategori; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pertanyaan" class="col-md-12">Pertanyaan</label>
                         <div class="col-md-12">
                             <input type="hidden" name="id" value="<?php echo $u->id; ?>">
-                            <input id="pertanyaan" type="text" name="pertanyaan" value="<?php echo $u->pertanyaan; ?>" class="form-control form-control-line">
+                            <input id="pertanyaan" type="text" name="pertanyaan" value="<?php echo $u->pertanyaan; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">

@@ -13,19 +13,19 @@
                         <label for="username" class="col-md-12">Username</label>
                         <div class="col-md-12">
                             <input type="hidden" name="id" value="<?php echo $u->id; ?>">
-                            <input id="username" type="text" name="username" value="<?php echo $u->username; ?>" class="form-control form-control-line">
+                            <input id="username" type="text" name="username" value="<?php echo $u->username; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="id_user" class="col-md-12">NIM/NIDN (Mahasiswa/Dosen)</label>
                         <div class="col-md-12">
-                            <input id="id_user" type="text" name="id_user" value="<?php echo $u->id_user; ?>" class="form-control form-control-line">
+                            <input id="id_user" type="text" name="id_user" value="<?php echo $u->id_user; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="role" class="col-md-12">Hak Akses</label>
                         <div class="col-md-12">
-                            <select class="form-control" id="role" name="role">
+                            <select class="form-control" id="role" name="role" required>
                                 <option value="">Pilih Hak Akses</option>
                                 <option value="admin" <?php if($u->role=='admin') { ?> selected <?php } ?>>Admin</option>
                                 <option value="dosen" <?php if($u->role=='dosen') { ?> selected <?php } ?>>Dosen</option>

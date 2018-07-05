@@ -12,19 +12,19 @@
                     <div class="form-group">
                         <label for="kode" class="col-md-12">Kode Mata Kuliah</label>
                         <div class="col-md-12">
-                            <input id="kode" type="text" name="kode" class="form-control form-control-line">
+                            <input id="kode" type="text" name="kode" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="nama" class="col-md-12">Mata Kuliah</label>
                         <div class="col-md-12">
-                            <input id="nama" type="text" name="nama" class="form-control form-control-line">
+                            <input id="nama" type="text" name="nama" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="sks" class="col-md-12">Bobot SKS</label>
                         <div class="col-md-12">
-                            <input id="sks" type="text" name="sks" class="form-control form-control-line">
+                            <input id="sks" type="text" name="sks" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">

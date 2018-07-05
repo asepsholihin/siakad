@@ -20,18 +20,20 @@
                     <div class="form-group">
                         <label for="nama" class="col-md-12">Nama Lengkap</label>
                         <div class="col-md-12">
-                            <input id="nama" type="text" name="nama" value="<?php echo $u->nama; ?>" class="form-control form-control-line">
+                            <input id="nama" type="text" name="nama" value="<?php echo $u->nama; ?>" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="tgl_lahir" class="col-md-12">Tanggal Lahir</label>
                         <div class="col-md-12">
-                            <input id="tgl_lahir" type="date" name="tgl_lahir" value="<?php echo $u->tgl_lahir; ?>" class="form-control form-control-line"> </div>
+                            <input id="tgl_lahir" type="date" name="tgl_lahir" value="<?php echo $u->tgl_lahir; ?>" class="form-control form-control-line" required> 
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="tmp_lahir" class="col-md-12">Tempat Lahir</label>
                         <div class="col-md-12">
-                            <input id="tmp_lahir" type="text" name="tmp_lahir" value="<?php echo $u->tmp_lahir; ?>" class="form-control form-control-line"> </div>
+                            <input id="tmp_lahir" type="text" name="tmp_lahir" value="<?php echo $u->tmp_lahir; ?>" class="form-control form-control-line" required> 
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="jk" class="col-md-12">Jenis Kelamin</label>
@@ -49,7 +51,8 @@
                     <div class="form-group">
                         <label for="alamat" class="col-md-12">Alamat</label>
                         <div class="col-md-12">
-                            <input id="alamat" type="text" name="alamat" value="<?php echo $u->alamat; ?>" class="form-control form-control-line"> </div>
+                            <input id="alamat" type="text" name="alamat" value="<?php echo $u->alamat; ?>" class="form-control form-control-line" required> 
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="id_prodi" class="col-md-12">Program Studi</label>

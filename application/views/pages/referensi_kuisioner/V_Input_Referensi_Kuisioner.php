@@ -12,20 +12,20 @@
                     <div class="form-group">
                         <label for="kategori" class="col-md-12">Kategori</label>
                         <div class="col-md-12">
-                            <input id="kategori" type="text" name="kategori" class="form-control form-control-line">
+                            <input id="kategori" type="text" name="kategori" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pertanyaan" class="col-md-12">Pertanyaan</label>
                         <div class="col-md-12">
-                            <input id="pertanyaan" type="text" name="pertanyaan" class="form-control form-control-line">
+                            <input id="pertanyaan" type="text" name="pertanyaan" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="jk" class="col-md-12">Jenis Pertanyaan</label>
                         <div class="col-md-12">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" checked name="jenis" id="pilihan" value="pilihan">
+                                <input class="form-check-input" type="radio" checked name="jenis" id="pilihan" value="pilihan" checked>
                                 <label class="form-check-label" for="pilihan">Pilihan</label>
                             </div>
                             <div class="form-check form-check-inline">
