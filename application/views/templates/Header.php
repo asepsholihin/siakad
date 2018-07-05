@@ -53,13 +53,13 @@
                 <a href="<?php echo base_url('matkul'); ?>">Mata Kuliah</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
+            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
             ?>
             <li>
                 <a href="<?php echo base_url('kriteria_nilai'); ?>">Kriteria Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
+            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
             ?>
             <li>
                 <a href="<?php echo base_url('nilai'); ?>">Nilai</a>
@@ -68,7 +68,7 @@
             if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
             ?>
             <li>
-                <a href="<?php echo base_url(); ?>">Laporan Nilai</a>
+                <a href="<?php echo base_url('laporan_nilai'); ?>">Laporan Nilai</a>
             </li>
             <?php }
             if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "kajur") { 
@@ -77,7 +77,7 @@
                 <a href="<?php echo base_url('referensi_kuisioner'); ?>">Referensi Kuisioner</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "mahasiswa") { 
+            if($this->session->userdata("role") == "mahasiswa") { 
             ?>
             <li>
                 <?php

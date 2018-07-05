@@ -12,9 +12,6 @@ class Mahasiswa extends MY_Controller {
 			redirect(base_url("login"));
 		}
 		
-		if($this->session->userdata("role") != "admin") {
-			redirect(base_url("dashboard"));
-		}
 	}
  
 	public function index() {

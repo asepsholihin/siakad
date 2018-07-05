@@ -19,6 +19,19 @@ class M_Nilai extends CI_Model{
 		}
 	}
 
+	function get_data_kelas($id_dosen, $id_matkul){
+		$query = $this->db->query("
+		SELECT
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts ELSE '' END) AS uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas ELSE '' END) AS uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas ELSE '' END) AS tugas,
+		(CASE WHEN nilai.grade IS NOT NULL THEN nilai.grade ELSE '' END) AS grade,
+		mahasiswa.nim,
+		mahasiswa.nama, nilai.id_matkul FROM nilai
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul=".$id_matkul." WHERE mahasiswa.id_dosen=".$id_dosen."");
+		return $query->result();
+	}
+
 	function transkrip($nim){
 		$query = $this->db->query("
 		SELECT

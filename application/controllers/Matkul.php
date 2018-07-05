@@ -11,10 +11,6 @@ class Matkul extends MY_Controller {
 		if($this->session->userdata('status') != "login"){
 			redirect(base_url("login"));
 		}
-
-		if($this->session->userdata("role") == "mahasiswa") { 
-			redirect(base_url("dashboard"));
-		}
 	}
  
 	public function index() {

@@ -30,6 +30,7 @@
                                 <option value="admin" <?php if($u->role=='admin') { ?> selected <?php } ?>>Admin</option>
                                 <option value="dosen" <?php if($u->role=='dosen') { ?> selected <?php } ?>>Dosen</option>
                                 <option value="mahasiswa" <?php if($u->role=='mahasiswa') { ?> selected <?php } ?>>Mahasiswa</option>
+                                <option value="wadir1" <?php if($u->role=='wadir1') { ?> selected <?php } ?>>Wakil Direktur 1</option>
                                 <option value="kajur" <?php if($u->role=='kajur') { ?> selected <?php } ?>>Ketua Jurusan</option>
                                 <option value="dosen_wali" <?php if($u->role=='dosen_wali') { ?> selected <?php } ?>>Dosen Wali</option>
                             </select>

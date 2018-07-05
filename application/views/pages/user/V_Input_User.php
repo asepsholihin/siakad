@@ -36,6 +36,7 @@
                                 <option value="dosen">Dosen</option>
                                 <option value="mahasiswa">Mahasiswa</option>
                                 <option value="kajur">Ketua Jurusan</option>
+                                <option value="wadir1">Wakil Direktur 1</option>
                                 <option value="dosen_wali">Dosen Wali</option>
                             </select>
                         </div>
