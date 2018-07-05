@@ -9,6 +9,17 @@
             <div class="white-box">
 
                 <form class="form-horizontal form-material" autocomplete="off" action="<?php echo base_url('kriteria_nilai/proses_input'); ?>" method="post">
+                    <?php
+                        if($this->session->userdata('role') != "admin") { ?>
+                        <input type="hidden" name="id_dosen" value="<?php echo $this->session->userdata('id_user'); ?>">
+                    <?php } else { ?>
+                        <div class="form-group">
+                            <label for="id_dosen" class="col-md-12">Dosen</label>
+                            <div class="col-md-12">
+                                <?php echo form_dropdown('id_dosen', $dosen, null, 'class="form-control"'); ?>
+                            </div>
+                        </div>
+                    <?php } ?>
                     <div class="form-group">
                         <label for="nama" class="col-md-12">Kriteria Nilai</label>
                         <div class="col-md-12">

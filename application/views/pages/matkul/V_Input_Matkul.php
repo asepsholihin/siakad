@@ -10,6 +10,12 @@
 
                 <form class="form-horizontal form-material" autocomplete="off" action="<?php echo base_url('matkul/proses_input'); ?>" method="post">
                     <div class="form-group">
+                        <label for="kode" class="col-md-12">Kode Mata Kuliah</label>
+                        <div class="col-md-12">
+                            <input id="kode" type="text" name="kode" class="form-control form-control-line">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="nama" class="col-md-12">Mata Kuliah</label>
                         <div class="col-md-12">
                             <input id="nama" type="text" name="nama" class="form-control form-control-line">

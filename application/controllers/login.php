@@ -26,9 +26,13 @@ class Login extends CI_Controller {
         $cek        = $this->M_Login->cek_login("users", $where)->num_rows();
         
 		if($cek > 0) {
+
+			$user = $this->M_Login->cek_login("users", $where)->row();
  
 			$data_session = array(
 				'nama'      => $username,
+				'id_user'   => $user->id_user,
+				'role'      => $user->role,
 				'status'    => "login"
 				);
  

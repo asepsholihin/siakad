@@ -10,6 +10,17 @@ class M_Mahasiswa extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	function profil($id) {
+		$this->db->select('mahasiswa.*, prodi.nama as prodi, dosen.nama as dosen_wali');
+		$this->db->from('mahasiswa');
+		$this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
+		$this->db->join('dosen', 'dosen.nidn = mahasiswa.id_dosen');
+		$this->db->where('mahasiswa.nim', $id);
+		$this->db->order_by('mahasiswa.nim'); 
+		$query = $this->db->get();
+		return $query->result();
+	}
  
 	function input_data($data,$table){
 		$this->db->insert($table,$data);

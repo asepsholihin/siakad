@@ -1,8 +1,16 @@
 <?php 
  
 class M_Kriteria_Nilai extends CI_Model{	
-	function get_data(){
-		return $this->db->get('kriteria_nilai');
+	function get_data($id_dosen){
+		if($id_dosen) {
+			return $this->db->get_where('kriteria_nilai', array("id_dosen" => $id_dosen));
+		} else {
+			$this->db->select('kriteria_nilai.*, dosen.nama as dosen');
+			$this->db->from('kriteria_nilai');
+			$this->db->join('dosen', 'dosen.nidn = kriteria_nilai.id_dosen');
+			return $this->db->get();
+		}
+		
 	}
  
 	function input_data($data, $table){

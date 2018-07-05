@@ -18,6 +18,26 @@ class M_Nilai extends CI_Model{
 			return $query->result();
 		}
 	}
+
+	function transkrip($nim){
+		$query = $this->db->query("
+		SELECT
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts ELSE '' END) AS uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas ELSE '' END) AS uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas ELSE '' END) AS tugas,
+		(CASE WHEN nilai.grade IS NOT NULL THEN nilai.grade ELSE '' END) AS grade,
+		mahasiswa.nim, 
+		mahasiswa.nama, nilai.id_matkul, matkul.kode, matkul.nama as matkul, matkul.sks
+		FROM nilai
+		JOIN matkul ON nilai.id_matkul = matkul.id
+		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND mahasiswa.nim=".$nim."");
+		if($query->num_rows()==0){
+			return FALSE;
+		} 
+		else{
+			return $query->result();
+		}
+	}
  
 	function insert_data($data, $table){
 		$this->db->insert($table, $data);
@@ -46,6 +66,7 @@ class M_Nilai extends CI_Model{
 	function ambil_kriteria_nilai() {
 		$this->db->select('id, nama');
 		$this->db->from('kriteria_nilai');
+		$this->db->limit(3);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -62,14 +83,46 @@ class M_Nilai extends CI_Model{
 	}
 	
 	function ambil_matkul() {
-		$this->db->select('id, nama');
+		$this->db->select('id, matkul.nama');
 		$this->db->from('matkul');
+		$this->db->join('dosen', 'dosen.id_matkul = matkul.id', 'LEFT');
+		if(!empty($this->session->userdata("id_user"))) {
+			$this->db->where('dosen.nidn', $this->session->userdata("id_user"));
+		}
+		
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{
-			$return[''] = "Pilih Mata Kuliah";
+			$return[0] = "Pilih Mata Kuliah";
 			$return[$row->id] = $row->nama;
 		}
 		return $return;
 	}
+
+	public function grading(int $nilai) {
+        	if($nilai >= 85) {
+			return "A";
+		}
+		if(($nilai >= 78) && ($nilai <= 84.99)) {
+			return "AB";
+		}
+		if($nilai >= 70 && $nilai <= 77.99) {
+			return "B";
+		}
+		if($nilai >= 63 && $nilai <= 69.99) {
+			return "BC";
+		}
+		if($nilai >= 55 && $nilai <= 62.99) {
+			return "C";
+		}
+		if($nilai >= 40 && $nilai <= 54.99) {
+			return "D";
+		}
+		if($nilai > 0 && $nilai <= 39.99) {
+			return "E";
+		}
+		if($nilai == 0) {
+			return "";
+		}
+    }
 }

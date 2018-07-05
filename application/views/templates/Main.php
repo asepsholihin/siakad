@@ -9,6 +9,7 @@
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/default.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/jquery-editable.min.css" rel="stylesheet"/>
 </head>
 

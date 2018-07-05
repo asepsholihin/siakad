@@ -19,7 +19,7 @@
 					<?php echo $this->session->flashdata('msg'); ?>
 				</div>  
 
-				<form class="login100-form validate-form" action="<?php echo base_url('login/proses_login'); ?>" method="post">
+				<form class="login100-form validate-form" autocomplete="off" action="<?php echo base_url('login/proses_login'); ?>" method="post">
 					<div class="wrap-input100 validate-input m-b-26">
 						<span class="label-input100">Username</span>
 						<input class="input100" type="text" name="username" placeholder="">

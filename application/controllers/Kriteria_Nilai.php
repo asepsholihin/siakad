@@ -6,6 +6,7 @@ class Kriteria_Nilai extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('M_Kriteria_Nilai');
+		$this->load->model('M_Mahasiswa');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -14,21 +15,24 @@ class Kriteria_Nilai extends MY_Controller {
 	}
  
 	public function index() {
-		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data()->result();
+		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'))->result();
 		$this->render_page('pages/kriteria_nilai/v_kriteria_nilai', $data);
 	}
 
 	function input() {
-		$this->render_page('pages/kriteria_nilai/v_input_kriteria_nilai');
+		$data['dosen'] = $this->M_Mahasiswa->ambil_dosen();
+		$this->render_page('pages/kriteria_nilai/v_input_kriteria_nilai', $data);
 	}
  
 	function proses_input() {
 		$nama 		= $this->input->post('nama');
 		$skala 		= $this->input->post('skala');
+		$id_dosen 	= $this->input->post('id_dosen');
  
 		$data = array(
 			'nama'		=> $nama,
-			'skala'		=> $skala
+			'skala'		=> $skala,
+			'id_dosen'	=> $id_dosen
 			);
 
 		$this->M_Kriteria_Nilai->input_data($data, 'kriteria_nilai');

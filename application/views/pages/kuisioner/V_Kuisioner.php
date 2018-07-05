@@ -1,3 +1,11 @@
+<?php
+    $this->db->select('mahasiswa.nim, mahasiswa.nama, mahasiswa.id_prodi');
+    $this->db->from('users');
+    $this->db->join('mahasiswa', 'mahasiswa.nim = users.id_user');
+    $this->db->where('mahasiswa.nim', $this->session->userdata("id_user"));
+    $user = $this->db->get()->row();
+?>
+
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -27,7 +35,7 @@
                             <div class="form-group">
                                 <label for="nim" class="col-md-12">NIM <span class="text-danger">*</span></label>
                                 <div class="col-md-12">
-                                    <input id="nim" type="text" name="nim" class="form-control form-control-line">
+                                    <input id="nim" type="text" name="nim" readonly value="<?php echo $user->nim ?>" class="form-control form-control-line">
                                 </div>
                             </div>
                         </div>
@@ -35,7 +43,7 @@
                             <div class="form-group">
                                 <label for="id_prodi" class="col-md-12">Program Studi <span class="text-danger">*</span></label>
                                 <div class="col-md-12">
-                                    <?php echo form_dropdown('id_prodi', $prodi, null, 'class="form-control"'); ?>
+                                    <?php echo form_dropdown('id_prodi', $prodi, $user->id_prodi, 'class="form-control"'); ?>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -56,7 +64,7 @@
                     <div class="form-group">
                         <label for="nama" class="col-md-12">Nama Mahasiswa <span class="text-danger">*</span></label>
                         <div class="col-md-12">
-                            <input id="nama" type="text" name="nama" class="form-control form-control-line">
+                            <input id="nama" type="text" name="nama" readonly value="<?php echo $user->nama ?>" class="form-control form-control-line">
                         </div>
                     </div>
 

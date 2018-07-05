@@ -18,6 +18,7 @@
                                 <th>#</th>
                                 <th>Kriteria Nilai</th>
                                 <th>Skala Penilaian</th>
+                                <?php if($this->session->userdata('role') == "admin") { ?> <th>Dosen</th> <?php } ?>
                                 <th></th>
                             </tr>
                         </thead>
@@ -30,6 +31,7 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $u->nama ?></td>
                             <td><?php echo $u->skala ?></td>
+                            <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
                             <td>
                                 <a href="<?php echo base_url('kriteria_nilai/edit/'.$u->id.'');?>" class="btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('kriteria_nilai/hapus/'.$u->id.'');?>" class="btn btn-outline-danger">Hapus</a>

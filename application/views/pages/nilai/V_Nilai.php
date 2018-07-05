@@ -15,6 +15,7 @@
                         echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
                     ?>
                 </div>
+                <a href="<?php echo base_url('nilai') ?>/upload" class="btn btn-outline-success pull-right">Upload</a>
 
                 <div class="table-responsive">
                     <table class="table">
@@ -43,7 +44,21 @@
                             <td><a href="#" class="uts" data-name="uts" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->uts ?></a></td>
                             <td><a href="#" class="uas" data-name="uas" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->uas ?></a></td>
                             <td><a href="#" class="tugas" data-name="tugas" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->tugas ?></a></td>
-                            <td><a href="#" class="grade" data-name="grade" data-type="text" data-pk="<?php echo $mahasiswa->nim ?>" data-url="<?php echo base_url('nilai'); ?>/proses_edit/<?php echo $this->uri->segment(3) ?>"><?php echo $mahasiswa->grade ?></a></td>
+                            <td><?php 
+                                $kriteria = $this->db->query("SELECT kriteria_nilai.*, dosen.nama as dosen, matkul.nama as matkul FROM `kriteria_nilai`
+                                JOIN dosen on dosen.nidn = kriteria_nilai.id_dosen
+                                JOIN matkul on dosen.id_matkul = matkul.id AND matkul.id='".$this->uri->segment(3)."' ORDER BY kriteria_nilai.nama DESC")->result();
+                                if ( count($kriteria) > 0 ) {
+                                    $uts    = intval($mahasiswa->uts)*$kriteria[0]->skala/100;
+                                    $uas    = intval($mahasiswa->uas)*$kriteria[1]->skala/100;
+                                    $tugas  = intval($mahasiswa->tugas)*$kriteria[2]->skala/100;
+
+                                    echo $this->M_Nilai->grading($uts+$uas+$tugas);
+                                } else {
+                                    echo "Belum ada";
+                                }
+                                
+                            ?></td>
                         </tr>
                         <?php } ?>
                         </tbody>

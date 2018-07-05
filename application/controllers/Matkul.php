@@ -24,11 +24,13 @@ class Matkul extends MY_Controller {
 	}
  
 	function proses_input() {
+		$kode 		= $this->input->post('kode');
 		$nama 		= $this->input->post('nama');
 		$sks 		= $this->input->post('sks');
 		$id_prodi	= $this->input->post('id_prodi');
  
 		$data = array(
+			'kode'		=> $kode,
 			'nama'		=> $nama,
 			'sks'		=> $sks,
 			'id_prodi'	=> $id_prodi
