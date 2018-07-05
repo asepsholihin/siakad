@@ -30,8 +30,8 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $u->kategori ?></td>
                             <td><?php echo $u->pertanyaan ?></td>
-                            <td>
-                                <a href="<?php echo base_url('referensi_kuisioner/edit/'.$u->id.'');?>" class="btn btn-outline-warning">Edit</a>
+                            <td class="text-center">
+                                <a href="<?php echo base_url('referensi_kuisioner/edit/'.$u->id.'');?>" class="mb-2 btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('referensi_kuisioner/hapus/'.$u->id.'');?>" class="btn btn-outline-danger">Hapus</a>
                             </td>
                         </tr>

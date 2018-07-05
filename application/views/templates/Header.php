@@ -10,7 +10,10 @@
         
         <ul class="nav navbar-top-links navbar-right pull-right">
             <li>
-                <a class="profile-pic" href="#">Steave</b></a>
+                <a class="profile-pic" href="#"><?php echo $this->session->userdata("nama"); ?></a>
+            </li>
+            <li>
+                <a href="<?php echo base_url('login/logout'); ?>">Logout</a>
             </li>
         </ul>
     </div>
@@ -68,7 +71,7 @@
                 <a href="<?php echo base_url(); ?>">Laporan Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
+            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "kajur") { 
             ?>
             <li>
                 <a href="<?php echo base_url('referensi_kuisioner'); ?>">Referensi Kuisioner</a>

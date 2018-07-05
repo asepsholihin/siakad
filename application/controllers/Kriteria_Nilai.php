@@ -12,6 +12,9 @@ class Kriteria_Nilai extends MY_Controller {
 		if($this->session->userdata('status') != "login"){
 			redirect(base_url("login"));
 		}
+		if($this->session->userdata("role") == "mahasiswa") { 
+			redirect(base_url("dashboard"));
+		}
 	}
  
 	public function index() {
@@ -37,6 +40,20 @@ class Kriteria_Nilai extends MY_Controller {
 
 		$this->M_Kriteria_Nilai->input_data($data, 'kriteria_nilai');
 		redirect('kriteria_nilai');
+	}
+
+	function live_edit() {
+		$name 		= $this->input->post('name');
+		$pk 		= $this->input->post('pk');
+		$value 		= $this->input->post('value');
+
+		$input = array(
+			'nama' => strtoupper($name),
+			'id_dosen' => $pk,
+			'skala' => $value
+		);
+
+		$this->M_Kriteria_Nilai->input_data($input, 'kriteria_nilai');
 	}
 
 	function edit($id){

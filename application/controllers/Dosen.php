@@ -11,6 +11,9 @@ class Dosen extends MY_Controller {
 		if($this->session->userdata('status') != "login"){
 			redirect(base_url("login"));
 		}
+		if($this->session->userdata("role") != "admin") {
+			redirect(base_url("dashboard"));
+		}
 	}
  
 	public function index() {

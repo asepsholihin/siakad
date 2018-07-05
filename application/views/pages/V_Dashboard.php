@@ -5,12 +5,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <div class="white-box">
+        <div class="col-md-6 offset-md-3 mt-5">
+            <div class="white-box text-center p-5">
             
-			<h1>Login berhasil !</h1>
-			<h2>Hai, <?php echo $this->session->userdata("nama"); ?></h2>
-			<a href="<?php echo base_url('login/logout'); ?>">Logout</a>
+			<h2>Hai, <?php echo $this->session->userdata("nama"); ?>.</h2>
             
             </div>
         </div>
