@@ -1,13 +1,13 @@
 <?php 
  
 class M_Kriteria_Nilai extends CI_Model{	
-	function get_data($id_dosen){
+	function get_data($id_dosen, $id_matkul){
 		if($id_dosen) {
-			return $this->db->get_where('kriteria_nilai', array("id_dosen" => $id_dosen));
+			return $this->db->get_where('kriteria', array("id_dosen" => $id_dosen, "id_matkul" => $id_matkul));
 		} else {
-			$this->db->select('kriteria_nilai.*, dosen.nama as dosen');
-			$this->db->from('kriteria_nilai');
-			$this->db->join('dosen', 'dosen.nidn = kriteria_nilai.id_dosen');
+			$this->db->select('kriteria.*, dosen.nama as dosen');
+			$this->db->from('kriteria');
+			$this->db->join('dosen', 'dosen.nidn = kriteria.id_dosen');
 			return $this->db->get();
 		}
 		

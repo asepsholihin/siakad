@@ -7,16 +7,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-                <!-- <?php if(count($kriteria_nilai) >= 3) { ?>
-                <div class="box-title float-right"><a href="<?php echo base_url('kriteria_nilai/input');?>" class="btn btn-outline-info">+</a></div>
-                <?php } ?> -->
-                <h3 class="box-title">Kriteria Nilai</h3>
+                <h3 class="box-title float-left mt-1 mb-4">Kriteria Nilai</h3>
+                <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                    <?php
+                        $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url().'kriteria_nilai/matkul/\' + $(this).val()"'; 
+                        echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
+                    ?>
+                </div>
 
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>Kriteria Nilai</th>
                                 <th>Skala Penilaian</th>
                                 <?php if($this->session->userdata('role') == "admin") { ?> <th>Dosen</th> <?php } ?>
@@ -24,53 +27,77 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php 
-                        if(count($kriteria_nilai) >= 3) {
+                        <?php ;
+                        if(count($kriteria_nilai) > 0) {
                             $no = 1;
-                            foreach($kriteria_nilai as $u){ 
+                            foreach($kriteria_nilai as $row){ 
+                                if(!empty($row->uts)) {
                         ?>
-                        <tr>
-                            <td><?php echo $no++ ?></td>
-                            <td><?php echo $u->nama ?></td>
-                            <td><?php echo $u->skala ?></td>
-                            <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
-                            <td>
-                                <a href="<?php echo base_url('kriteria_nilai/edit/'.$u->id.'');?>" class="btn btn-outline-warning">Edit</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>UTS</td>
+                                <td><?php echo $row->uts ?></td>
+                                <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
+                                
+                            </tr>
+                            <?php } else { ?>
+                            <tr>
+                                <td>1</td>
+                                <td>UTS</td>
+                                <td><a href="#" class="uts" data-name="uts" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
+                            </tr>
+                            <?php }
+                            if(!empty($row->uas)) { ?>
+                            <tr>
+                                <td>2</td>
+                                <td>UAS</td>
+                                <td><?php echo $row->uas ?></td>
+                                <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
+                                
+                            </tr>
+                            <?php } else { ?>
+                            <<tr>
+                                <td>2</td>
+                                <td>UAS</td>
+                                <td><a href="#" class="uas" data-name="uas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
+                            </tr>
+                            <?php } 
+                            if(!empty($row->uas)) { ?>
+                            <tr>
+                                <td>3</td>
+                                <td>Tugas</td>
+                                <td><?php echo $row->tugas ?></td>
+                                <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
+                            </tr>
+                            <?php } else { ?>
+                            <tr>
+                                <td>3</td>
+                                <td>Tugas</td>
+                                <td><a href="#" class="tugas" data-name="tugas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
+                            </tr>
+                            <?php } ?>
                         <?php } 
-                        } else { 
-                            
-                            $cek = $this->db->query("SELECT skala FROM kriteria_nilai WHERE id_dosen='".$this->session->userdata("id_user")."' ORDER BY nama DESC")->result();
-                            
-                            $skala = array();
-                            foreach($cek as $row) {
-                                $skala[] = $row;
-                            }
-                        ?>
+                        } else {  
+                            if($id_matkul != 0) { ?>
+                        
                         <tr>
                             <td>1</td>
                             <td>UTS</td>
-                            <td><a href="#" class="uts" data-name="uts" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/"><?php if(!empty($skala[0])) {echo $skala[0]->skala;} ?></a></td>
-                            <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
-                            
+                            <td><a href="#" class="uts" data-name="uts" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>UAS</td>
-                            <td><a href="#" class="uas" data-name="uas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/"><?php if(!empty($skala[1])) {echo $skala[1]->skala;} ?></a></td>
-                            <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
-                            
+                            <td><a href="#" class="uas" data-name="uas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Tugas</td>
-                            <td><a href="#" class="tugas" data-name="tugas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/"><?php if(!empty($skala[2])) {echo $skala[2]->skala;} ?></a></td>
-                            <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
-                            
+                            <td><a href="#" class="tugas" data-name="tugas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
                         </tr>
                         
-                        <?php } ?>
+                        <?php }
+                        } ?>
                         </tbody>
                     </table>
                 </div>

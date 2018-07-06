@@ -38,14 +38,18 @@ class Nilai extends MY_Controller {
 		$pk 		= $this->input->post('pk');
 		$value 		= $this->input->post('value');
 		
-		$data = array(
-			$name => $value
-		);
+		$semester = $this->db->get('semester')->row();
 
 		$input = array(
 			'id_mahasiswa' => $pk,
 			'id_matkul' => $id_matkul,
-			$name => $value
+			$name => $value,
+			'semester' => $semester->semester
+		);
+
+		$data = array(
+			$name => $value,
+			'semester' => $semester->semester
 		);
 
 		$where = array(
@@ -111,6 +115,7 @@ class Nilai extends MY_Controller {
 				$uas 	= isset($row['E']) ? $row['E'] : '';
 				$tugas 	= isset($row['F']) ? $row['F'] : '';
 				$index 	= isset($row['G']) ? $row['G'] : '';
+				$semester 	= isset($row['H']) ? $row['H'] : '';
 		
 				if($numrow > 1){
 
@@ -123,6 +128,7 @@ class Nilai extends MY_Controller {
 					'uas'=>$uas,
 					'tugas'=>$tugas,
 					'grade'=>$index,
+					'semester'=>$semester,
 				]);
 				}
 				

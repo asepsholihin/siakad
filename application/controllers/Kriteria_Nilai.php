@@ -6,6 +6,7 @@ class Kriteria_Nilai extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('M_Kriteria_Nilai');
+		$this->load->model('M_Nilai');
 		$this->load->model('M_Mahasiswa');
 		$this->load->helper('url');
 	
@@ -14,8 +15,20 @@ class Kriteria_Nilai extends MY_Controller {
 		}
 	}
  
-	public function index() {
-		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'))->result();
+	function index() {
+		$data['id_matkul'] = 0;
+		$data['matkul'] = $this->M_Nilai->ambil_matkul();
+		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'), 0)->result();
+		$this->render_page('pages/kriteria_nilai/v_kriteria_nilai', $data);
+	}
+
+	function matkul($id_matkul) {
+		if($id_matkul == 0) {
+			redirect('kriteria_nilai');	
+		}
+		$data['matkul'] = $this->M_Nilai->ambil_matkul();
+		$data['id_matkul'] = $id_matkul;
+		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'),$id_matkul)->result();
 		$this->render_page('pages/kriteria_nilai/v_kriteria_nilai', $data);
 	}
 
@@ -39,18 +52,23 @@ class Kriteria_Nilai extends MY_Controller {
 		redirect('kriteria_nilai');
 	}
 
-	function live_edit() {
+	function live_edit($id_matkul) {
 		$name 		= $this->input->post('name');
 		$pk 		= $this->input->post('pk');
 		$value 		= $this->input->post('value');
 
 		$input = array(
-			'nama' => strtoupper($name),
+			$name => $value,
 			'id_dosen' => $pk,
-			'skala' => $value
+			'id_matkul' => $id_matkul
 		);
-
-		$this->M_Kriteria_Nilai->input_data($input, 'kriteria_nilai');
+		$cek = $this->db->get_where('kriteria', array('id_dosen' =>$pk, 'id_matkul' => $id_matkul));
+		if($cek->num_rows() > 0) {
+			$this->M_Kriteria_Nilai->update_data(array('id_dosen' =>$pk, 'id_matkul' => $id_matkul), $input,'kriteria');
+		} else {
+			$this->M_Kriteria_Nilai->input_data($input, 'kriteria');
+		}
+		
 	}
 
 	function edit($id){

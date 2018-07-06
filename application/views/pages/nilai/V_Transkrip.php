@@ -52,21 +52,7 @@
                                         <td><?php echo $row->kode ?></td>
                                         <td><?php echo $row->matkul ?></td>
                                         <td><?php echo $row->sks ?></td>
-                                        <td><?php 
-                                            $kriteria = $this->db->query("SELECT kriteria_nilai.*, dosen.nama as dosen, matkul.nama as matkul FROM `kriteria_nilai`
-                                            JOIN dosen on dosen.nidn = kriteria_nilai.id_dosen
-                                            JOIN matkul on dosen.id_matkul = matkul.id AND matkul.id='".$row->id_matkul."' ORDER BY kriteria_nilai.nama DESC")->result();
-                                            if ( count($kriteria) > 0 ) {
-                                                $uts    = $row->uts*$kriteria[0]->skala/100;
-                                                $uas    = $row->uas*$kriteria[1]->skala/100;
-                                                $tugas  = $row->tugas*$kriteria[2]->skala/100;
-
-                                                echo $this->M_Nilai->grading($uts+$uas+$tugas);
-                                            } else {
-                                                echo "Belum ada";
-                                            }
-                                            
-                                        ?></td>
+                                        <td><?php echo $this->M_Nilai->grading(intval($row->total_uts)+intval($row->total_uas)+intval($row->total_tugas)); ?></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>

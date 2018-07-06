@@ -12,10 +12,10 @@
                 <h3 class="box-title">Mata Kuliah</h3>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="data" class="display table pt-3">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Program Studi</th>

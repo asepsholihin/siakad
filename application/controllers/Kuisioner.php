@@ -42,7 +42,7 @@ class Kuisioner extends MY_Controller {
             $this->session->set_flashdata('msg','<div class="alert alert-danger text-center"><strong>Gagal!</strong> <br> Silahkan isi dengan lengkap.</div>');
             redirect('kuisioner');
         } else {
-            unset($post['nim'],$post['nama'],$post['id_dosen']);
+            unset($post['nim'],$post['nama']);
             $post['id_mahasiswa'] = $this->input->post('nim');
             
             $this->M_Mahasiswa->input_data($post, 'kuisioner');

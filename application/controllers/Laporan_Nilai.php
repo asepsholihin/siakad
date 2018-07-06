@@ -23,11 +23,11 @@ class Laporan_Nilai extends MY_Controller {
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 	}
 
-	public function matkul($id_matkul) {
+	public function matkul($id_matkul,$semester) {
 		if($id_matkul == 0) {
 			redirect('laporan_nilai');	
 		} else {
-			$data['mahasiswa'] = $this->M_Nilai->get_data_kelas($this->session->userdata("id_user"),$id_matkul);
+			$data['mahasiswa'] = $this->M_Nilai->get_data_kelas($this->session->userdata("id_user"),$id_matkul,$semester);
 			$data['matkul'] = $this->M_Nilai->ambil_matkul();
 			$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 			$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);

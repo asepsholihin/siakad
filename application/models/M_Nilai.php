@@ -3,14 +3,15 @@
 class M_Nilai extends CI_Model{
 	function get_data($id_matkul){
 		$query = $this->db->query("
-		SELECT
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts ELSE '' END) AS uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas ELSE '' END) AS uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas ELSE '' END) AS tugas,
-		(CASE WHEN nilai.grade IS NOT NULL THEN nilai.grade ELSE '' END) AS grade,
+		SELECT nilai.uts, nilai.uas, nilai.tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas,
 		mahasiswa.nim,
-		mahasiswa.nama, nilai.id_matkul FROM nilai
-		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul=".$id_matkul."");
+		mahasiswa.nama, 
+		nilai.id_matkul FROM nilai
+        JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."'");
 		if($query->num_rows()==0){
 			return FALSE;
 		} 
@@ -19,31 +20,33 @@ class M_Nilai extends CI_Model{
 		}
 	}
 
-	function get_data_kelas($id_dosen, $id_matkul){
+	function get_data_kelas($id_dosen, $id_matkul, $semester){
 		$query = $this->db->query("
-		SELECT
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts ELSE '' END) AS uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas ELSE '' END) AS uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas ELSE '' END) AS tugas,
-		(CASE WHEN nilai.grade IS NOT NULL THEN nilai.grade ELSE '' END) AS grade,
+		SELECT nilai.uts, nilai.uas, nilai.tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas,
 		mahasiswa.nim,
-		mahasiswa.nama, nilai.id_matkul FROM nilai
-		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul=".$id_matkul." WHERE mahasiswa.id_dosen=".$id_dosen."");
+		mahasiswa.nama,
+		nilai.id_matkul
+		FROM nilai 
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.id_dosen LIKE '%".$id_dosen."%'  AND nilai.semester='".$semester."'");
 		return $query->result();
 	}
 
 	function transkrip($nim){
 		$query = $this->db->query("
-		SELECT
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts ELSE '' END) AS uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas ELSE '' END) AS uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas ELSE '' END) AS tugas,
-		(CASE WHEN nilai.grade IS NOT NULL THEN nilai.grade ELSE '' END) AS grade,
+		SELECT nilai.uts, nilai.uas, nilai.tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas,
 		mahasiswa.nim, 
 		mahasiswa.nama, nilai.id_matkul, matkul.kode, matkul.nama as matkul, matkul.sks
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
-		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND mahasiswa.nim=".$nim."");
+		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."'");
 		if($query->num_rows()==0){
 			return FALSE;
 		} 
@@ -99,9 +102,9 @@ class M_Nilai extends CI_Model{
 		$this->db->select('id, matkul.nama');
 		$this->db->from('matkul');
 		$this->db->join('dosen', 'dosen.id_matkul = matkul.id', 'LEFT');
-		if(!empty($this->session->userdata("id_user"))) {
-			$this->db->where('dosen.nidn', $this->session->userdata("id_user"));
-		}
+		// if(!empty($this->session->userdata("id_user"))) {
+		// 	$this->db->where('dosen.nidn', $this->session->userdata("id_user"));
+		// }
 		
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
@@ -112,8 +115,8 @@ class M_Nilai extends CI_Model{
 		return $return;
 	}
 
-	public function grading(int $nilai) {
-        	if($nilai >= 85) {
+	public function grading($nilai) {
+		if($nilai >= 85) {
 			return "A";
 		}
 		if(($nilai >= 78) && ($nilai <= 84.99)) {
@@ -137,5 +140,5 @@ class M_Nilai extends CI_Model{
 		if($nilai == 0) {
 			return "";
 		}
-    }
+	}
 }

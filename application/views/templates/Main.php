@@ -7,6 +7,7 @@
     <meta name="author" content="">
     <title>SISTEM AKADEMIK</title>
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/default.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
@@ -35,6 +36,7 @@
     <script src="<?php echo base_url(); ?>assets/js/jquery.poshytip.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery-editable-poshytip.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>

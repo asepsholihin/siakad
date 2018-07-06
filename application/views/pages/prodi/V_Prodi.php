@@ -12,10 +12,10 @@
                 <h3 class="box-title">Program Studi</h3>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="data" class="display table pt-3">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>Program Studi</th>
                                 <th></th>
                             </tr>

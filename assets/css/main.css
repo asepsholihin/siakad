@@ -628,3 +628,12 @@
       width: 18.6em;
   }
 }
+
+table.dataTable.no-footer {
+  border-bottom: 0;
+  padding-bottom: 20px;
+}
+.dataTables_paginate .paginate_button.current {
+  border: 1px solid #aaa !important;
+  background: #fff !important;
+}

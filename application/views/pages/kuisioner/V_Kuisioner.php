@@ -1,7 +1,8 @@
 <?php
-    $this->db->select('mahasiswa.nim, mahasiswa.nama, mahasiswa.id_prodi');
+    $this->db->select('mahasiswa.nim, mahasiswa.nama, mahasiswa.id_prodi, prodi.nama as prodi');
     $this->db->from('users');
     $this->db->join('mahasiswa', 'mahasiswa.nim = users.id_user');
+    $this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
     $this->db->where('mahasiswa.nim', $this->session->userdata("id_user"));
     $user = $this->db->get()->row();
 ?>
@@ -38,12 +39,19 @@
                                     <input id="nim" type="text" name="nim" readonly value="<?php echo $user->nim ?>" class="form-control form-control-line">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="nama" class="col-md-12">Nama Mahasiswa <span class="text-danger">*</span></label>
+                                <div class="col-md-12">
+                                    <input id="nama" type="text" name="nama" readonly value="<?php echo $user->nama ?>" class="form-control form-control-line">
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="id_prodi" class="col-md-12">Program Studi <span class="text-danger">*</span></label>
                                 <div class="col-md-12">
-                                    <?php echo form_dropdown('id_prodi', $prodi, $user->id_prodi, 'class="form-control"'); ?>
+                                    <input type="hidden" name="id_prodi" readonly value="<?php echo $user->prodi ?>">
+                                    <input id="id_prodi" type="text" readonly value="<?php echo $user->prodi ?>" class="form-control form-control-line">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,19 +60,12 @@
                                     <?php echo form_dropdown('id_matkul', $matkul, null, 'class="form-control"'); ?>
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="id_dosen" class="col-md-12">Nama Dosen <span class="text-danger">*</span></label>
                                 <div class="col-md-12">
                                     <?php echo form_dropdown('id_dosen', $dosen, null, 'class="form-control"'); ?>
                                 </div>
-                            </div> -->
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nama" class="col-md-12">Nama Mahasiswa <span class="text-danger">*</span></label>
-                        <div class="col-md-12">
-                            <input id="nama" type="text" name="nama" readonly value="<?php echo $user->nama ?>" class="form-control form-control-line">
+                            </div>
                         </div>
                     </div>
 
