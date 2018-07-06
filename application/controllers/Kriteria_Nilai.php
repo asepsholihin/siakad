@@ -49,6 +49,7 @@ class Kriteria_Nilai extends MY_Controller {
 			);
 
 		$this->M_Kriteria_Nilai->input_data($data, 'kriteria_nilai');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('kriteria_nilai');
 	}
 
@@ -93,12 +94,14 @@ class Kriteria_Nilai extends MY_Controller {
 		);
 
 		$this->M_Kriteria_Nilai->update_data($where, $data, 'kriteria_nilai');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('kriteria_nilai');
 	}
 
 	function hapus($id){
 		$where = array('id' => $id);
 		$this->M_Kriteria_Nilai->hapus_data($where, 'kriteria_nilai');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
 		redirect('kriteria_nilai');
 	}
 }

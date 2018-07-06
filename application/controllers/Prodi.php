@@ -31,6 +31,7 @@ class Prodi extends MY_Controller {
 			);
 
 		$this->M_Prodi->input_data($data, 'prodi');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('prodi');
 	}
 
@@ -54,12 +55,14 @@ class Prodi extends MY_Controller {
 		);
 
 		$this->M_Prodi->update_data($where, $data, 'prodi');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('prodi');
 	}
 
 	function hapus($id){
 		$where = array('id' => $id);
 		$this->M_Prodi->hapus_data($where, 'prodi');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
 		redirect('prodi');
 	}
 }

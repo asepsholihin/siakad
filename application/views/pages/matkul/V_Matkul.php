@@ -7,6 +7,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
+
+                <div class="row">
+                    <div class="col-sm-12 mb-2">  
+                        <?php echo $this->session->flashdata('msg'); ?>
+                    </div>
+                </div>
             
                 <div class="box-title float-right"><a href="<?php echo base_url('matkul/input');?>" class="btn btn-outline-info">+</a></div>
                 <h3 class="box-title">Mata Kuliah</h3>

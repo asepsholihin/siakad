@@ -48,6 +48,7 @@ class Dosen extends MY_Controller {
 			);
 
 		$this->M_Dosen->input_data($data, 'dosen');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('dosen');
     }
     
@@ -87,12 +88,14 @@ class Dosen extends MY_Controller {
         );
 
 		$this->M_Dosen->update_data($where, $data, 'dosen');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('dosen');
     }
 
     function hapus($id){
 		$where = array('nidn' => $id);
 		$this->M_Dosen->hapus_data($where, 'dosen');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
 		redirect('dosen');
 	}
 }

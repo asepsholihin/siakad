@@ -42,6 +42,7 @@ class Referensi_Kuisioner extends MY_Controller {
 		$this->db->order_by('id', 'DESC');
 		$query = $this->db->get();
 		$this->M_Referensi_Kuisioner->tambah_field($query->row()->id);
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('referensi_kuisioner');
 	}
 
@@ -68,6 +69,7 @@ class Referensi_Kuisioner extends MY_Controller {
 		);
 
 		$this->M_Referensi_Kuisioner->update_data($where, $data, 'referensi_kuisioner');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('referensi_kuisioner');
 	}
 
@@ -82,6 +84,7 @@ class Referensi_Kuisioner extends MY_Controller {
 		$this->M_Referensi_Kuisioner->hapus_field($query->row()->id);
 		
 		$this->M_Referensi_Kuisioner->hapus_data($where, 'referensi_kuisioner');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
 		redirect('referensi_kuisioner');
 	}
 }

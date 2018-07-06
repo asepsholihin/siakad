@@ -7,6 +7,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
+
+                <div class="row">
+                    <div class="col-sm-12 mb-2">  
+                        <?php echo $this->session->flashdata('msg'); ?>
+                    </div>
+                </div>
+                
                 <h3 class="box-title float-left mt-1 mb-4">Kriteria Nilai</h3>
                 <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
                     <?php

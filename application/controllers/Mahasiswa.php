@@ -47,6 +47,7 @@ class Mahasiswa extends MY_Controller {
 			);
 		
 		$this->M_Mahasiswa->input_data($post, 'mahasiswa');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('mahasiswa');
 	}
 
@@ -84,12 +85,14 @@ class Mahasiswa extends MY_Controller {
 		);
 
 		$this->M_Mahasiswa->update_data($where, $post, 'mahasiswa');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('mahasiswa');
 	}
 
 	function hapus($id){
 		$where = array('nim' => $id);
 		$this->M_Mahasiswa->hapus_data($where, 'mahasiswa');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
 		redirect('mahasiswa');
 	}
 }

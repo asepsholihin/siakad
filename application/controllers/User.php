@@ -28,6 +28,7 @@ class User extends MY_Controller {
         $data['password'] = md5($this->input->post('password'));
 
 		$this->M_User->input_data($data, 'users');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('user');
 	}
 
@@ -46,12 +47,14 @@ class User extends MY_Controller {
 		);
 
 		$this->M_User->update_data($where, $data, 'users');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('user');
 	}
 
 	function hapus($id){
 		$where = array('id' => $id);
 		$this->M_User->hapus_data($where, 'users');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
 		redirect('user');
 	}
 }

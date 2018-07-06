@@ -37,6 +37,7 @@ class Matkul extends MY_Controller {
 			);
 
 		$this->M_Matkul->input_data($data, 'matkul');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('matkul');
 	}
 
@@ -66,12 +67,14 @@ class Matkul extends MY_Controller {
 		);
 
 		$this->M_Matkul->update_data($where, $data, 'matkul');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 		redirect('matkul');
 	}
 
 	function hapus($id){
 		$where = array('id' => $id);
 		$this->M_Matkul->hapus_data($where, 'matkul');
+		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
 		redirect('matkul');
 	}
 }
