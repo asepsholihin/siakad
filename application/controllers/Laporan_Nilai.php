@@ -43,9 +43,12 @@ class Laporan_Nilai extends MY_Controller {
 		$objPHPExcel = new PHPExcel();
 
 		if($this->session->userdata('role') == "dosen") {
-			$where = "nilai.id_dosen LIKE '%".$this->session->userdata("id_user")."%'";
+			$where = "nilai.id_dosen LIKE '%".$this->session->userdata("id_user")."%' AND ";
 		} else if($this->session->userdata('role') == "dosen_wali") {
-			$where = "mahasiswa.id_dosen LIKE '%".$this->session->userdata("id_user")."%'";
+			$where = "mahasiswa.id_dosen LIKE '%".$this->session->userdata("id_user")."%' AND ";
+		} else if($this->session->userdata('role') == "kajur") {
+			$join = "JOIN dosen ON dosen.id_prodi = mahasiswa.id_prodi";
+			$group = "GROUP BY nilai.id_matkul";
 		}
 
 		$data = $this->db->query("
@@ -60,7 +63,8 @@ class Laporan_Nilai extends MY_Controller {
 		FROM nilai 
 		JOIN matkul ON matkul.id = nilai.id_matkul
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." AND nilai.semester='".$semester."'");
+		".$join."
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."");
 
 		$tambah_field = $fields = array('NIM','Nama', 'Mata Kuliah', 'SKS', 'UTS', 'UAS', 'Tugas', 'Nilai Akhir', 'Nilai Mutu');
 		$tambah = array('nilai_akhir', 'nilai_mutu');

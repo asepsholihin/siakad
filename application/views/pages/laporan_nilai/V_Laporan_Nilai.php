@@ -35,13 +35,13 @@
                     <table id="data" class="display table pt-3">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Mahasiswa</th>
+                                <th class="no-sort">No</th>
+                                <th class="no-sort">Mahasiswa</th>
                                 <th>UTS</th>
                                 <th>UAS</th>
                                 <th>Tugas</th>
                                 <th>Nilai Akhir</th>
-                                <th>Nilai Mutu</th>
+                                <th class="no-sort">Nilai Mutu</th>
                             </tr>
                         </thead>
                         <tbody>

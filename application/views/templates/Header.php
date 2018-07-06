@@ -59,13 +59,13 @@
                 <a href="<?php echo base_url('kriteria_nilai'); ?>">Kriteria Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
+            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('nilai'); ?>">Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
+            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('laporan_nilai'); ?>">Laporan Nilai</a>
@@ -83,7 +83,7 @@
                 <a href="<?php echo base_url('kuisioner'); ?>">Kuisioner</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali") { 
+            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('laporan_kuisioner'); ?>">Laporan Kuisioner</a>

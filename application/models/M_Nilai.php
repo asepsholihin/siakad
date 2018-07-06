@@ -23,9 +23,12 @@ class M_Nilai extends CI_Model{
 	function get_data_kelas($id_dosen, $id_matkul, $semester){
 
 		if($this->session->userdata('role') == "dosen") {
-			$where = "nilai.id_dosen LIKE '%".$id_dosen."%'";
+			$where = "nilai.id_dosen LIKE '%".$id_dosen."%' AND ";
 		} else if($this->session->userdata('role') == "dosen_wali") {
-			$where = "mahasiswa.id_dosen LIKE '%".$id_dosen."%'";
+			$where = "mahasiswa.id_dosen LIKE '%".$id_dosen."%' AND ";
+		} else if($this->session->userdata('role') == "kajur") {
+			$join = "JOIN dosen ON dosen.id_prodi = mahasiswa.id_prodi";
+			$group = "GROUP BY nilai.id_matkul";
 		}
 			
 
@@ -39,7 +42,8 @@ class M_Nilai extends CI_Model{
 		nilai.id_matkul
 		FROM nilai 
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." AND nilai.semester='".$semester."'");
+		".$join."
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."");
 		return $query->result();
 	}
 

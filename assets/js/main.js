@@ -24,6 +24,10 @@ $(document).ready(function() {
     });
 
     $('#data').DataTable({
-        ordering:  false
+        "ordering": true,
+        columnDefs: [{
+          orderable: false,
+          targets: "no-sort"
+        }]
     });
 });
