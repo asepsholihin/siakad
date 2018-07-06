@@ -37,7 +37,6 @@ class Laporan_Nilai extends MY_Controller {
 	}
 
 	public function createXLS($id_matkul,$semester) {
-		//membuat objek
 		$this->load->library('excel');
 		
 		$objPHPExcel = new PHPExcel();
@@ -66,7 +65,7 @@ class Laporan_Nilai extends MY_Controller {
 		".$join."
 		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."");
 
-		$tambah_field = $fields = array('NIM','Nama', 'Mata Kuliah', 'SKS', 'UTS', 'UAS', 'Tugas', 'Nilai Akhir', 'Nilai Mutu');
+		$tambah_field = array('NIM','Nama', 'Mata Kuliah', 'SKS', 'UTS', 'UAS', 'Tugas', 'Nilai Akhir', 'Nilai Mutu');
 		$tambah = array('nilai_akhir', 'nilai_mutu');
 		$fields = array_merge($data->list_fields(), $tambah);
 		
@@ -106,10 +105,8 @@ class Laporan_Nilai extends MY_Controller {
 
 		$objPHPExcel->getActiveSheet()->setTitle('Nilai Semester '.$semester);
 
-		//Save ke .xlsx, kalau ingin .xls, ubah 'Excel2007' menjadi 'Excel5'
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
-		//Header
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		header("Cache-Control: no-store, no-cache, must-revalidate");
 		header("Cache-Control: post-check=0, pre-check=0", false);

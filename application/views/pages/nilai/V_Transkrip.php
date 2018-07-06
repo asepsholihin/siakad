@@ -10,12 +10,15 @@
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Profil</h4> 
+            <h4 class="page-title">Transkrip Nilai</h4> 
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
+                <div class="col-md-12 my-4 text-right">
+                    <a class="btn btn btn-rounded btn-info btn-outline" href="<?php echo base_url("nilai"); ?>/print_transkrip/<?php echo $user->nim ?>">Print Transkrip</a>
+                </div>
                 <div class="row">
                     <div class="col-md-4 col-xs-12">
                         <div class="white-box">
@@ -42,19 +45,25 @@
                                         <th class="text-center">SKS</th>
                                         <th class="text-center">Nilai Akhir</th>
                                         <th class="text-center">Nilai Mutu</th>
+                                        <th class="text-center">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php 
                                 $no = 1;
-                                foreach($transkrip as $row) { ?>
+                                foreach($transkrip as $row) { 
+
+                                    $nilai_akhir = $row->total_uts+$row->total_uas+$row->total_tugas;
+                                    $nilai_mutu = $this->M_Nilai->grading($nilai_akhir);
+                                ?>
                                     <tr>
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $row->kode ?></td>
                                         <td><?php echo $row->matkul ?></td>
                                         <td class="text-center"><?php echo $row->sks ?></td>
-                                        <td class="text-center"><?php echo intval($row->total_uts)+intval($row->total_uas)+intval($row->total_tugas); ?></td>
-                                        <td class="text-center"><?php echo $this->M_Nilai->grading(intval($row->total_uts)+intval($row->total_uas)+intval($row->total_tugas)); ?></td>
+                                        <td class="text-center"><?php echo $nilai_akhir ?></td>
+                                        <td class="text-center"><?php echo $nilai_mutu ?></td>
+                                        <td class="text-center"><?php echo $this->M_Nilai->lulus($nilai_mutu) ?></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>

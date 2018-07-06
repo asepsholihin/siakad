@@ -42,12 +42,15 @@
                                 <th>Tugas</th>
                                 <th>Nilai Akhir</th>
                                 <th class="no-sort">Nilai Mutu</th>
+                                <th class="no-sort">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php 
                             $no = 1;
                             foreach($mahasiswa as $mahasiswa){ 
+                                $nilai_akhir = $mahasiswa->total_uts+$mahasiswa->total_uas+$mahasiswa->total_tugas;
+                                $nilai_mutu = $this->M_Nilai->grading($nilai_akhir);
                         ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
@@ -55,8 +58,9 @@
                             <td><?php echo $mahasiswa->uts ?></td>
                             <td><?php echo $mahasiswa->uas ?></td>
                             <td><?php echo $mahasiswa->tugas ?></td>
-                            <td><?php echo $mahasiswa->total_uts+$mahasiswa->total_uas+$mahasiswa->total_tugas ?></td>
-                            <td><?php echo $this->M_Nilai->grading($mahasiswa->total_uts+$mahasiswa->total_uas+$mahasiswa->total_tugas); ?></td>
+                            <td><?php echo $nilai_akhir ?></td>
+                            <td><?php echo $nilai_mutu ?></td>
+                            <td><?php echo $this->M_Nilai->lulus($nilai_mutu) ?></td>
                         </tr>
                         <?php } ?>
                         </tbody>

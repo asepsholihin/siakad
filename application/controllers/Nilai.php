@@ -58,8 +58,8 @@ class Nilai extends MY_Controller {
 
 		$where = array(
 			'id_mahasiswa' => $pk,
-			'id_matkul' => $id_matkul,
-			'id_dosen' => $this->session->userdata('id_user')
+			'id_matkul' => $id_matkul
+			// 'id_dosen' => $this->session->userdata('id_user')
 		);
 
 		$cek = $this->M_Nilai->cek_nilai($where, 'nilai');
@@ -71,8 +71,71 @@ class Nilai extends MY_Controller {
 	}
 
 	function transkrip_nilai($nim) {
-		$data['transkrip'] = $this->M_Nilai->transkrip($nim);
+		$data['transkrip'] = $this->M_Nilai->transkrip($nim)->result();
 		$this->render_page('pages/nilai/v_transkrip', $data);
+	}
+
+	function print_transkrip($nim) {
+		$this->load->library('excel');
+
+		$semester = $this->db->get('semester')->row();
+		$semester = $semester->semester;
+		
+		$objPHPExcel = new PHPExcel();
+
+		$data = $this->M_Nilai->print_transkrip($nim, $semester);
+		//echo json_encode($data);
+
+		$tambah_field = array('Kode', 'Mata Kuliah', 'SKS', 'UTS', 'UAS', 'Tugas', 'Nilai Akhir', 'Nilai Mutu');
+		$tambah = array('nilai_akhir', 'nilai_mutu');
+		$fields = array_merge($data->list_fields(), $tambah);
+		
+		unset($fields[5],$fields[6],$fields[7]);
+		
+		$col = 0;
+		foreach ($tambah_field as $field)
+		{
+			//echo json_encode($field)."<br>";
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+			$col++;
+		}
+ 
+		
+		
+		$row = 2;
+		
+		foreach($data->result() as $value)
+		{
+			
+			$value->nilai_akhir = $value->total_uts+$value->total_uas+$value->total_tugas;
+			$value->nilai_mutu = $this->M_Nilai->grading($value->nilai_akhir);
+			
+			
+			$col = 0;
+			foreach ($fields as $field)
+			{
+				//echo json_encode($value->$field)."<br>";
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $value->$field);
+				$col++;
+			}
+ 
+			$row++;
+		}
+		$objPHPExcel->setActiveSheetIndex(0);
+
+		$objPHPExcel->getActiveSheet()->setTitle('Nilai Semester '.$semester);
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+		header("Cache-Control: no-store, no-cache, must-revalidate");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+		header('Content-Disposition: attachment;filename="Nilai-Semester-'.$semester.'.xlsx"');
+
+		$objWriter->save("php://output");  
 	}
 
 	private $filename = "import_data";
@@ -121,8 +184,7 @@ class Nilai extends MY_Controller {
 				$uts 	= isset($row['F']) ? $row['F'] : '';
 				$uas 	= isset($row['G']) ? $row['G'] : '';
 				$tugas 	= isset($row['H']) ? $row['H'] : '';
-				$index 	= isset($row['I']) ? $row['I'] : '';
-				$semester 	= isset($row['J']) ? $row['J'] : '';
+				$semester 	= isset($row['I']) ? $row['I'] : '';
 		
 				if($numrow > 1){
 
@@ -135,7 +197,6 @@ class Nilai extends MY_Controller {
 					'uts'=>$uts,
 					'uas'=>$uas,
 					'tugas'=>$tugas,
-					'grade'=>$index,
 					'semester'=>$semester,
 				]);
 				}

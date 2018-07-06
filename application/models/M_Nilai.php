@@ -11,13 +11,10 @@ class M_Nilai extends CI_Model{
 		mahasiswa.nama, 
 		nilai.id_matkul FROM nilai
         JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen
-		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."'");
-		if($query->num_rows()==0){
-			return FALSE;
-		} 
-		else{
-			return $query->result();
-		}
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."'
+		GROUP BY mahasiswa.nim");
+		
+		return $query->result();
 	}
 
 	function get_data_kelas($id_dosen, $id_matkul, $semester){
@@ -48,24 +45,29 @@ class M_Nilai extends CI_Model{
 	}
 
 	function transkrip($nim){
-		$query = $this->db->query("
-		SELECT nilai.uts, nilai.uas, nilai.tugas,
+		return $query = $this->db->query("
+		SELECT mahasiswa.nim, mahasiswa.nama, matkul.kode, matkul.nama as matkul, matkul.sks, nilai.uts, nilai.uas, nilai.tugas,
 		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
 		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas,
-		mahasiswa.nim, 
-		mahasiswa.nama, nilai.id_matkul, matkul.kode, matkul.nama as matkul, matkul.sks
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
 		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
 		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul");
-		if($query->num_rows()==0){
-			return FALSE;
-		} 
-		else{
-			return $query->result();
-		}
+	}
+
+	function print_transkrip($nim, $semester){
+		return $query = $this->db->query("
+		SELECT matkul.kode, matkul.nama as matkul, matkul.sks, nilai.uts, nilai.uas, nilai.tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas
+		FROM nilai
+		JOIN matkul ON nilai.id_matkul = matkul.id
+		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
+		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul WHERE nilai.semester='".$semester."'");
 	}
  
 	function insert_data($data, $table){
@@ -152,6 +154,14 @@ class M_Nilai extends CI_Model{
 		}
 		if($nilai == 0) {
 			return "";
+		}
+	}
+
+	public function lulus($nilai) {
+		if($nilai == "D" || $nilai == "E") {
+			return "Tidak Lulus";
+		} else {
+			return "Lulus";
 		}
 	}
 }
