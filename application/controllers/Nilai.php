@@ -18,6 +18,7 @@ class Nilai extends MY_Controller {
 		$data['mahasiswa'] = array();
 		$data['matkul'] = $this->M_Nilai->ambil_matkul();
 		$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
+		$data['cek_kriteria'] = $this->db->get_where('kriteria', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
 		$this->render_page('pages/nilai/v_nilai', $data);
 	}
 
@@ -28,6 +29,7 @@ class Nilai extends MY_Controller {
 			$data['mahasiswa'] = $this->M_Nilai->get_data($id_matkul);
 			$data['matkul'] = $this->M_Nilai->ambil_matkul();
 			$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
+			$data['cek_kriteria'] = $this->db->get_where('kriteria', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
 			$this->render_page('pages/nilai/v_nilai', $data);
 		}
 		
@@ -114,11 +116,13 @@ class Nilai extends MY_Controller {
 				$nis 	= isset($row['A']) ? $row['A'] : '';
 				$nama 	= isset($row['B']) ? $row['B'] : '';
 				$kodematkul = isset($row['C']) ? $row['C'] : '';
-				$uts 	= isset($row['D']) ? $row['D'] : '';
-				$uas 	= isset($row['E']) ? $row['E'] : '';
-				$tugas 	= isset($row['F']) ? $row['F'] : '';
-				$index 	= isset($row['G']) ? $row['G'] : '';
-				$semester 	= isset($row['H']) ? $row['H'] : '';
+				$nidn 	= isset($row['D']) ? $row['D'] : '';
+				$dosen 	= isset($row['E']) ? $row['E'] : '';
+				$uts 	= isset($row['F']) ? $row['F'] : '';
+				$uas 	= isset($row['G']) ? $row['G'] : '';
+				$tugas 	= isset($row['H']) ? $row['H'] : '';
+				$index 	= isset($row['I']) ? $row['I'] : '';
+				$semester 	= isset($row['J']) ? $row['J'] : '';
 		
 				if($numrow > 1){
 
@@ -127,6 +131,7 @@ class Nilai extends MY_Controller {
 				array_push($data, [
 					'id_mahasiswa'=>$nis,
 					'id_matkul'=>$get_matkul->id,
+					'id_dosen'=>$nidn,
 					'uts'=>$uts,
 					'uas'=>$uas,
 					'tugas'=>$tugas,

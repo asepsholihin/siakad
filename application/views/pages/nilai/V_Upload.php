@@ -50,10 +50,13 @@
                                         <th class=\"text-left\" >NIS</th>
                                         <th class=\"text-left\" >Nama</th>
                                         <th>Kode Matkul</th>
+                                        <th>NIDN Dosen</th>
+                                        <th>Nama Dosen</th>
                                         <th>UTS</th>
                                         <th>UAS</th>
                                         <th>Tugas</th>
-                                        <th>Index</th>
+                                        <th>Nilai Mutu</th>
+                                        <th>Semester</th>
                                     </tr>
                                 </thead>
                                 <tbody>";
@@ -69,29 +72,38 @@
                             $E = isset($row['E']) ? $row['E'] : '';
                             $F = isset($row['F']) ? $row['F'] : '';
                             $G = isset($row['G']) ? $row['G'] : '';
+                            $H = isset($row['H']) ? $row['H'] : '';
+                            $I = isset($row['I']) ? $row['I'] : '';
+                            $J = isset($row['J']) ? $row['J'] : '';
                             
                             $nis = $A;
                             $nama = $B;
                             $kodematkul = $C;
-                            $uts = $D;
-                            $uas = $E;
-                            $tugas = $F;
-                            $index = $G;
+                            $nidn = $D;
+                            $dosen = $E;
+                            $uts = $F;
+                            $uas = $G;
+                            $tugas = $H;
+                            $index = $I;
+                            $semester = $J;
                             
                             
-                            if(empty($nis) && empty($nama) && empty($kodematkul) && empty($uts) && empty($uas) && empty($tugas) && empty($index))
+                            if(empty($nis) && empty($nama) && empty($kodematkul) && empty($nidn) && empty($dosen) && empty($uts) && empty($uas) && empty($tugas) && empty($index) && empty($semester))
                                 continue; 
                             
                             if($numrow > 1){
-                                $nis_td = ( ! empty($nis))? "" : " class=\"bg-danger\""; // Jika NIS kosong, beri warna merah
-                                $nama_td = ( ! empty($nama))? "" : " class=\"bg-danger\""; // Jika Nama kosong, beri warna merah
-                                $kodematkul_td = ( ! empty($kodematkul))? "" : " class=\"bg-danger\""; // Jika Jenis Kelamin kosong, beri warna merah
-                                $uts_td = ( ! empty($uts))? "" : " class=\"bg-danger\""; // Jika Alamat kosong, beri warna merah
-                                $uas_td = ( ! empty($uas))? "" : " class=\"bg-danger\""; // Jika Alamat kosong, beri warna merah
-                                $tugas_td = ( ! empty($tugas))? "" : " class=\"bg-danger\""; // Jika Alamat kosong, beri warna merah
-                                $index_td = ( ! empty($index))? "" : " class=\"bg-danger\""; // Jika Alamat kosong, beri warna merah
+                                $nis_td = ( ! empty($nis))? "" : " class=\"bg-danger\"";
+                                $nama_td = ( ! empty($nama))? "" : " class=\"bg-danger\"";
+                                $kodematkul_td = ( ! empty($kodematkul))? "" : " class=\"bg-danger\"";
+                                $nidn_td = ( ! empty($nidn))? "" : " class=\"bg-danger\"";
+                                $dosen_td = ( ! empty($dosen))? "" : " class=\"bg-danger\"";
+                                $uts_td = ( ! empty($uts))? "" : " class=\"bg-danger\"";
+                                $uas_td = ( ! empty($uas))? "" : " class=\"bg-danger\"";
+                                $tugas_td = ( ! empty($tugas))? "" : " class=\"bg-danger\"";
+                                $index_td = ( ! empty($index))? "" : " class=\"bg-danger\"";
+                                $semester_td = ( ! empty($semester))? "" : " class=\"bg-danger\"";
                             
-                                if(empty($nis) or empty($nama) or empty($kodematkul) or empty($uts) or empty($uas) or empty($tugas) or empty($index)){
+                                if(empty($nis) or empty($nama) or empty($kodematkul) or empty($nidn) or empty($dosen) or empty($uts) or empty($uas) or empty($tugas) or empty($index) or empty($semester)){
                                     $kosong++;
                                 }
                                 
@@ -99,10 +111,13 @@
                                 echo "<td align=\"left\" ".$nis_td.">".$nis."</td>";
                                 echo "<td align=\"left\" ".$nama_td.">".$nama."</td>";
                                 echo "<td".$kodematkul_td.">".$kodematkul."</td>";
+                                echo "<td".$nidn_td.">".$nidn."</td>";
+                                echo "<td".$dosen_td.">".$dosen."</td>";
                                 echo "<td".$uts_td.">".$uts."</td>";
                                 echo "<td".$uas_td.">".$uas."</td>";
                                 echo "<td".$tugas_td.">".$tugas."</td>";
                                 echo "<td".$index_td.">".$index."</td>";
+                                echo "<td".$semester_td.">".$semester."</td>";
                                 echo "</tr>";
                             }
                             

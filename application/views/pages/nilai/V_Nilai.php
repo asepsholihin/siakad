@@ -8,8 +8,9 @@
         <div class="col-md-12">
             <div class="white-box">
 
-                <h3 class="box-title float-left mt-1 mb-4">Mata Kuliah</h3>
-                <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                <?php if($cek_kriteria > 0) { ?>
+                
+                <div class="pull-right mb-3 ml-3">
                     <?php
                         $js = 'class="form-control" onChange="window.location = \''.base_url().'nilai/matkul/\' + $(this).val();"'; 
                         echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
@@ -48,6 +49,16 @@
                         </tbody>
                     </table>
                 </div>
+
+                <?php } else { ?>
+
+                    <div class="text-center p-5">
+                        <h2>Hai, <?php echo $this->session->userdata("nama"); ?>.</h2>
+                        <hr>
+                        <h4 class="mt-3">Anda belum mengisi kriteria nilai,<br>silahkan isi <a href="<?php echo base_url('kriteria_nilai') ?>">disini</a></h4>
+                    </div>
+
+                <?php } ?>
             
             </div>
         </div>

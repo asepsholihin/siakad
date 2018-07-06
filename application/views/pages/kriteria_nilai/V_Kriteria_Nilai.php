@@ -36,44 +36,17 @@
                             <tr>
                                 <td>1</td>
                                 <td>UTS</td>
-                                <td><?php echo $row->uts ?></td>
-                                <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
-                                
+                                <td><a href="#" class="uts" data-name="uts" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"><?php echo $row->uts ?></a></td>
                             </tr>
-                            <?php } else { ?>
-                            <tr>
-                                <td>1</td>
-                                <td>UTS</td>
-                                <td><a href="#" class="uts" data-name="uts" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
-                            </tr>
-                            <?php }
-                            if(!empty($row->uas)) { ?>
                             <tr>
                                 <td>2</td>
                                 <td>UAS</td>
-                                <td><?php echo $row->uas ?></td>
-                                <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
-                                
+                                <td><a href="#" class="uas" data-name="uas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"><?php echo $row->uas ?></a></td>
                             </tr>
-                            <?php } else { ?>
-                            <<tr>
-                                <td>2</td>
-                                <td>UAS</td>
-                                <td><a href="#" class="uas" data-name="uas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
-                            </tr>
-                            <?php } 
-                            if(!empty($row->uas)) { ?>
                             <tr>
                                 <td>3</td>
                                 <td>Tugas</td>
-                                <td><?php echo $row->tugas ?></td>
-                                <?php if($this->session->userdata('role') == "admin") { ?><td><?php echo $u->dosen ?></td><?php } ?>
-                            </tr>
-                            <?php } else { ?>
-                            <tr>
-                                <td>3</td>
-                                <td>Tugas</td>
-                                <td><a href="#" class="tugas" data-name="tugas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"></a></td>
+                                <td><a href="#" class="tugas" data-name="tugas" data-type="text" data-pk="<?php echo $this->session->userdata("id_user"); ?>" data-url="<?php echo base_url('kriteria_nilai'); ?>/live_edit/<?php echo $id_matkul ?>"><?php echo $row->tugas ?></a></td>
                             </tr>
                             <?php } ?>
                         <?php } 

@@ -21,6 +21,14 @@ class M_Nilai extends CI_Model{
 	}
 
 	function get_data_kelas($id_dosen, $id_matkul, $semester){
+
+		if($this->session->userdata('role') == "dosen") {
+			$where = "nilai.id_dosen LIKE '%".$id_dosen."%'";
+		} else if($this->session->userdata('role') == "dosen_wali") {
+			$where = "mahasiswa.id_dosen LIKE '%".$id_dosen."%'";
+		}
+			
+
 		$query = $this->db->query("
 		SELECT nilai.uts, nilai.uas, nilai.tugas,
 		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
@@ -31,7 +39,7 @@ class M_Nilai extends CI_Model{
 		nilai.id_matkul
 		FROM nilai 
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.id_dosen LIKE '%".$id_dosen."%'  AND nilai.semester='".$semester."'");
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." AND nilai.semester='".$semester."'");
 		return $query->result();
 	}
 

@@ -1,4 +1,5 @@
 <?php 
+error_reporting(0);
  defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Laporan_Nilai extends MY_Controller {
@@ -35,30 +36,63 @@ class Laporan_Nilai extends MY_Controller {
 		
 	}
 
-	public function createXLS() {
+	public function createXLS($id_matkul,$semester) {
 		//membuat objek
 		$this->load->library('excel');
 		
 		$objPHPExcel = new PHPExcel();
-		$data = $this->db->get('users');
 
-		// Nama Field Baris Pertama
-		$fields = $data->list_fields();
+		if($this->session->userdata('role') == "dosen") {
+			$where = "nilai.id_dosen LIKE '%".$this->session->userdata("id_user")."%'";
+		} else if($this->session->userdata('role') == "dosen_wali") {
+			$where = "mahasiswa.id_dosen LIKE '%".$this->session->userdata("id_user")."%'";
+		}
+
+		$data = $this->db->query("
+		SELECT
+		mahasiswa.nim,
+		mahasiswa.nama,
+		matkul.nama as matkul, matkul.sks,
+		nilai.uts, nilai.uas, nilai.tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas
+		FROM nilai 
+		JOIN matkul ON matkul.id = nilai.id_matkul
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." AND nilai.semester='".$semester."'");
+
+		$tambah_field = $fields = array('NIM','Nama', 'Mata Kuliah', 'SKS', 'UTS', 'UAS', 'Tugas', 'Nilai Akhir', 'Nilai Mutu');
+		$tambah = array('nilai_akhir', 'nilai_mutu');
+		$fields = array_merge($data->list_fields(), $tambah);
+		
+		unset($fields[7],$fields[8],$fields[9]);
+		
 		$col = 0;
-		foreach ($fields as $field)
+		foreach ($tambah_field as $field)
 		{
+			//echo json_encode($field);
 			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
 			$col++;
 		}
  
-		// Mengambil Data
+		
+		
 		$row = 2;
-		foreach($data->result() as $data)
+		
+		foreach($data->result() as $value)
 		{
+			
+			$value->nilai_akhir = $value->total_uts+$value->total_uas+$value->total_tugas;
+			$value->nilai_mutu = $this->M_Nilai->grading($value->nilai_akhir);
+			unset($value->total_uts, $value->total_uas, $value->total_tugas);
+			
+			
 			$col = 0;
 			foreach ($fields as $field)
 			{
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+				//echo json_encode($value->$field);
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $value->$field);
 				$col++;
 			}
  
@@ -66,8 +100,7 @@ class Laporan_Nilai extends MY_Controller {
 		}
 		$objPHPExcel->setActiveSheetIndex(0);
 
-		//Set Title
-		$objPHPExcel->getActiveSheet()->setTitle('Data Absen');
+		$objPHPExcel->getActiveSheet()->setTitle('Nilai Semester '.$semester);
 
 		//Save ke .xlsx, kalau ingin .xls, ubah 'Excel2007' menjadi 'Excel5'
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
@@ -79,10 +112,10 @@ class Laporan_Nilai extends MY_Controller {
 		header("Pragma: no-cache");
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
-		//Nama File
-		header('Content-Disposition: attachment;filename="absen.xlsx"');
+		$matkul = $this->db->get_where('matkul', array('id' => $id_matkul))->row();
 
-		//Download
+		header('Content-Disposition: attachment;filename="Nilai-'.$matkul->nama.'-Semester-'.$semester.'.xlsx"');
+
 		$objWriter->save("php://output");      
     }
 }
