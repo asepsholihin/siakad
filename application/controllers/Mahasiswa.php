@@ -34,6 +34,7 @@ class Mahasiswa extends MY_Controller {
 		$alamat 	= $this->input->post('alamat');
 		$id_prodi 	= $this->input->post('id_prodi');
 		$id_dosen 	= $this->input->post('id_dosen');
+		$semester 	= $this->input->post('semester');
  
 		$post = array(
 			'nim' 		=> $nim,
@@ -43,7 +44,8 @@ class Mahasiswa extends MY_Controller {
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
 			'id_prodi'	=> $id_prodi,
-			'id_dosen'	=> $id_dosen
+			'id_dosen'	=> $id_dosen,
+			'semester'	=> $semester,
 			);
 		
 		$this->M_Mahasiswa->input_data($post, 'mahasiswa');
@@ -68,6 +70,7 @@ class Mahasiswa extends MY_Controller {
 		$alamat 	= $this->input->post('alamat');
 		$id_prodi 	= $this->input->post('id_prodi');
 		$id_dosen 	= $this->input->post('id_dosen');
+		$semester 	= $this->input->post('semester');
  
 		$post = array(
 			'nim' 		=> $nim,
@@ -77,7 +80,8 @@ class Mahasiswa extends MY_Controller {
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
 			'id_prodi'	=> $id_prodi,
-			'id_dosen'	=> $id_dosen
+			'id_dosen'	=> $id_dosen,
+			'semester'	=> $semester
 			);
 
 		$where = array(

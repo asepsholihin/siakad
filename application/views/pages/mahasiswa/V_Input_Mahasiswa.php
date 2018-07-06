@@ -65,6 +65,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="semester" class="col-md-12">Semester</label>
+                        <div class="col-md-12">
+                            <input id="semester" type="text" name="semester" class="form-control form-control-line" required> 
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
                         </div>

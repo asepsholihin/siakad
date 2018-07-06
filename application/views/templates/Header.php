@@ -71,7 +71,7 @@
                 <a href="<?php echo base_url('laporan_nilai'); ?>">Laporan Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "kajur") { 
+            if($this->session->userdata("role") == "admin") { 
             ?>
             <li>
                 <a href="<?php echo base_url('referensi_kuisioner'); ?>">Referensi Kuisioner</a>
