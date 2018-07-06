@@ -44,17 +44,20 @@ class Nilai extends MY_Controller {
 			'id_mahasiswa' => $pk,
 			'id_matkul' => $id_matkul,
 			$name => $value,
-			'semester' => $semester->semester
+			'semester' => $semester->semester,
+			'id_dosen' => $this->session->userdata('id_user')
 		);
 
 		$data = array(
 			$name => $value,
-			'semester' => $semester->semester
+			'semester' => $semester->semester,
+			'id_dosen' => $this->session->userdata('id_user')
 		);
 
 		$where = array(
 			'id_mahasiswa' => $pk,
-			'id_matkul' => $id_matkul
+			'id_matkul' => $id_matkul,
+			'id_dosen' => $this->session->userdata('id_user')
 		);
 
 		$cek = $this->M_Nilai->cek_nilai($where, 'nilai');

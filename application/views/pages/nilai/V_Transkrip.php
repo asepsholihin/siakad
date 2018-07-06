@@ -39,8 +39,9 @@
                                         <th>No</th>
                                         <th>Kode</th>
                                         <th>Mata Kuliah</th>
-                                        <th>SKS</th>
-                                        <th>Nilai</th>
+                                        <th class="text-center">SKS</th>
+                                        <th class="text-center">Nilai Akhir</th>
+                                        <th class="text-center">Nilai Mutu</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,8 +52,9 @@
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $row->kode ?></td>
                                         <td><?php echo $row->matkul ?></td>
-                                        <td><?php echo $row->sks ?></td>
-                                        <td><?php echo $this->M_Nilai->grading(intval($row->total_uts)+intval($row->total_uas)+intval($row->total_tugas)); ?></td>
+                                        <td class="text-center"><?php echo $row->sks ?></td>
+                                        <td class="text-center"><?php echo intval($row->total_uts)+intval($row->total_uas)+intval($row->total_tugas); ?></td>
+                                        <td class="text-center"><?php echo $this->M_Nilai->grading(intval($row->total_uts)+intval($row->total_uas)+intval($row->total_tugas)); ?></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
