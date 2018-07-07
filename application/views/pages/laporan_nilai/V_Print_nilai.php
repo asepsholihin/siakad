@@ -9,6 +9,9 @@
     th,td {
         border: 1px solid #ccc;
     }
+    table.no-border,table.no-border td {
+        border: none;
+    }
 </style>
 <script src="<?php echo base_url(); ?>assets/js/jquery-3.3.1.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
@@ -65,8 +68,8 @@ $(document).ready(function() {
             <th >IPS</th>
             <th align="center">Nilai<br>D</th>
             <th align="center">Nilai<br>E</th>
-            <th >Status</th>
-            <th >Peringkat</th></td>
+            <th >STAT</th>
+            <th >PER</th></td>
         </tr>
     </thead>
     <tbody>
@@ -129,3 +132,42 @@ $(document).ready(function() {
     } ?>
     </tbody>
 </table>
+
+<table cellpadding="6" class="no-border">
+    <tr>
+        <td>IPP</td>
+        <td>:</td>
+        <td>Indeks Prestasi Praktik</td>
+    </tr>
+    <tr>
+        <td>IPT</td>
+        <td>:</td>
+        <td>Indeks Prestasi Praktik</td>
+    </tr>
+    <tr>
+        <td>IPS</td>
+        <td>:</td>
+        <td>Indeks Prestasi Praktik</td>
+    </tr>
+    <tr>
+        <td>STA</td>
+        <td>:</td>
+        <td>Status Kelulusan</td>
+    </tr>
+    <tr>
+        <td>PER</td>
+        <td>:</td>
+        <td>Peringkat</td>
+    </tr>
+    <tr>
+        <td>PL</td>
+        <td>:</td>
+        <td>Peringatan Lisan</td>
+    </tr>
+    <tr>
+        <td>PT</td>
+        <td>:</td>
+        <td>Peringatan Tertulis</td>
+    </tr>
+</table>
+</div>
