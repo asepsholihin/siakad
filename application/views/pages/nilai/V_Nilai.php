@@ -26,7 +26,7 @@
                 </div>
                 <div class="pull-right mb-3 ml-3">
                     <?php
-                        $js = 'class="form-control" onChange="window.location = \''.base_url().'nilai/matkul/\' + $(this).val()+\'/\'+$(\'#semester\').val()"'; 
+                        $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url().'nilai/matkul/\' + $(this).val()+\'/\'+$(\'#semester\').val()"'; 
                         echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
                     ?>
                 </div>
