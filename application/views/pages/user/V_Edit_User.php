@@ -39,6 +39,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
+                            <a href="<?php echo base_url('user')?>" class="btn btn-danger">Batal</a>
                         </div>
                     </div>
                 </form>

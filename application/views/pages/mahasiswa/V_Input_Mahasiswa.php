@@ -67,12 +67,21 @@
                     <div class="form-group">
                         <label for="semester" class="col-md-12">Semester</label>
                         <div class="col-md-12">
-                            <input id="semester" type="text" name="semester" class="form-control form-control-line" required> 
+                            <select class="form-control" id="semester" name="semester" required>
+                                <option value="">Pilih Semester</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
+                            <a href="<?php echo base_url('mahasiswa')?>" class="btn btn-danger">Batal</a>
                         </div>
                     </div>
                 </form>

@@ -69,12 +69,21 @@
                     <div class="form-group">
                         <label for="semester" class="col-md-12">Semester</label>
                         <div class="col-md-12">
-                            <input id="semester" type="text" name="semester" value="<?php echo $u->semester; ?>" class="form-control form-control-line" required> 
+                            <select class="form-control" id="semester" name="semester" required>
+                                <option value="">Pilih Semester</option>
+                                <option value="1" <?php if($u->semester == 1) {?> selected <?php }?>>1</option>
+                                <option value="2" <?php if($u->semester == 2) {?> selected <?php }?>>2</option>
+                                <option value="3" <?php if($u->semester == 3) {?> selected <?php }?>>3</option>
+                                <option value="4" <?php if($u->semester == 4) {?> selected <?php }?>>4</option>
+                                <option value="5" <?php if($u->semester == 5) {?> selected <?php }?>>5</option>
+                                <option value="6" <?php if($u->semester == 6) {?> selected <?php }?>>6</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
+                            <a href="<?php echo base_url('mahasiswa')?>" class="btn btn-danger">Batal</a>
                         </div>
                     </div>
                 </form>
