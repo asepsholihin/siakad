@@ -10,9 +10,23 @@
 
                 <?php if($cek_kriteria > 0) { ?>
                 
+                <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                    <div class="row">
+                        <div class="col-md-4 pt-2">
+                            Semester
+                        </div>
+                        <div class="col-md-8">
+                            <?php
+                                $p_semester = array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
+                                $js = 'class="form-control" id="semester" onChange="window.location = \''.base_url().'nilai/matkul/\' + $(\'#id_matkul\').val()+\'/\'+$(this).val()"'; 
+                                echo form_dropdown('semester', $p_semester, $this->uri->segment(4), $js);
+                            ?>
+                        </div>
+                    </div>
+                </div>
                 <div class="pull-right mb-3 ml-3">
                     <?php
-                        $js = 'class="form-control" onChange="window.location = \''.base_url().'nilai/matkul/\' + $(this).val();"'; 
+                        $js = 'class="form-control" onChange="window.location = \''.base_url().'nilai/matkul/\' + $(this).val()+\'/\'+$(\'#semester\').val()"'; 
                         echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
                     ?>
                 </div>

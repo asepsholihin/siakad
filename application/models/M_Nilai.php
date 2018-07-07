@@ -1,7 +1,7 @@
 <?php 
  
 class M_Nilai extends CI_Model{
-	function get_data($id_matkul){
+	function get_data($id_matkul,$semester){
 		$query = $this->db->query("
 		SELECT nilai.uts, nilai.uas, nilai.tugas,
 		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
@@ -11,7 +11,7 @@ class M_Nilai extends CI_Model{
 		mahasiswa.nama, 
 		nilai.id_matkul FROM nilai
         JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen
-		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."'
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.semester='".$semester."'
 		GROUP BY mahasiswa.nim");
 		
 		return $query->result();
