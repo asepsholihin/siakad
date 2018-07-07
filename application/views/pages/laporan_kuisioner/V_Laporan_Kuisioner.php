@@ -23,12 +23,8 @@ foreach($query as $row) {
     }
     
     
-    $query3[] = $this->db->query("SELECT (".rtrim($fields, '+').")/".$per." as jumlah  FROM kuisioner WHERE id_dosen LIKE '%".$this->session->userdata('id_user')."%'")->row()->jumlah;
-    
+    $query3[] = $this->db->query("SELECT (".rtrim($fields, '+').")/".$per." as jumlah  FROM kuisioner WHERE id_dosen LIKE '%".$this->session->userdata('id_user')."%' AND id_matkul='".$id_matkul."'")->row()->jumlah;
 }
-
-
-
 ?>
 
 <div class="container-fluid">
@@ -40,9 +36,15 @@ foreach($query as $row) {
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-            
                 
                 <h3 class="box-title text-center">Grafik Kuisioner</h3>
+
+                <div class="col-md-4 offset-md-4 mb-4">
+                <?php
+                    $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url('laporan_kuisioner').'/matkul/\' + $(this).val()"'; 
+                    echo form_dropdown('id_matkul', $matkul, $id_matkul, $js);
+                ?>
+                </div>
 
                 <canvas id="myChart"></canvas>
             

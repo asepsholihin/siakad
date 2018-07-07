@@ -1,11 +1,14 @@
 <?php 
  
 class M_Laporan_Kuisioner extends CI_Model{	
-	function get_data(){
+	function get_data($id_matkul){
         $this->db->select('mahasiswa.nama, mahasiswa.nim, prodi.nama as prodi');
         $this->db->from('kuisioner');
         $this->db->join('mahasiswa', 'mahasiswa.nim = kuisioner.id_mahasiswa');
         $this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
+        if($id_matkul != 0) {
+            $this->db->where('kuisioner.id_matkul', $id_matkul);
+        }
         return $this->db->get();
     }
 
