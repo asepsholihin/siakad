@@ -40,7 +40,8 @@ class M_Nilai extends CI_Model{
 		FROM nilai 
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
 		".$join."
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."");
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."
+		GROUP BY mahasiswa.nim");
 		return $query->result();
 	}
 
@@ -54,7 +55,22 @@ class M_Nilai extends CI_Model{
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
 		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
-		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul");
+		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul
+		GROUP BY nilai.id_matkul");
+	}
+
+	function transkrip_all($nim){
+		return $query = $this->db->query("
+		SELECT mahasiswa.nim, mahasiswa.nama, matkul.kode, matkul.nama as matkul, matkul.sks, nilai.uts, nilai.uas, nilai.tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas
+		FROM nilai
+		JOIN matkul ON nilai.id_matkul = matkul.id
+		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
+		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul
+		GROUP BY nilai.id_matkul");
 	}
 
 	function print_transkrip($nim, $semester){
@@ -154,6 +170,30 @@ class M_Nilai extends CI_Model{
 		}
 		if($nilai == 0) {
 			return "";
+		}
+	}
+
+	public function grading_angka($nilai) {
+		if($nilai == "A") {
+			return 4;
+		}
+		if($nilai == "AB") {
+			return 3.5;
+		}
+		if($nilai == "B") {
+			return 3;
+		}
+		if($nilai == "BC") {
+			return 2.5;
+		}
+		if($nilai == "C") {
+			return 2;
+		}
+		if($nilai == "D") {
+			return 1;
+		}
+		if($nilai == "E") {
+			return 0;
 		}
 	}
 

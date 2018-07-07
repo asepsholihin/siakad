@@ -29,7 +29,7 @@
                         echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
                     ?>
                 </div>
-                <a href="<?php echo base_url('laporan_nilai') ?>/createXLS/<?php echo $this->uri->segment(3); ?>/<?php echo $this->uri->segment(4); ?>" class="btn btn-outline-success pull-right">Download</a>
+                <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download/'+$('#semester').val()+''); w.print();" class="btn btn-outline-success pull-right">Download</a>
 
                 <div class="table-responsive">
                     <table id="data" class="display table pt-3">
