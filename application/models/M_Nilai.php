@@ -28,6 +28,9 @@ class M_Nilai extends CI_Model{
 		} else if($this->session->userdata('role') == "kajur") {
 			$join = "JOIN dosen ON dosen.id_prodi = mahasiswa.id_prodi";
 			$group = "GROUP BY mahasiswa.nim";
+		} else if($this->session->userdata('role') == "admin") {
+			$join = "";
+			$group = "GROUP BY mahasiswa.nim";
 		}
 			
 
