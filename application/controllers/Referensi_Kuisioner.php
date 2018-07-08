@@ -79,8 +79,9 @@ class Referensi_Kuisioner extends MY_Controller {
 		//Hapus Field
 		$this->db->select('id');
 		$this->db->from('referensi_kuisioner');
-		$this->db->order_by('id', 'DESC');
+		$this->db->where('id', $id);
 		$query = $this->db->get();
+		//echo $query->row()->id;
 		$this->M_Referensi_Kuisioner->hapus_field($query->row()->id);
 		
 		$this->M_Referensi_Kuisioner->hapus_data($where, 'referensi_kuisioner');
