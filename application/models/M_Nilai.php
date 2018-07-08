@@ -11,7 +11,7 @@ class M_Nilai extends CI_Model{
 		mahasiswa.nama, 
 		nilai.id_matkul FROM nilai
         JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul 
-		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.semester='".$semester."'
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."' WHERE nilai.semester='".$semester."'
 		GROUP BY mahasiswa.nim");
 		
 		return $query->result();
@@ -28,7 +28,7 @@ class M_Nilai extends CI_Model{
 		} else if($this->session->userdata('role') == "kajur") {
 			$join = "JOIN dosen ON dosen.id_prodi = mahasiswa.id_prodi";
 			$group = "GROUP BY mahasiswa.nim";
-		} else if($this->session->userdata('role') == "admin") {
+		} else if($this->session->userdata('role') == "admin" || $this->session->userdata('role') == "wadir1") {
 			$join = "";
 			$group = "GROUP BY mahasiswa.nim";
 		}
@@ -113,14 +113,6 @@ class M_Nilai extends CI_Model{
     function hapus_data($where, $table){
         $this->db->where($where);
         $this->db->delete($table);
-	}
-
-	function ambil_kriteria_nilai() {
-		$this->db->select('id, nama');
-		$this->db->from('kriteria_nilai');
-		$this->db->limit(3);
-		$query = $this->db->get();
-		return $query->result();
 	}
 
 	function ambil_prodi() {

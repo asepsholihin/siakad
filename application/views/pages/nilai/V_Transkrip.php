@@ -106,7 +106,7 @@
                                 }
                                 $jml_d = array_sum($arr_nilai_D);
                                 $jml_e = array_sum($arr_nilai_E);
-                                if($jml_d <= 4 || $jml_e < 0) {
+                                if($jml_d <= 4 && $jml_e < 0) {
                                     $lulus = "Tetap";
                                 } else if($jml_d >= 8 && $jml_e < 0) {
                                     $lulus = "Percobaan";

@@ -22,7 +22,6 @@ class Laporan_Nilai extends MY_Controller {
 	public function index() {
 		$data['mahasiswa'] = array();
 		$data['matkul'] = $this->M_Dosen->ambil_matkul_();
-		$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 	}
 
@@ -32,12 +31,12 @@ class Laporan_Nilai extends MY_Controller {
 		} else {
 			$data['mahasiswa'] = $this->M_Nilai->get_data_kelas($this->session->userdata("id_user"),$id_matkul,$semester);
 			$data['matkul'] = $this->M_Dosen->ambil_matkul_();
-			$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 			$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 		}
 	}
 
 	public function download($semester) {
+		$data['semester'] = $semester;
 		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' GROUP BY mahasiswa.nim")->result();
 		$this->load->view('pages/laporan_nilai/v_print_nilai', $data);   
 	}

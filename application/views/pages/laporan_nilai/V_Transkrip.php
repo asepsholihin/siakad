@@ -36,7 +36,7 @@
 <script src="<?php echo base_url(); ?>assets/js/jquery-3.3.1.min.js"></script>
 <script>
 $(document).ready(function() {
-    window.print();
+    //window.print();
 });
 </script>
 
@@ -114,13 +114,11 @@ function tanggal_indo($tanggal)
                     <?php 
                     $no = 1;
                     $arr_nilai_mutu = array();
-                    $jml_sks = array();
                     foreach($transkrip as $row) { 
 
                         $nilai_akhir = $row->total_uts+$row->total_uas+$row->total_tugas;
                         $nilai_mutu = $this->M_Nilai->grading($nilai_akhir);
                         $arr_nilai_mutu[] = $this->M_Nilai->grading_angka($nilai_mutu) * $row->sks;
-                        $jml_sks[] = $row->sks;
                     ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
@@ -137,7 +135,7 @@ function tanggal_indo($tanggal)
 
                 <?php 
                     $nilais = $this->M_Laporan_Nilai->print_transkrip($user->nim, $semester)->result();
-                    $jml_matkul = count($nilais);
+                    $sks = array();
                     $nilai = array();
                     $nilai_matkul = array();
                     $ips = array();
@@ -148,8 +146,9 @@ function tanggal_indo($tanggal)
                         $nilai_index = $this->M_Nilai->grading($nilai_akhir);
                         $nilai_mutu = $this->M_Nilai->grading_angka($nilai_index);
                         
-                        $nilai[] = $nilai_mutu;
+                        $nilai[] = $nilai_mutu*$row1->sks;
                         $nilai_matkul[$row1->matkul] = $nilai_mutu;
+                        $sks[] = $row1->sks;
 
                         if($nilai_index == "D") {
                             $arr_nilai_D[] = 1;
@@ -162,31 +161,32 @@ function tanggal_indo($tanggal)
                     }
                     $jml_d = array_sum($arr_nilai_D);
                     $jml_e = array_sum($arr_nilai_E);
-                    if($jml_d <= 4 || $jml_e < 0) {
+                    if($jml_d <= 4 && $jml_e <= 0) {
                         $lulus = "Tetap";
-                    } else if($jml_d >= 8 && $jml_e < 0) {
+                    } else if($jml_d >= 8 && $jml_e <= 0) {
                         $lulus = "Percobaan";
                     } else if($jml_d > 8 || $jml_e > 0) {
                         $lulus = "Tidak Lulus";
-                    } else if($jml_d > 0) {
+                    } else if($jml_e > 0) {
                         $lulus = "Tidak Lulus";
                     }
                     $bbt = array_sum($nilai);
+                    $jml_sks = array_sum($sks);
                 ?>
 
                 <table class="no-border mt-5 t-padding">
                     <tr>
                         <td>Satuan Kredit Semester (SKS)</td>
                         <td>:</td>
-                        <td><?php echo array_sum($jml_sks); ?></td>
+                        <td><?php echo $jml_sks; ?></td>
                     </tr>
                     <tr>
                         <td>Index Prestasi Semester (IPS)</td>
                         <td>:</td>
-                        <td><?php echo $bbt/$jml_matkul ?></td>
+                        <td><?php if($bbt != 0) { echo floatval($bbt/$jml_sks); } else { echo 0; } ?></td>
                     </tr>
                     <tr>
-                        <td>Stauan Kelulusan</td>
+                        <td>Stauan Kelulusana</td>
                         <td>:</td>
                         <td><?php echo $lulus ?></td>
                     </tr>

@@ -11,7 +11,7 @@ class M_Laporan_Nilai extends CI_Model{
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."' WHERE nilai.semester='".$semester."'
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."' WHERE nilai.semester='".$semester."'
 		GROUP BY nilai.id_matkul");
 	}
 }

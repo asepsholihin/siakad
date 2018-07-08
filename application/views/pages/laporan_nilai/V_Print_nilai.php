@@ -77,8 +77,9 @@ $(document).ready(function() {
     $peringkat = 1;
     foreach($mahasiswa as $row) { 
     
-        $nilais = $this->M_Nilai->transkrip_all($row->nim)->result();
+        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $semester)->result();
         //echo json_encode($nilais);
+        $sks = array();
         $nilai = array();
         $nilai_matkul = array();
         $ips = array();
@@ -91,6 +92,7 @@ $(document).ready(function() {
             
             $nilai[] = $nilai_mutu*$row1->sks;
             $nilai_matkul[$row1->matkul] = $nilai_mutu;
+            $sks[] = $row1->sks;
 
             if($nilai_index == "D") {
                 $arr_nilai_D[] = 1;
@@ -103,25 +105,29 @@ $(document).ready(function() {
         }
         $jml_d = array_sum($arr_nilai_D);
         $jml_e = array_sum($arr_nilai_E);
-        if($jml_d <= 4 || $jml_e < 0) {
+        if($jml_d <= 4 && $jml_e <= 0) {
             $lulus = "Tetap";
-        } else if($jml_d >= 8 && $jml_e < 0) {
+        } else if($jml_d >= 8 && $jml_e <= 0) {
             $lulus = "Percobaan";
         } else if($jml_d > 8 || $jml_e > 0) {
             $lulus = "Tidak Lulus";
-        } else if($jml_d > 0) {
+        } else if($jml_e > 0) {
             $lulus = "Tidak Lulus";
         }
         $bbt = array_sum($nilai);
+        $jml_sks = array_sum($sks);
     ?>
         <tr class="text-center">
             <td class="text-left"><?php echo $row->nama; ?></td>
             <td><?php echo $row->nim; ?></td>
-            <td><?php echo $nilai_matkul['Statistika']; ?></td>
-            <td><?php echo $nilai_matkul['Ekonomi Mikro']; ?></td>
-            <td><?php echo $nilai_matkul['Ekonomi Makro']; ?></td>
+            <?php
+            $query = $this->db->query("SELECT nama, sks FROM matkul WHERE semester='".$this->uri->segment(4)."'")->result();
+            foreach($query as $matkul) {
+            ?>
+            <td><?php echo $nilai_matkul[$matkul->nama]; ?></td>
+            <?php } ?>
             <td><?php echo $bbt; ?></td>
-            <td><?php echo $bbt/6; ?></td>
+            <td><?php if($bbt != 0) { echo floatval($bbt/$jml_sks); } else { echo 0; } ?></td>
             <td><?php echo $jml_d; ?></td>
             <td><?php echo $jml_e; ?></td>
             <td><?php echo $lulus; ?></td>
