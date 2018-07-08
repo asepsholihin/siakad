@@ -1,7 +1,7 @@
 <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
 <style>
     body {
-        margin: 3em;
+        margin: 1em;
     }
     table {
         border: 1px solid #ccc;

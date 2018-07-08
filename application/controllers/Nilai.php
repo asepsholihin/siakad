@@ -69,8 +69,9 @@ class Nilai extends MY_Controller {
 		}
 	}
 
-	function transkrip_nilai($nim) {
-		$data['transkrip'] = $this->M_Nilai->transkrip($nim)->result();
+	function transkrip_nilai($nim,$semester) {
+		$data['semester'] = $semester;
+		$data['transkrip'] = $this->M_Nilai->print_transkrip($nim, $semester)->result();
 		$this->render_page('pages/nilai/v_transkrip', $data);
 	}
 

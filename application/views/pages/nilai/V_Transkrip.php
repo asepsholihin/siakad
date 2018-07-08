@@ -19,6 +19,13 @@
                 <!-- <div class="col-md-12 my-4 text-right">
                     <a class="btn btn btn-rounded btn-info btn-outline" href="<?php echo base_url("nilai"); ?>/print_transkrip/<?php echo $user->nim ?>">Print Transkrip</a>
                 </div> -->
+                <div class="col-md-2 offset-md-10 my-4 text-right">
+                    <?php
+                        $p_semester = array(''=>'Pilih Semester','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
+                        $js = 'class="form-control" id="semester" onChange="window.location = \''.base_url().'nilai/transkrip_nilai/\' + \''.$user->nim.'\'+\'/\'+$(this).val()"'; 
+                        echo form_dropdown('semester', $p_semester, $this->uri->segment(4), $js);
+                    ?>
+                </div>
                 <div class="row">
                     <div class="col-md-4 col-xs-12">
                         <div class="white-box">
@@ -74,7 +81,7 @@
                             </table>
                             
                             <?php 
-                                $nilais = $this->M_Nilai->transkrip($user->nim)->result();
+                                $nilais = $this->M_Nilai->print_transkrip($user->nim, $semester)->result();
                                 $jml_matkul = count($nilais);
                                 $nilai = array();
                                 $nilai_matkul = array();
@@ -121,7 +128,7 @@
                                 <tr>
                                     <td>IPK</td>
                                     <td>:</td>
-                                    <td><?php echo $bbt/$jml_matkul ?></td>
+                                    <td><?php if($bbt != 0) { echo floatval($bbt/$jml_matkul); } else { echo 0; } ?></td>
                                 </tr>
                             </table>
                         </div>
