@@ -10,7 +10,7 @@ class M_Nilai extends CI_Model{
 		mahasiswa.nim,
 		mahasiswa.nama, 
 		nilai.id_matkul FROM nilai
-        JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul
+        JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul 
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.semester='".$semester."'
 		GROUP BY mahasiswa.nim");
 		
@@ -21,11 +21,13 @@ class M_Nilai extends CI_Model{
 
 		if($this->session->userdata('role') == "dosen") {
 			$where = "nilai.id_dosen LIKE '%".$id_dosen."%' AND ";
+			$group = "GROUP BY mahasiswa.nim";
 		} else if($this->session->userdata('role') == "dosen_wali") {
 			$where = "mahasiswa.id_dosen LIKE '%".$id_dosen."%' AND ";
+			$group = "GROUP BY mahasiswa.nim";
 		} else if($this->session->userdata('role') == "kajur") {
 			$join = "JOIN dosen ON dosen.id_prodi = mahasiswa.id_prodi";
-			$group = "GROUP BY nilai.id_matkul";
+			$group = "GROUP BY mahasiswa.nim";
 		}
 			
 
@@ -40,8 +42,7 @@ class M_Nilai extends CI_Model{
 		FROM nilai 
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
 		".$join."
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."
-		GROUP BY mahasiswa.nim");
+		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."");
 		return $query->result();
 	}
 
