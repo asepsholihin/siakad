@@ -55,7 +55,9 @@ class M_Dosen extends CI_Model{
 		//
 		$this->db->select('id, nama');
 		$this->db->from('matkul');
-		$this->db->where("id IN ($dosen->matkul)");
+		// if($this->session->userdata('role') != 'admin'){
+		// 	$this->db->where("id IN ($dosen->matkul)");
+		// }
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{

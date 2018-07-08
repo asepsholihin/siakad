@@ -40,6 +40,16 @@ class Laporan_Nilai extends MY_Controller {
 		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' GROUP BY mahasiswa.nim")->result();
 		$this->load->view('pages/laporan_nilai/v_print_nilai', $data);   
 	}
+
+	public function laporan($semester) {
+		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' GROUP BY mahasiswa.nim")->result();
+		$this->render_page('pages/laporan_nilai/v_laporan_nilai_admin', $data);   
+	}
+
+	function transkrip_nilai($nim) {
+		$data['transkrip'] = $this->M_Nilai->transkrip($nim)->result();
+		$this->load->view('pages/laporan_nilai/v_transkrip', $data);
+	}
 	
 	public function createXLS($id_matkul,$semester) {
 		$this->load->library('excel');

@@ -30,4 +30,9 @@ $(document).ready(function() {
           targets: "no-sort"
         }]
     });
+
+    $('#data_nilai').DataTable({
+        "order": [[ 6, "desc" ]],
+        "info": false
+    });
 });
