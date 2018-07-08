@@ -125,7 +125,7 @@
                                     <td><?php echo array_sum($jml_sks); ?></td>
                                 </tr>
                                 <tr>
-                                    <td>IPK</td>
+                                    <td>IPS</td>
                                     <td>:</td>
                                     <td><?php if($bbt != 0) { echo floatval($bbt/$jml_matkul); } else { echo 0; } ?></td>
                                 </tr>
