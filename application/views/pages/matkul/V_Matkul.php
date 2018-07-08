@@ -22,6 +22,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Kode</th>
                                 <th>Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Program Studi</th>
@@ -35,6 +36,7 @@
                         ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
+                            <td><?php echo $u->kode ?></td>
                             <td><?php echo $u->nama ?></td>
                             <td><?php echo $u->sks ?></td>
                             <td><?php echo $u->prodi ?></td>
