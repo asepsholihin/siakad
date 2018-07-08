@@ -83,7 +83,8 @@ class M_Nilai extends CI_Model{
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
 		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
-		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul WHERE nilai.semester='".$semester."'");
+		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul WHERE nilai.semester='".$semester."'
+		GROUP BY nilai.id_matkul");
 	}
  
 	function insert_data($data, $table){

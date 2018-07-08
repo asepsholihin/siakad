@@ -42,12 +42,14 @@ class Laporan_Nilai extends MY_Controller {
 	}
 
 	public function laporan($semester) {
+		$data['semester'] = $semester;
 		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' GROUP BY mahasiswa.nim")->result();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai_admin', $data);   
 	}
 
-	function transkrip_nilai($nim) {
-		$data['transkrip'] = $this->M_Nilai->transkrip($nim)->result();
+	function transkrip_nilai($nim,$semester) {
+		$data['semester'] = $semester;
+		$data['transkrip'] = $this->M_Nilai->print_transkrip($nim,$semester)->result();
 		$this->load->view('pages/laporan_nilai/v_transkrip', $data);
 	}
 	

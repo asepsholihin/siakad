@@ -49,7 +49,7 @@
                     $peringkat = 1;
                     foreach($mahasiswa as $row) { 
                     
-                        $nilais = $this->M_Nilai->transkrip_all($row->nim)->result();
+                        $nilais = $this->M_Nilai->print_transkrip($row->nim, $semester)->result();
                         //echo json_encode($nilais);
                         $nilai = array();
                         $nilai_matkul = array();
@@ -97,7 +97,7 @@
                             <td><?php echo $bbt; ?></td>
                             <td><?php echo $bbt/6; ?></td>
                             <td><?php echo $lulus; ?></td>
-                            <td><a href="<?php echo base_url('laporan_nilai').'/transkrip_nilai/'.$row->nim ?>" target="_blank">Print</a></td>
+                            <td><a href="<?php echo base_url('laporan_nilai').'/transkrip_nilai/'.$row->nim.'/'.$this->uri->segment(3) ?>/" target="_blank">Print</a></td>
                         </tr>
                     <?php 
                     $peringkat++;

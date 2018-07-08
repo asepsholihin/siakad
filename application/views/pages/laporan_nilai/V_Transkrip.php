@@ -55,6 +55,11 @@ $(document).ready(function() {
                 <td>:</td>
                 <td><?php echo $user->nim ?></td>
             </tr>
+            <tr>
+                <td>Nilai Semester</td>
+                <td>:</td>
+                <td><?php echo $semester ?></td>
+            </tr>
         </table>
         <div class="table-responsive">
             <table class="table no-border">
@@ -95,8 +100,8 @@ $(document).ready(function() {
             </table>
 
             <?php 
-                $nilais = $this->M_Nilai->transkrip_all($user->nim)->result();
-                //echo json_encode($nilais);
+                $nilais = $this->M_Nilai->print_transkrip($user->nim, $semester)->result();
+                $jml_matkul = count($nilais);
                 $nilai = array();
                 $nilai_matkul = array();
                 $ips = array();
@@ -107,7 +112,7 @@ $(document).ready(function() {
                     $nilai_index = $this->M_Nilai->grading($nilai_akhir);
                     $nilai_mutu = $this->M_Nilai->grading_angka($nilai_index);
                     
-                    $nilai[] = $nilai_mutu*$row1->sks;
+                    $nilai[] = $nilai_mutu;
                     $nilai_matkul[$row1->matkul] = $nilai_mutu;
 
                     if($nilai_index == "D") {
@@ -133,7 +138,7 @@ $(document).ready(function() {
                 $bbt = array_sum($nilai);
             ?>
 
-            <table width="30%" class="no-border mt-5">
+            <table class="no-border mt-5 t-padding">
                 <tr>
                     <td>Satuan Kredit Semester (SKS)</td>
                     <td>:</td>
@@ -142,7 +147,7 @@ $(document).ready(function() {
                 <tr>
                     <td>Index Prestasi Semester (IPS)</td>
                     <td>:</td>
-                    <td><?php echo $bbt/6 ?></td>
+                    <td><?php echo $bbt/$jml_matkul ?></td>
                 </tr>
                 <tr>
                     <td>Stauan Kelulusan</td>

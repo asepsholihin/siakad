@@ -74,8 +74,8 @@
                             </table>
                             
                             <?php 
-                                $nilais = $this->M_Nilai->transkrip_all($user->nim)->result();
-                                //echo json_encode($nilais);
+                                $nilais = $this->M_Nilai->transkrip($user->nim)->result();
+                                $jml_matkul = count($nilais);
                                 $nilai = array();
                                 $nilai_matkul = array();
                                 $ips = array();
@@ -86,7 +86,7 @@
                                     $nilai_index = $this->M_Nilai->grading($nilai_akhir);
                                     $nilai_mutu = $this->M_Nilai->grading_angka($nilai_index);
                                     
-                                    $nilai[] = $nilai_mutu*$row1->sks;
+                                    $nilai[] = $nilai_mutu;
                                     $nilai_matkul[$row1->matkul] = $nilai_mutu;
 
                                     if($nilai_index == "D") {
@@ -119,9 +119,9 @@
                                     <td><?php echo array_sum($jml_sks); ?></td>
                                 </tr>
                                 <tr>
-                                    <td>IPS</td>
+                                    <td>IPK</td>
                                     <td>:</td>
-                                    <td><?php echo $bbt/6 ?></td>
+                                    <td><?php echo $bbt/$jml_matkul ?></td>
                                 </tr>
                             </table>
                         </div>
