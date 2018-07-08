@@ -203,9 +203,34 @@ class Nilai extends MY_Controller {
 				
 				$numrow++;
 			}
+			//echo json_encode($data);
+			foreach($data as $row) {
+				$input = array(
+					'id_mahasiswa'=>$row['id_mahasiswa'],
+					'id_matkul'=>$row['id_matkul'],
+					'id_dosen'=>$row['id_dosen'],
+					'uts'=>$row['uts'],
+					'uas'=>$row['uas'],
+					'tugas'=>$row['tugas'],
+					'semester'=>$row['semester']
+				);
+				//echo json_encode($input);
+				$where = array(
+					'id_mahasiswa' => $row['id_mahasiswa'],
+					'id_matkul' => $row['id_matkul'],
+					'id_dosen' => $row['id_dosen']
+				);
+		
+				$cek = $this->M_Nilai->cek_nilai($where, 'nilai');
+				if($cek){
+					$this->db->where($where);
+					$this->db->update('nilai', $input);
+				} else {
+					$this->db->insert('nilai', $input);
+				}
+			}
 			
-			$this->M_Upload->insert_multiple($data);
-			
+			$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
 			redirect("nilai");
 	  }
 

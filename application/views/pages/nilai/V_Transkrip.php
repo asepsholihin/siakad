@@ -1,7 +1,6 @@
 <?php
     $this->db->select('mahasiswa.*, prodi.nama as prodi');
-    $this->db->from('users');
-    $this->db->join('mahasiswa', 'mahasiswa.nim = users.id_user');
+    $this->db->from('mahasiswa');
     $this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id');
     $this->db->where('mahasiswa.nim', $this->session->userdata("id_user"));
     $user = $this->db->get()->row();

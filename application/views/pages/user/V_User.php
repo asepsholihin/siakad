@@ -18,13 +18,14 @@
                 <h3 class="box-title">User</h3>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="data" class="table display pt-3">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Username</th>
                                 <th>Nama Lengkap</th>
                                 <th>Hak Akses</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

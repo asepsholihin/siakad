@@ -7,7 +7,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-
+                <div class="row">
+                    <div class="col-sm-12 mb-2">  
+                        <?php echo $this->session->flashdata('msg'); ?>
+                    </div>
+                </div>
                 <?php if($cek_kriteria > 0) { ?>
                 
                 <div class="col-md-3 col-sm-4 col-xs-6 pull-right">

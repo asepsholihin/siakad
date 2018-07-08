@@ -6,6 +6,7 @@ class Laporan_Nilai extends MY_Controller {
  
 	function __construct(){
 		parent::__construct();
+		$this->load->model('M_Laporan_Nilai');
 		$this->load->model('M_Nilai');
 		$this->load->model('M_Upload');
 		$this->load->model('M_User');
@@ -49,7 +50,7 @@ class Laporan_Nilai extends MY_Controller {
 
 	function transkrip_nilai($nim,$semester) {
 		$data['semester'] = $semester;
-		$data['transkrip'] = $this->M_Nilai->print_transkrip($nim,$semester)->result();
+		$data['transkrip'] = $this->M_Laporan_Nilai->print_transkrip($nim,$semester)->result();
 		$this->load->view('pages/laporan_nilai/v_transkrip', $data);
 	}
 	

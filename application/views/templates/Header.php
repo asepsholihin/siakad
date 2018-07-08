@@ -32,13 +32,13 @@
             if($this->session->userdata("role") == "admin") { 
             ?>
             <li>
-                <a href="<?php echo base_url('mahasiswa'); ?>"></i>Mahasiswa</a>
+                <a href="<?php echo base_url('prodi'); ?>">Program Studi</a>
             </li>
             <?php }
             if($this->session->userdata("role") == "admin") { 
             ?>
             <li>
-                <a href="<?php echo base_url('prodi'); ?>">Program Studi</a>
+                <a href="<?php echo base_url('matkul'); ?>">Mata Kuliah</a>
             </li>
             <?php }
             if($this->session->userdata("role") == "admin") { 
@@ -50,7 +50,7 @@
             if($this->session->userdata("role") == "admin") { 
             ?>
             <li>
-                <a href="<?php echo base_url('matkul'); ?>">Mata Kuliah</a>
+                <a href="<?php echo base_url('mahasiswa'); ?>"></i>Mahasiswa</a>
             </li>
             <?php }
             if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
@@ -98,7 +98,7 @@
             if($this->session->userdata("role") == "mahasiswa") { 
             ?>
             <li>
-                <a href="<?php echo base_url('nilai'); ?>/transkrip_nilai/<?php echo $this->session->userdata("id_user") ?>">Transkrip Nilai</a>
+                <a href="<?php echo base_url('nilai'); ?>/transkrip_nilai/<?php echo $this->session->userdata("id_user") ?>/1">Transkrip Nilai</a>
             </li>
             <?php }
             if($this->session->userdata("role") == "admin") { 

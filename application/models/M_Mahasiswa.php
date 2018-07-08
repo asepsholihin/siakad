@@ -48,7 +48,11 @@ class M_Mahasiswa extends CI_Model{
 		{
 			$return[$row->id] = $row->nama;
 		}
-		return $return;
+		if($query->num_rows() > 0) {
+			return $return;
+		} else {
+			return null;
+		}
 	}
 
 	function ambil_dosen() {
@@ -59,6 +63,10 @@ class M_Mahasiswa extends CI_Model{
 		{
 			$return[$row->nidn] = $row->nama;
 		}
-		return $return;
+		if($query->num_rows() > 0) {
+			return $return;
+		} else {
+			return null;
+		}
 	}
 }

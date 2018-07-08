@@ -49,7 +49,7 @@
                     $peringkat = 1;
                     foreach($mahasiswa as $row) { 
                     
-                        $nilais = $this->M_Nilai->print_transkrip($row->nim, $semester)->result();
+                        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $semester)->result();
                         //echo json_encode($nilais);
                         $nilai = array();
                         $nilai_matkul = array();
