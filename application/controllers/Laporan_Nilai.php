@@ -80,7 +80,7 @@ class Laporan_Nilai extends MY_Controller {
 		JOIN matkul ON matkul.id = nilai.id_matkul	
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim	
 		".$join."	
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."
 		GROUP BY mahasiswa.nim");	
 	
 		$tambah_field = array('NIM','Nama', 'Mata Kuliah', 'SKS', 'UTS', 'UAS', 'Tugas', 'Nilai Akhir', 'Nilai Mutu');	

@@ -51,8 +51,8 @@ class Nilai extends MY_Controller {
 
 		$data = array(
 			$name => $value,
-			'semester' => $semester,
-			'id_dosen' => $this->session->userdata('id_user')
+			'semester' => $semester
+			//'id_dosen' => $this->session->userdata('id_user')
 		);
 
 		$where = array(

@@ -10,7 +10,7 @@ class M_Nilai extends CI_Model{
 		mahasiswa.nim,
 		mahasiswa.nama, 
 		nilai.id_matkul FROM nilai
-        JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen
+        JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.semester='".$semester."'
 		GROUP BY mahasiswa.nim");
 		
@@ -54,7 +54,7 @@ class M_Nilai extends CI_Model{
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."'
 		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul
 		GROUP BY nilai.id_matkul");
 	}
@@ -68,7 +68,7 @@ class M_Nilai extends CI_Model{
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."'
 		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul
 		GROUP BY nilai.id_matkul");
 	}
@@ -82,7 +82,7 @@ class M_Nilai extends CI_Model{
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND mahasiswa.nim='".$nim."'
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."'
 		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul WHERE nilai.semester='".$semester."'
 		GROUP BY nilai.id_matkul");
 	}
