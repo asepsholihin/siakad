@@ -59,7 +59,7 @@ $(document).ready(function() {
             $jml_matkul = $this->db->query("SELECT nama, sks FROM matkul WHERE semester='".$this->uri->segment(3)."'")->num_rows();
             ?>
             <?php
-            $query = $this->db->query("SELECT nama, sks FROM matkul WHERE semester='".$this->uri->segment(3)."'")->result();
+            $query = $this->db->query("SELECT nama, sks FROM matkul")->result();
             foreach($query as $matkul) {
             ?>
             <th><?php echo $matkul->nama. "<br> SKS(" .$matkul->sks.")"; ?></th>

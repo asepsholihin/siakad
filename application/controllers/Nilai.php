@@ -36,24 +36,22 @@ class Nilai extends MY_Controller {
 		
 	}
  
-	function proses_edit($id_matkul) {
+	function proses_edit($id_matkul,$semester) {
 		$name 		= $this->input->post('name');
 		$pk 		= $this->input->post('pk');
 		$value 		= $this->input->post('value');
-		
-		$semester = $this->db->get('semester')->row();
 
 		$input = array(
 			'id_mahasiswa' => $pk,
 			'id_matkul' => $id_matkul,
 			$name => $value,
-			'semester' => $semester->semester,
+			'semester' => $semester,
 			'id_dosen' => $this->session->userdata('id_user')
 		);
 
 		$data = array(
 			$name => $value,
-			'semester' => $semester->semester,
+			'semester' => $semester,
 			'id_dosen' => $this->session->userdata('id_user')
 		);
 
