@@ -49,4 +49,19 @@ class M_Dosen extends CI_Model{
 		}
 		return $return;
 	}
+
+	function ambil_matkul_() {
+		$dosen = $this->db->get_where('dosen', array("nidn" => $this->session->userdata('id_user')))->row();
+		//
+		$this->db->select('id, nama');
+		$this->db->from('matkul');
+		$this->db->where("id IN ($dosen->matkul)");
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[0] = "Pilih Mata Kuliah";
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
+	}
 }

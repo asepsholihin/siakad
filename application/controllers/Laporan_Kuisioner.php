@@ -20,8 +20,7 @@ class Laporan_Kuisioner extends MY_Controller {
 	public function index() {
         $id_matkul = 0;
         $data['laporan_kuisioner'] = $this->M_Laporan_Kuisioner->get_data($id_matkul)->result();
-        //echo $this->db->last_query();
-        $data['matkul'] = $this->M_Dosen->ambil_matkul();
+        $data['matkul'] = $this->M_Dosen->ambil_matkul_();
         $data['matkul']["0"] = "Pilih Mata Kuliah";
         $data['id_matkul'] = $id_matkul;
 		$this->render_page('pages/laporan_kuisioner/v_laporan_kuisioner', $data);
@@ -32,7 +31,7 @@ class Laporan_Kuisioner extends MY_Controller {
             redirect('laporan_kuisioner');
         } else {
             $data['laporan_kuisioner'] = $this->M_Laporan_Kuisioner->get_data($id_matkul)->result();
-            $data['matkul'] = $this->M_Dosen->ambil_matkul();
+            $data['matkul'] = $this->M_Dosen->ambil_matkul_();
             $data['matkul']["0"] = "Pilih Mata Kuliah";
             $data['id_matkul'] = $id_matkul;
             //echo $this->db->last_query();
@@ -43,7 +42,7 @@ class Laporan_Kuisioner extends MY_Controller {
     public function hasil_kuisioner() {
         $data['prodi'] = $this->M_Mahasiswa->ambil_prodi();
 		$data['dosen'] = $this->M_Mahasiswa->ambil_dosen();
-        $data['matkul'] = $this->M_Dosen->ambil_matkul();
+        $data['matkul'] = $this->M_Dosen->ambil_matkul_();
         
         $sql = $this->db->query("SELECT kategori FROM referensi_kuisioner WHERE jenis !='esai' GROUP BY kategori");
         

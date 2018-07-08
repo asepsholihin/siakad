@@ -7,6 +7,7 @@ class Nilai extends MY_Controller {
 		parent::__construct();
 		$this->load->model('M_Nilai');
 		$this->load->model('M_Upload');
+		$this->load->model('M_Dosen');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -16,7 +17,7 @@ class Nilai extends MY_Controller {
  
 	public function index() {
 		$data['mahasiswa'] = array();
-		$data['matkul'] = $this->M_Nilai->ambil_matkul();
+		$data['matkul'] = $this->M_Dosen->ambil_matkul_();
 		$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 		$data['cek_kriteria'] = $this->db->get_where('kriteria', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
 		$this->render_page('pages/nilai/v_nilai', $data);
@@ -27,7 +28,7 @@ class Nilai extends MY_Controller {
 			redirect('nilai');	
 		} else {
 			$data['mahasiswa'] = $this->M_Nilai->get_data($id_matkul, $semester);
-			$data['matkul'] = $this->M_Nilai->ambil_matkul();
+			$data['matkul'] = $this->M_Dosen->ambil_matkul_();
 			$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 			$data['cek_kriteria'] = $this->db->get_where('kriteria', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
 			$this->render_page('pages/nilai/v_nilai', $data);

@@ -9,6 +9,7 @@ class Laporan_Nilai extends MY_Controller {
 		$this->load->model('M_Nilai');
 		$this->load->model('M_Upload');
 		$this->load->model('M_User');
+		$this->load->model('M_Dosen');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -19,7 +20,7 @@ class Laporan_Nilai extends MY_Controller {
  
 	public function index() {
 		$data['mahasiswa'] = array();
-		$data['matkul'] = $this->M_Nilai->ambil_matkul();
+		$data['matkul'] = $this->M_Dosen->ambil_matkul_();
 		$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 	}
@@ -29,7 +30,7 @@ class Laporan_Nilai extends MY_Controller {
 			redirect('laporan_nilai');	
 		} else {
 			$data['mahasiswa'] = $this->M_Nilai->get_data_kelas($this->session->userdata("id_user"),$id_matkul,$semester);
-			$data['matkul'] = $this->M_Nilai->ambil_matkul();
+			$data['matkul'] = $this->M_Dosen->ambil_matkul_();
 			$data['kriteria_nilai'] = $this->M_Nilai->ambil_kriteria_nilai();
 			$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 		}
