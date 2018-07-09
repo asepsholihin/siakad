@@ -2,7 +2,10 @@
 
 class M_Referensi_Kuisioner extends CI_Model {
     function get_data() {
-        return $this->db->get('referensi_kuisioner');
+        $this->db->select('referensi_kuisioner.*, kategori_kuisioner.nama as kategori');
+        $this->db->from('referensi_kuisioner');
+        $this->db->join('kategori_kuisioner', 'kategori_kuisioner.id = referensi_kuisioner.id_kategori');
+        return $this->db->get();
     }
 
     function tambah_field($column) {

@@ -1,18 +1,18 @@
 <?php
 
-$query = $this->db->query("SELECT kategori FROM referensi_kuisioner WHERE jenis='pilihan' GROUP BY kategori")->result();
+$query = $this->db->query("SELECT id_kategori FROM referensi_kuisioner WHERE jenis='pilihan' GROUP BY id_kategori")->result();
 
 $kategori = array();
 foreach($query as $row) {
     
-    $query1 = $this->db->query("SELECT concat(kode, id) as field FROM referensi_kuisioner WHERE jenis='pilihan' AND kategori='".$row->kategori."'")->result();
+    $query1 = $this->db->query("SELECT concat(kode, id) as field FROM referensi_kuisioner WHERE jenis='pilihan' AND id_kategori='".$row->id_kategori."'")->result();
     $field = array();
     foreach($query1 as $row1) {
         
         $field[] = $row1;
 
     }
-    $kategori[] = $row->kategori;
+    $kategori[] = $row->id_kategori;
 
     $fields = '';
     $per = '';

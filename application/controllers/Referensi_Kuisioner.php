@@ -6,6 +6,7 @@ class Referensi_Kuisioner extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('M_Referensi_Kuisioner');
+		$this->load->model('M_Kategori_Kuisioner');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -20,17 +21,18 @@ class Referensi_Kuisioner extends MY_Controller {
 	}
 
 	function input() {
-		$this->render_page('pages/referensi_kuisioner/v_input_referensi_kuisioner');
+		$data['kategori'] = $this->M_Kategori_Kuisioner->ambil_kategori_kuisioner();
+		$this->render_page('pages/referensi_kuisioner/v_input_referensi_kuisioner', $data);
 	}
  
 	function proses_input() {
 		$pertanyaan	= $this->input->post('pertanyaan');
-		$kategori	= $this->input->post('kategori');
+		$kategori	= $this->input->post('id_kategori');
 		$jenis		= $this->input->post('jenis');
  
 		$input = array(
 			'pertanyaan'	=> $pertanyaan,
-			'kategori'		=> $kategori,
+			'id_kategori'	=> $kategori,
 			'jenis'			=> $jenis
 			);
 
@@ -48,6 +50,7 @@ class Referensi_Kuisioner extends MY_Controller {
 
 	function edit($id){
         $where = array('id' => $id);
+		$data['kategori'] = $this->M_Kategori_Kuisioner->ambil_kategori_kuisioner();
         $data['referensi_kuisioner'] = $this->M_Referensi_Kuisioner->edit_data($where, 'referensi_kuisioner')->result();
         $this->render_page('pages/referensi_kuisioner/v_edit_referensi_kuisioner', $data);
 	}
@@ -55,12 +58,12 @@ class Referensi_Kuisioner extends MY_Controller {
 	function proses_edit() {
 		$id	= $this->input->post('id');
 		$pertanyaan	= $this->input->post('pertanyaan');
-		$kategori	= $this->input->post('kategori');
+		$kategori	= $this->input->post('id_kategori');
 		$jenis		= $this->input->post('jenis');
  
 		$data = array(
 			'pertanyaan'	=> $pertanyaan,
-			'kategori'		=> $kategori,
+			'id_kategori'	=> $kategori,
 			'jenis'			=> $jenis
 			);
 

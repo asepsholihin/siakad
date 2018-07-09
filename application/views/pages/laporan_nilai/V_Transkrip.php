@@ -1,7 +1,8 @@
 <?php
     $this->db->select('mahasiswa.*, prodi.nama as prodi');
     $this->db->from('mahasiswa');
-    $this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id');
+    $this->db->join('kelas', 'kelas.id = mahasiswa.id_kelas');
+    $this->db->join('prodi', 'prodi.id = kelas.id_prodi');
     $this->db->where('mahasiswa.nim', $this->uri->segment(3));
     $user = $this->db->get()->row();
 ?>
@@ -134,7 +135,7 @@ function tanggal_indo($tanggal)
                 </table>
 
                 <?php 
-                    $nilais = $this->M_Laporan_Nilai->print_transkrip($user->nim, $semester)->result();
+                    $nilais = $this->M_Laporan_Nilai->print_transkrip($user->nim, $semester, $id_prodi)->result();
                     $sks = array();
                     $nilai = array();
                     $nilai_matkul = array();
@@ -196,8 +197,10 @@ function tanggal_indo($tanggal)
                 <p>Subang, <?php echo tanggal_indo(date('Y-m-d')); ?></p>
                 <p>Wakil Direktur 1,</p>
                 <br><br><br>
-                <p>Oyok Yudiyanto, ST.,MT</p>
-                <p>NIP. 197105281999031002</p>
+
+                <?php $wadir = $this->db->get_where('dosen', array('jabatan' => 'Wakil Direktur 1'))->row() ?>
+                <p><?php echo $wadir->nama ?></p>
+                <p>NIP. <?php echo $wadir->nidn ?></p>
             </div>
         </div>
     </div>

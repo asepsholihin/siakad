@@ -11,6 +11,7 @@ class Laporan_Nilai extends MY_Controller {
 		$this->load->model('M_Upload');
 		$this->load->model('M_User');
 		$this->load->model('M_Dosen');
+		$this->load->model('M_Kelas');
 		$this->load->model('M_Prodi');
 		$this->load->model('M_Kriteria_Nilai');
 		$this->load->helper('url');
@@ -23,34 +24,46 @@ class Laporan_Nilai extends MY_Controller {
  
 	public function index() {
 		$data['mahasiswa'] = array();
-		$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		if($this->session->userdata('role') == 'admin') {
+			$data['kelas'] = $this->M_Kelas->ambil_kelas();
+		} else {
+			$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		}
 		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 	}
 
 	public function matkul($id_kelas='',$id_matkul='') {
-		$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		if($this->session->userdata('role') == 'admin') {
+			$data['kelas'] = $this->M_Kelas->ambil_kelas();
+		} else {
+			$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		}
 		$data['mahasiswa'] = $this->M_Nilai->get_data_kelas($id_matkul,$id_kelas);
 		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 	}
 
-	public function download($semester,$prodi='') {
+	public function download($semester='', $id_prodi='') {
 		$data['semester'] = $semester;
-		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' AND mahasiswa.id_prodi='".$prodi."' GROUP BY mahasiswa.nim")->result();
+		$data['id_prodi'] = $id_prodi;
+		$data['prodi'] = $this->M_Prodi->ambil_prodi();
+		$data['mahasiswa'] = $this->db->query("SELECT mahasiswa.* FROM mahasiswa JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim JOIN kelas ON kelas.id = mahasiswa.id_kelas WHERE kelas.id_prodi='".$id_prodi."' GROUP BY mahasiswa.nim")->result();
 		$this->load->view('pages/laporan_nilai/v_print_nilai', $data);   
 	}
 
-	public function laporan($semester = '', $prodi = '') {
+	public function laporan($semester='', $id_prodi='') {
 		$data['semester'] = $semester;
-		$data['prodi'] = $this->M_Prodi->ambil_prodi_();
-		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' AND mahasiswa.id_prodi='".$prodi."' GROUP BY mahasiswa.nim")->result();
+		$data['id_prodi'] = $id_prodi;
+		$data['prodi'] = $this->M_Prodi->ambil_prodi();
+		$data['mahasiswa'] = $this->db->query("SELECT mahasiswa.* FROM mahasiswa JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim JOIN kelas ON kelas.id = mahasiswa.id_kelas WHERE kelas.id_prodi='".$id_prodi."' GROUP BY mahasiswa.nim")->result();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai_admin', $data);   
 	}
 
-	function transkrip_nilai($nim,$semester) {
+	function transkrip_nilai($nim,$semester,$id_prodi) {
 		$data['semester'] = $semester;
-		$data['transkrip'] = $this->M_Laporan_Nilai->print_transkrip($nim,$semester)->result();
+		$data['id_prodi'] = $id_prodi;
+		$data['transkrip'] = $this->M_Laporan_Nilai->print_transkrip($nim,$semester,$id_prodi)->result();
 		$this->load->view('pages/laporan_nilai/v_transkrip', $data);
 	}
 	

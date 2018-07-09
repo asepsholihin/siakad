@@ -28,7 +28,9 @@ class M_Kriteria_Nilai extends CI_Model{
 
 		$this->db->select('DISTINCT(id), matkul.nama');
 		$this->db->from('matkul');
-		$this->db->join('dosen', 'matkul.id IN ('.$dosen->matkul.')');
+		if($this->session->userdata('role') != 'admin') {
+			$this->db->join('dosen', 'matkul.id IN ('.$dosen->matkul.')');
+		}
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{

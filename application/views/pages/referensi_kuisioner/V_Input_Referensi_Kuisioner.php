@@ -10,9 +10,9 @@
 
                 <form class="form-horizontal form-material" autocomplete="off" action="<?php echo base_url('referensi_kuisioner/proses_input'); ?>" method="post">
                     <div class="form-group">
-                        <label for="kategori" class="col-md-12">Kategori</label>
+                        <label for="id_kategori" class="col-md-12">Kategori</label>
                         <div class="col-md-12">
-                            <input id="kategori" type="text" name="kategori" class="form-control form-control-line" required>
+                            <?php echo form_dropdown('id_kategori', $kategori, null, 'class="form-control"'); ?>
                         </div>
                     </div>
                     <div class="form-group">

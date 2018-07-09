@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Laporan Nilai</h4> 
+            <h4 class="page-title">Laporan Nilai Admin</h4> 
         </div>
     </div>
     <div class="row">
@@ -19,6 +19,7 @@
                     <div class="col-md-2 mb-4">
                         <?php
                             $js = 'class="form-control" id="prodi"'; 
+                            $prodi[''] = 'Pilih Prodi';
                             echo form_dropdown('prodi', $prodi, $this->uri->segment(4), $js);
                         ?>
                     </div>
@@ -68,7 +69,8 @@
                     $peringkat = 1;
                     foreach($mahasiswa as $row) { 
                     
-                        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $semester)->result();
+                        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $semester, $id_prodi)->result();
+                        //echo $this->db->last_query();
                         $sks = array();
                         $nilai = array();
                         $nilai_matkul = array();
@@ -118,7 +120,11 @@
                             <td><?php echo number_format($bbt, 2, ',', ''); ?></td>
                             <td><?php if($bbt != 0) { echo number_format($bbt/$jml_sks, 2, ',', ''); } else { echo 0; } ?></td>
                             <td><?php echo $lulus; ?></td>
-                            <td><a href="<?php echo base_url('laporan_nilai').'/transkrip_nilai/'.$row->nim.'/'.$this->uri->segment(3) ?>/" target="_blank">Print</a></td>
+                            <td>
+                            <?php if($bbt > 0) {?>
+                            <a href="<?php echo base_url('laporan_nilai').'/transkrip_nilai/'.$row->nim.'/'.$this->uri->segment(3).'/'.$id_prodi ?>" target="_blank">Print</a>
+                            <?php } ?>
+                            </td>
                         </tr>
                     <?php 
                     $peringkat++;

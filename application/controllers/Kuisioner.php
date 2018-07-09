@@ -8,6 +8,8 @@ class Kuisioner extends MY_Controller {
         $this->load->model('M_Dosen');
         $this->load->model('M_Mahasiswa');
 		$this->load->model('M_Kuisioner');
+		$this->load->model('M_Prodi');
+		$this->load->model('M_Matkul');
 		$this->load->model('M_Referensi_Kuisioner');
 		$this->load->helper('url');
 	
@@ -17,11 +19,11 @@ class Kuisioner extends MY_Controller {
     }
 
     public function index() {
-        $data['prodi'] = $this->M_Mahasiswa->ambil_prodi();
-		$data['dosen'] = $this->M_Mahasiswa->ambil_dosen();
-        $data['matkul'] = $this->M_Dosen->ambil_matkul();
+        $data['prodi'] = $this->M_Prodi->ambil_prodi();
+		$data['dosen'] = $this->M_Dosen->ambil_dosen();
+        $data['matkul'] = $this->M_Matkul->ambil_matkul();
         
-        $sql = $this->db->query("SELECT kategori FROM referensi_kuisioner WHERE jenis !='esai' GROUP BY kategori");
+        $sql = $this->db->query("SELECT referensi_kuisioner.id_kategori, kategori_kuisioner.nama as kategori FROM referensi_kuisioner JOIN kategori_kuisioner ON kategori_kuisioner.id=referensi_kuisioner.id_kategori WHERE jenis !='esai' GROUP BY id_kategori");
         
         $data['ref_kategori'] = array();
         
@@ -31,14 +33,14 @@ class Kuisioner extends MY_Controller {
             
         }
 
-        $data['esai'] = $this->db->query("SELECT id,kode,pertanyaan FROM referensi_kuisioner WHERE jenis ='esai' GROUP BY kategori")->result();
+        $data['esai'] = $this->db->query("SELECT id,kode,pertanyaan FROM referensi_kuisioner WHERE jenis ='esai' GROUP BY id_kategori")->result();
         
 		$this->render_page('pages/kuisioner/v_kuisioner', $data);
     }
     
     function proses_input() {
         $post = $this->input->post();
-        if($this->input->post('nim') == '' || $this->input->post('nama') == '' || $this->input->post('email') == '') {
+        if($this->input->post('nim') == '' || $this->input->post('nama') == '') {
             $this->session->set_flashdata('msg','<div class="alert alert-danger text-center"><strong>Gagal!</strong> <br> Silahkan isi dengan lengkap.</div>');
             redirect('kuisioner');
         } else {

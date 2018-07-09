@@ -1,8 +1,7 @@
 <?php
-    $this->db->select('mahasiswa.nim, mahasiswa.nama, mahasiswa.id_prodi, prodi.nama as prodi');
+    $this->db->select('mahasiswa.nim, mahasiswa.nama');
     $this->db->from('users');
     $this->db->join('mahasiswa', 'mahasiswa.nim = users.id_user');
-    $this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
     $this->db->where('mahasiswa.nim', $this->session->userdata("id_user"));
     $user = $this->db->get()->row();
 ?>
@@ -28,12 +27,6 @@
                     <div class="row mt-5">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="email" class="col-md-12">Alamat email <span class="text-danger">*</span></label>
-                                <div class="col-md-12">
-                                    <input id="email" type="text" name="email" class="form-control form-control-line">
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="nim" class="col-md-12">NIM <span class="text-danger">*</span></label>
                                 <div class="col-md-12">
                                     <input id="nim" type="text" name="nim" readonly value="<?php echo $user->nim ?>" class="form-control form-control-line">
@@ -47,13 +40,6 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="id_prodi" class="col-md-12">Program Studi <span class="text-danger">*</span></label>
-                                <div class="col-md-12">
-                                    <input type="hidden" name="id_prodi" readonly value="<?php echo $user->prodi ?>">
-                                    <input id="id_prodi" type="text" readonly value="<?php echo $user->prodi ?>" class="form-control form-control-line">
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label for="id_dosen" class="col-md-12">Mata Kuliah <span class="text-danger">*</span></label>
                                 <div class="col-md-12">
@@ -92,7 +78,7 @@
                                     $no = 1;
                                     
                                     $where = array(
-                                        'kategori' => $kategori->kategori
+                                        'id_kategori' => $kategori->id_kategori
                                     );
                         
                                     $ref_kuisioner = $this->M_Kuisioner->kuisioner($where, 'referensi_kuisioner');
