@@ -50,19 +50,19 @@
                 <a href="<?php echo base_url('mahasiswa'); ?>"></i>Mahasiswa</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
+            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "walikelas" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('kriteria_nilai'); ?>">Kriteria Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
+            if($this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "walikelas" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('nilai'); ?>">Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
+            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "walikelas" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('laporan_nilai'); ?>">Laporan Nilai</a>
@@ -70,6 +70,9 @@
             <?php }
             if($this->session->userdata("role") == "admin") { 
             ?>
+            <li>
+                <a href="<?php echo base_url('kategori_kuisioner'); ?>">Kategori Kuisioner</a>
+            </li>
             <li>
                 <a href="<?php echo base_url('referensi_kuisioner'); ?>">Referensi Kuisioner</a>
             </li>
@@ -80,7 +83,7 @@
                 <a href="<?php echo base_url('kuisioner'); ?>">Kuisioner</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "dosen_wali" || $this->session->userdata("role") == "wadir1") { 
+            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "walikelas" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('laporan_kuisioner'); ?>">Laporan Kuisioner</a>

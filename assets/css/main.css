@@ -640,3 +640,6 @@ table.dataTable.no-footer {
 table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after, table.dataTable thead .sorting_desc::after {
   display:none;
 }
+.white-box {
+  min-height: 50vh!important;
+}

@@ -9,34 +9,27 @@
             <div class="white-box">
 
                 <h3 class="box-title float-left mt-1 mb-4">Mata Kuliah</h3>
-                <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
-                    <div class="row">
-                        <div class="col-md-4 pt-2">
-                            Semester
-                        </div>
-                        <div class="col-md-8">
-                            <?php
-                                $p_semester = array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
-                                $js = 'class="form-control" id="semester" onChange="window.location = \''.base_url().'laporan_nilai/matkul/\' + $(\'#id_matkul\').val()+\'/\'+$(this).val()"'; 
-                                echo form_dropdown('semester', $p_semester, $this->uri->segment(4), $js);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+                <div class="pull-right mb-3 ml-3">
                     <?php
-                        $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url().'laporan_nilai/matkul/\' + $(this).val()+\'/\'+$(\'#semester\').val()"'; 
-                        echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
+                        $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url().'laporan_nilai/matkul/\' + $(\'#id_kelas\').val()+\'/\'+$(this).val()"'; 
+                        echo form_dropdown('id_matkul', $matkul, $this->uri->segment(4), $js);
                     ?>
                 </div>
+                <div class="pull-right mb-3 ml-3">
+                    <?php
+                        $js = 'class="form-control" id="id_kelas" onChange="window.location = \''.base_url().'laporan_nilai/matkul/\' + $(this).val()+\'/\'+$(\'#id_matkul\').val()"'; 
+                        echo form_dropdown('id_kelas', $kelas, $this->uri->segment(3), $js);
+                    ?>
+                </div>
+
                 <?php if($this->session->userdata('role') == 'wadir1') { ?>
                     <!-- <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download/'+$('#semester').val()+''); w.print();" class="btn btn-outline-success pull-right">Download</a> -->
                     <a href="javascript: w=window.location.href ='<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Download</a>
                 <?php } else if($this->session->userdata('role') == 'admin') { ?>
                     <a href="javascript: w=window.location.href = '<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Laporan</a>
                 <?php } else {
-                    if($this->uri->segment(3)) { ?>
-                    <a href="<?php echo base_url('laporan_nilai') ?>/createXLS/<?php echo $this->uri->segment(3); ?>/<?php echo $this->uri->segment(4); ?>" class="btn btn-outline-success pull-right">Download</a>
+                    if($this->uri->segment(3) && $this->uri->segment(4 && count($mahasiswa) > 0)) { ?>
+                    <a href="<?php echo base_url('laporan_nilai') ?>/export/<?php echo $this->uri->segment(3); ?>/<?php echo $this->uri->segment(4); ?>" class="btn btn-outline-success pull-right">Download</a>
                 <?php } 
                 }?>
 

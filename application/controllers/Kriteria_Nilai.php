@@ -16,19 +16,21 @@ class Kriteria_Nilai extends MY_Controller {
 	}
  
 	function index() {
-		$data['id_matkul'] = 0;
-		$data['matkul'] = $this->M_Nilai->ambil_matkul();
-		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'), 0)->result();
+		$data['id_matkul'] = '';
+		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
+		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'), $data['id_matkul'])->result();
 		$this->render_page('pages/kriteria_nilai/v_kriteria_nilai', $data);
 	}
 
-	function matkul($id_matkul) {
-		if($id_matkul == 0) {
-			redirect('kriteria_nilai');	
-		}
-		$data['matkul'] = $this->M_Nilai->ambil_matkul();
+	function matkul($id_matkul='') {
 		$data['id_matkul'] = $id_matkul;
-		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'),$id_matkul)->result();
+		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
+		$data['kriteria_nilai'] = $this->M_Kriteria_Nilai->get_data($this->session->userdata('id_user'), $data['id_matkul'])->result();
+
+		if($id_matkul == '') {
+			redirect('kriteria_nilai');
+		}
+
 		$this->render_page('pages/kriteria_nilai/v_kriteria_nilai', $data);
 	}
 
@@ -63,11 +65,11 @@ class Kriteria_Nilai extends MY_Controller {
 			'id_dosen' => $pk,
 			'id_matkul' => $id_matkul
 		);
-		$cek = $this->db->get_where('kriteria', array('id_dosen' =>$pk, 'id_matkul' => $id_matkul));
+		$cek = $this->db->get_where('kriteria_nilai', array('id_dosen' =>$pk, 'id_matkul' => $id_matkul));
 		if($cek->num_rows() > 0) {
-			$this->M_Kriteria_Nilai->update_data(array('id_dosen' =>$pk, 'id_matkul' => $id_matkul), $input,'kriteria');
+			$this->M_Kriteria_Nilai->update_data(array('id_dosen' =>$pk, 'id_matkul' => $id_matkul), $input, 'kriteria_nilai');
 		} else {
-			$this->M_Kriteria_Nilai->input_data($input, 'kriteria');
+			$this->M_Kriteria_Nilai->input_data($input, 'kriteria_nilai');
 		}
 		
 	}

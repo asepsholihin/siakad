@@ -6,8 +6,10 @@ class Nilai extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('M_Nilai');
+		$this->load->model('M_Kriteria_Nilai');
 		$this->load->model('M_Upload');
 		$this->load->model('M_Dosen');
+		$this->load->model('M_Kelas');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -17,24 +19,30 @@ class Nilai extends MY_Controller {
  
 	public function index() {
 		$data['mahasiswa'] = array();
-		$data['matkul'] = $this->M_Dosen->ambil_matkul_();
-		$data['cek_kriteria'] = $this->db->get_where('kriteria', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
+		$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
+		$data['cek_kriteria'] = $this->db->get_where('kriteria_nilai', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
 		$this->render_page('pages/nilai/v_nilai', $data);
 	}
 
-	public function matkul($id_matkul,$semester) {
-		if($id_matkul == 0) {
-			redirect('nilai');	
+	public function matkul($kelas='',$id_matkul='') {
+		$data['mahasiswa'] = $this->M_Nilai->get_data($id_matkul, $kelas);
+		//echo $this->db->last_query();
+		$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
+		if($id_matkul) {
+			$data['cek_kriteria'] = $this->db->get_where('kriteria_nilai', array('id_dosen' => $this->session->userdata('id_user'), 'id_matkul' => $id_matkul))->num_rows();
 		} else {
-			$data['mahasiswa'] = $this->M_Nilai->get_data($id_matkul, $semester);
-			$data['matkul'] = $this->M_Dosen->ambil_matkul_();
-			$data['cek_kriteria'] = $this->db->get_where('kriteria', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
-			$this->render_page('pages/nilai/v_nilai', $data);
+			$data['cek_kriteria'] = 1;
 		}
+		$this->render_page('pages/nilai/v_nilai', $data);
 		
 	}
  
-	function proses_edit($id_matkul,$semester) {
+	function proses_edit($id_matkul) {
+
+		$semester = $this->db->get_where('matkul', array('id'=>$id_matkul))->row()->semester;
+
 		$name 		= $this->input->post('name');
 		$pk 		= $this->input->post('pk');
 		$value 		= $this->input->post('value');

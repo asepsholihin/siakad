@@ -1,64 +1,55 @@
 <?php 
  
 class M_Nilai extends CI_Model{
-	function get_data($id_matkul,$semester){
+	function get_data($id_matkul,$kelas){
 		$query = $this->db->query("
 		SELECT nilai.uts, nilai.uas, nilai.tugas,
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria_nilai.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria_nilai.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria_nilai.tugas/100 ELSE '' END) AS total_tugas,
 		mahasiswa.nim,
 		mahasiswa.nama, 
 		nilai.id_matkul FROM nilai
-        JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul 
-		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.semester='".$semester."'
+		JOIN kriteria_nilai ON nilai.id_matkul = kriteria_nilai.id_matkul 
+		JOIN matkul ON nilai.id_matkul = matkul.id 
+		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim AND nilai.id_matkul='".$id_matkul."' WHERE mahasiswa.id_kelas='".$kelas."'
 		GROUP BY mahasiswa.nim");
 		
 		return $query->result();
 	}
 
-	function get_data_kelas($id_dosen, $id_matkul, $semester){
-
-		if($this->session->userdata('role') == "dosen") {
-			$where = "nilai.id_dosen LIKE '%".$id_dosen."%' AND ";
-			$group = "GROUP BY mahasiswa.nim";
-		} else if($this->session->userdata('role') == "dosen_wali") {
-			$where = "mahasiswa.id_dosen LIKE '%".$id_dosen."%' AND ";
-			$group = "GROUP BY mahasiswa.nim";
-		} else if($this->session->userdata('role') == "kajur") {
-			$join = "JOIN dosen ON dosen.id_prodi = mahasiswa.id_prodi";
-			$group = "GROUP BY mahasiswa.nim";
-		} else if($this->session->userdata('role') == "admin" || $this->session->userdata('role') == "wadir1") {
-			$join = "";
-			$group = "GROUP BY mahasiswa.nim";
+	function get_data_kelas($id_matkul, $id_kelas){
+		if($this->session->userdata('role') == "admin" || $this->session->userdata('role') == "wadir1") {
+			$where = "";
+		} else {
+			$where = "WHERE mahasiswa.id_kelas='".$id_kelas."'";
 		}
 			
 
 		$query = $this->db->query("
 		SELECT nilai.uts, nilai.uas, nilai.tugas,
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas,
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria_nilai.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria_nilai.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria_nilai.tugas/100 ELSE '' END) AS total_tugas,
 		mahasiswa.nim,
 		mahasiswa.nama,
 		nilai.id_matkul
 		FROM nilai 
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		".$join."
-		JOIN kriteria ON nilai.id_dosen = kriteria.id_dosen AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." mahasiswa.semester='".$semester."' ".$group."");
+		JOIN kriteria_nilai ON nilai.id_dosen = kriteria_nilai.id_dosen AND nilai.id_matkul='".$id_matkul."' ".$where." GROUP BY mahasiswa.nim");
 		return $query->result();
 	}
 
 	function transkrip($nim){
 		return $query = $this->db->query("
 		SELECT mahasiswa.nim, mahasiswa.nama, matkul.kode, matkul.nama as matkul, matkul.sks, nilai.uts, nilai.uas, nilai.tugas,
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria_nilai.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria_nilai.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria_nilai.tugas/100 ELSE '' END) AS total_tugas
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."'
+		JOIN kriteria_nilai ON nilai.id_matkul = kriteria_nilai.id_matkul AND mahasiswa.nim='".$nim."'
 		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul
 		GROUP BY nilai.id_matkul");
 	}
@@ -66,13 +57,13 @@ class M_Nilai extends CI_Model{
 	function transkrip_all($nim){
 		return $query = $this->db->query("
 		SELECT mahasiswa.nim, mahasiswa.nama, matkul.kode, matkul.nama as matkul, matkul.sks, nilai.uts, nilai.uas, nilai.tugas,
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria_nilai.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria_nilai.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria_nilai.tugas/100 ELSE '' END) AS total_tugas
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."'
+		JOIN kriteria_nilai ON nilai.id_matkul = kriteria_nilai.id_matkul AND mahasiswa.nim='".$nim."'
 		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul
 		GROUP BY nilai.id_matkul");
 	}
@@ -80,13 +71,13 @@ class M_Nilai extends CI_Model{
 	function print_transkrip($nim, $semester){
 		return $query = $this->db->query("
 		SELECT matkul.kode, matkul.nama as matkul, matkul.sks, nilai.uts, nilai.uas, nilai.tugas,
-		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
-		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria.uas/100 ELSE '' END) AS total_uas,
-		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria.tugas/100 ELSE '' END) AS total_tugas
+		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria_nilai.uts/100 ELSE '' END) AS total_uts,
+		(CASE WHEN nilai.uas IS NOT NULL THEN nilai.uas*kriteria_nilai.uas/100 ELSE '' END) AS total_uas,
+		(CASE WHEN nilai.tugas IS NOT NULL THEN nilai.tugas*kriteria_nilai.tugas/100 ELSE '' END) AS total_tugas
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."'
+		JOIN kriteria_nilai ON nilai.id_matkul = kriteria_nilai.id_matkul AND mahasiswa.nim='".$nim."'
 		JOIN kuisioner ON kuisioner.id_mahasiswa = nilai.id_mahasiswa AND kuisioner.id_matkul = nilai.id_matkul WHERE nilai.semester='".$semester."'
 		GROUP BY nilai.id_matkul");
 	}
@@ -113,23 +104,6 @@ class M_Nilai extends CI_Model{
     function hapus_data($where, $table){
         $this->db->where($where);
         $this->db->delete($table);
-	}
-	
-	function ambil_matkul() {
-		$this->db->select('id, matkul.nama');
-		$this->db->from('matkul');
-		$this->db->join('dosen', 'dosen.id_matkul = matkul.id', 'LEFT');
-		// if(!empty($this->session->userdata("id_user"))) {
-		// 	$this->db->where('dosen.nidn', $this->session->userdata("id_user"));
-		// }
-		
-		$query = $this->db->get();
-		foreach ($query->result() as $row)
-		{
-			$return[0] = "Pilih Mata Kuliah";
-			$return[$row->id] = $row->nama;
-		}
-		return $return;
 	}
 
 	public function grading($nilai) {
@@ -189,5 +163,19 @@ class M_Nilai extends CI_Model{
 		} else {
 			return "Lulus";
 		}
+	}
+
+	function ambil_kelas($id_dosen) {
+		$prodi = $this->db->get_where('dosen', array('nidn' => $id_dosen))->row();
+		$this->db->select('id, nama');
+		$this->db->from('kelas');
+		$this->db->where('id_prodi', $prodi->id_prodi);
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[''] = 'Pilih Kelas';
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
 	}
 }

@@ -1,8 +1,8 @@
 <?php 
  
-class M_Kriteria_Nilai extends CI_Model{	
-	function get_data($id_dosen, $id_matkul){
-		return $this->db->get_where('kriteria_nilai', array("id_dosen" => $id_dosen, "id_matkul" => $id_matkul));
+class M_Kategori_Kuisioner extends CI_Model{	
+	function get_data(){
+		return $this->db->get('kategori_kuisioner');
 	}
  
 	function input_data($data, $table){
@@ -23,16 +23,12 @@ class M_Kriteria_Nilai extends CI_Model{
         $this->db->delete($table);
 	}
 	
-	function ambil_matkul($id_dosen) {
-		$dosen = $this->db->get_where('dosen', array('nidn'=>$id_dosen))->row();
-
-		$this->db->select('DISTINCT(id), matkul.nama');
-		$this->db->from('matkul');
-		$this->db->join('dosen', 'matkul.id IN ('.$dosen->matkul.')');
+	function ambil_kategori_kuisioner() {
+		$this->db->select('id, nama');
+		$this->db->from('kategori_kuisioner');
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{
-			$return[''] = 'Pilih Mata Kuliah';
 			$return[$row->id] = $row->nama;
 		}
 		return $return;
