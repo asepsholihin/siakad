@@ -28,12 +28,14 @@ class Matkul extends MY_Controller {
 		$nama 		= $this->input->post('nama');
 		$sks 		= $this->input->post('sks');
 		$id_prodi	= $this->input->post('id_prodi');
+		$semester	= $this->input->post('semester');
  
 		$data = array(
 			'kode'		=> $kode,
 			'nama'		=> $nama,
 			'sks'		=> $sks,
-			'id_prodi'	=> $id_prodi
+			'id_prodi'	=> $id_prodi,
+			'semester'	=> $semester
 			);
 
 		$this->M_Matkul->input_data($data, 'matkul');
@@ -54,12 +56,14 @@ class Matkul extends MY_Controller {
 		$nama 		= $this->input->post('nama');
 		$sks 		= $this->input->post('sks');
 		$id_prodi	= $this->input->post('id_prodi');
+		$semester	= $this->input->post('semester');
 		
 		$data = array(
 			'id' 		=> $id,
 			'nama'		=> $nama,
 			'sks'		=> $sks,
-			'id_prodi'	=> $id_prodi
+			'id_prodi'	=> $id_prodi,
+			'semester'	=> $semester
 			);
 
 		$where = array(

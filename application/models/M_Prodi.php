@@ -21,5 +21,17 @@ class M_Prodi extends CI_Model{
     function hapus_data($where, $table){
         $this->db->where($where);
         $this->db->delete($table);
-    }
+	}
+	
+	function ambil_prodi_() {
+		$this->db->select('id, nama');
+		$this->db->from('prodi');
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[0] = "Pilih Program Studi";
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
+	}
 }

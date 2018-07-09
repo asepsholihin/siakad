@@ -8,18 +8,37 @@
         <div class="col-md-12">
             <div class="white-box">
 
-                <div class="text-center">
-                    <h4>EVALUASI KELULUSAN PROGRAM PENDIDIKAN</h4>
-                    <h5>JURUSAN/PROGRAM STUDI : MANAJEMEN INFORMATIKA</h5>
-                    <p>Tahun Akademik 2015/2016</p>
-
-                    <div class="col-md-2 offset-md-5 mt-4">
+                <div class="row">
+                    <div class="col-md-2 offset-md-3 mb-4">
                         <?php
-                            $p_semester = array(''=>'Pilih Semester','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
-                            $js = 'class="form-control" id="semester" onChange="window.location = \''.base_url().'laporan_nilai/laporan/\' + $(this).val()"'; 
+                            $p_semester = array('0'=>'Pilih Semester','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
+                            $js = 'class="form-control" id="semester"'; 
                             echo form_dropdown('semester', $p_semester, $this->uri->segment(3), $js);
                         ?>
                     </div>
+                    <div class="col-md-2 mb-4">
+                        <?php
+                            $js = 'class="form-control" id="prodi"'; 
+                            echo form_dropdown('prodi', $prodi, $this->uri->segment(4), $js);
+                        ?>
+                    </div>
+                    <div class="col-md-2 mb-4">
+                        <?php if($this->session->userdata('role') == 'wadir1') { ?>
+                            <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download/'+$('#semester').val()+'/'+$('#prodi').val()+''); w.print();" class="btn btn-outline-success btn-block">Download</a>
+                        <?php } else { ?>
+                            <button class="btn btn-block btn-outline-success" onclick="lihat()">Lihat</button>
+                        <?php } ?>
+                    </div>
+                </div>
+                <?php
+                    $q_prodi = $this->db->get_where('prodi', array('id'=> $this->uri->segment(4)));
+                ?>
+
+                <?php if($semester != 0 && $q_prodi->num_rows() > 0) { ?>
+                <div class="text-center">
+                    <h4>EVALUASI KELULUSAN PROGRAM PENDIDIKAN</h4>
+                    <h5>JURUSAN/PROGRAM STUDI : <?php echo strtoupper($q_prodi->row()->nama); ?></h5>
+                    <p>Tahun Akademik <?php echo date('Y') ;?>/<?php echo date('Y')+1; ?></p>
                 </div>
 
                 <div class="text-left mb-2">
@@ -96,8 +115,8 @@
                             ?>
                             <td><?php echo $nilai_matkul[$matkul->nama]; ?></td>
                             <?php } ?>
-                            <td><?php echo $bbt; ?></td>
-                            <td><?php if($bbt != 0) { echo floatval($bbt/$jml_sks); } else { echo 0; } ?></td>
+                            <td><?php echo number_format($bbt, 2, ',', ''); ?></td>
+                            <td><?php if($bbt != 0) { echo number_format($bbt/$jml_sks, 2, ',', ''); } else { echo 0; } ?></td>
                             <td><?php echo $lulus; ?></td>
                             <td><a href="<?php echo base_url('laporan_nilai').'/transkrip_nilai/'.$row->nim.'/'.$this->uri->segment(3) ?>/" target="_blank">Print</a></td>
                         </tr>
@@ -120,7 +139,18 @@
                     </tr>
                 </table>
 
+                <?php } ?>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function lihat() {
+    var smt = $('#semester').val();
+    var prodi = $('#prodi').val();
+    
+    window.location.href = '<?php echo base_url('laporan_nilai/laporan')?>/'+smt+'/'+prodi;
+}
+</script>

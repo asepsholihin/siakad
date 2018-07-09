@@ -2,7 +2,7 @@
  
 class M_Laporan_Nilai extends CI_Model{
 
-	function print_transkrip($nim, $semester){
+	function print_transkrip($nim, $semester, $prodi){
 		return $query = $this->db->query("
 		SELECT matkul.kode, matkul.nama as matkul, matkul.sks, nilai.uts, nilai.uas, nilai.tugas,
 		(CASE WHEN nilai.uts IS NOT NULL THEN nilai.uts*kriteria.uts/100 ELSE '' END) AS total_uts,
@@ -11,7 +11,7 @@ class M_Laporan_Nilai extends CI_Model{
 		FROM nilai
 		JOIN matkul ON nilai.id_matkul = matkul.id
 		JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim
-		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."' WHERE nilai.semester='".$semester."'
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND mahasiswa.nim='".$nim."' WHERE matkul.semester='".$semester."'
 		GROUP BY nilai.id_matkul");
 	}
 }

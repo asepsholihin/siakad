@@ -34,6 +34,19 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="id_prodi" class="col-md-12">Semester</label>
+                        <div class="col-md-12">
+                            <select name="semester" id="semester" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
                             <a href="<?php echo base_url('matkul')?>" class="btn btn-danger">Batal</a>

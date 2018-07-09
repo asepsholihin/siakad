@@ -26,6 +26,7 @@
                                 <th>Mata Kuliah</th>
                                 <th>SKS</th>
                                 <th>Program Studi</th>
+                                <th>Semester</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -40,6 +41,7 @@
                             <td><?php echo $u->nama ?></td>
                             <td><?php echo $u->sks ?></td>
                             <td><?php echo $u->prodi ?></td>
+                            <td><?php echo $u->semester ?></td>
                             <td>
                                 <a href="<?php echo base_url('matkul/edit/'.$u->id.'');?>" class="btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('matkul/hapus/'.$u->id.'');?>" class="btn btn-outline-danger">Hapus</a>

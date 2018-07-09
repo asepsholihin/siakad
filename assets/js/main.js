@@ -32,7 +32,7 @@ $(document).ready(function() {
     });
 
     $('#data_nilai').DataTable({
-        "order": [[ 6, "desc" ]],
+        "order": [[ 3, "desc" ]],
         "info": false
     });
 });

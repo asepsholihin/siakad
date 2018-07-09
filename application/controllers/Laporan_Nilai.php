@@ -11,6 +11,7 @@ class Laporan_Nilai extends MY_Controller {
 		$this->load->model('M_Upload');
 		$this->load->model('M_User');
 		$this->load->model('M_Dosen');
+		$this->load->model('M_Prodi');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -35,15 +36,16 @@ class Laporan_Nilai extends MY_Controller {
 		}
 	}
 
-	public function download($semester) {
+	public function download($semester,$prodi='') {
 		$data['semester'] = $semester;
-		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' GROUP BY mahasiswa.nim")->result();
+		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' AND mahasiswa.id_prodi='".$prodi."' GROUP BY mahasiswa.nim")->result();
 		$this->load->view('pages/laporan_nilai/v_print_nilai', $data);   
 	}
 
-	public function laporan($semester) {
+	public function laporan($semester = '', $prodi = '') {
 		$data['semester'] = $semester;
-		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' GROUP BY mahasiswa.nim")->result();
+		$data['prodi'] = $this->M_Prodi->ambil_prodi_();
+		$data['mahasiswa'] = $this->db->query("SELECT * FROM mahasiswa LEFT JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim WHERE mahasiswa.semester='".$semester."' AND mahasiswa.id_prodi='".$prodi."' GROUP BY mahasiswa.nim")->result();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai_admin', $data);   
 	}
 

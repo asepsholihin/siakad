@@ -41,10 +41,14 @@ $(document).ready(function() {
 });
 </script>
 
+<?php
+    $q_prodi = $this->db->get_where('prodi', array('id'=> $this->uri->segment(4)));
+?>
+
 <div class="text-center">
     <h4>EVALUASI KELULUSAN PROGRAM PENDIDIKAN</h4>
-    <h5>JURUSAN/PROGRAM STUDI : MANAJEMEN INFORMATIKA</h5>
-    <p>Tahun Akademik 2015/2016</p>
+    <h5>JURUSAN/PROGRAM STUDI : <?php echo strtoupper($q_prodi->row()->nama); ?></h5>
+    <p>Tahun Akademik <?php echo date('Y') ;?>/<?php echo date('Y')+1; ?></p>
 </div>
 
 <div class="text-left mb-2">
@@ -59,7 +63,7 @@ $(document).ready(function() {
             $jml_matkul = $this->db->query("SELECT nama, sks FROM matkul WHERE semester='".$this->uri->segment(3)."'")->num_rows();
             ?>
             <?php
-            $query = $this->db->query("SELECT nama, sks FROM matkul")->result();
+            $query = $this->db->query("SELECT nama, sks FROM matkul WHERE semester='".$this->uri->segment(3)."'")->result();
             foreach($query as $matkul) {
             ?>
             <th><?php echo $matkul->nama. "<br> SKS(" .$matkul->sks.")"; ?></th>
@@ -77,7 +81,7 @@ $(document).ready(function() {
     $peringkat = 1;
     foreach($mahasiswa as $row) { 
     
-        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $semester)->result();
+        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $semester, $this->uri->segment(4))->result();
         //echo json_encode($nilais);
         $sks = array();
         $nilai = array();
@@ -121,13 +125,13 @@ $(document).ready(function() {
             <td class="text-left"><?php echo $row->nama; ?></td>
             <td><?php echo $row->nim; ?></td>
             <?php
-            $query = $this->db->query("SELECT nama, sks FROM matkul WHERE semester='".$this->uri->segment(4)."'")->result();
+            $query = $this->db->query("SELECT nama, sks FROM matkul WHERE semester='".$this->uri->segment(3)."'")->result();
             foreach($query as $matkul) {
             ?>
             <td><?php echo $nilai_matkul[$matkul->nama]; ?></td>
             <?php } ?>
             <td><?php echo $bbt; ?></td>
-            <td><?php if($bbt != 0) { echo floatval($bbt/$jml_sks); } else { echo 0; } ?></td>
+            <td><?php if($bbt != 0) { echo number_format($bbt/$jml_sks, 2, ',', ''); } else { echo 0; } ?></td>
             <td><?php echo $jml_d; ?></td>
             <td><?php echo $jml_e; ?></td>
             <td><?php echo $lulus; ?></td>

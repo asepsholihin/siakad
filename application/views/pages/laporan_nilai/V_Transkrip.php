@@ -183,7 +183,7 @@ function tanggal_indo($tanggal)
                     <tr>
                         <td>Index Prestasi Semester (IPS)</td>
                         <td>:</td>
-                        <td><?php if($bbt != 0) { echo floatval($bbt/$jml_sks); } else { echo 0; } ?></td>
+                        <td><?php if($bbt != 0) { echo number_format($bbt/$jml_sks, 2, ',', ''); } else { echo 0; } ?></td>
                     </tr>
                     <tr>
                         <td>Stauan Kelulusana</td>

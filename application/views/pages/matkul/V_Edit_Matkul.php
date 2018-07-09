@@ -30,6 +30,15 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="id_prodi" class="col-md-12">Semester</label>
+                        <div class="col-md-12">
+                            <?php
+                                $p_semester = array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
+                                echo form_dropdown('semester', $p_semester, $u->semester, 'class="form-control"'); 
+                            ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
                             <a href="<?php echo base_url('matkul')?>" class="btn btn-danger">Batal</a>
