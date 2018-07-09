@@ -12,6 +12,7 @@
     <link href="<?php echo base_url(); ?>assets/css/default.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/jquery-editable.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body class="fix-header">
@@ -37,6 +38,7 @@
     <script src="<?php echo base_url(); ?>assets/js/jquery-editable-poshytip.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </body>
 
 </html>

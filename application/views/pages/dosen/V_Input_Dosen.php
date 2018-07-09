@@ -59,15 +59,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_dosen" class="col-md-12">Mata Kuliah</label>
+                        <label for="jabatan" class="col-md-12">Jabatan</label>
                         <div class="col-md-12">
-                            <?php echo form_dropdown('id_matkul', $matkul, null, 'class="form-control"'); ?>
+                            <select name="jabatan" id="jabatan" class="form-control">
+                                <option value="Dosen">Dosen</option>
+                                <option value="Wali Kelas">Wali kelas</option>
+                                <option value="KEtua Jurusan">Ketua Jurusan</option>
+                                <option value="Wakil Direktur 1">Wakil Direktur 1</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="jabatan" class="col-md-12">Jabatan</label>
+                        <label for="id_dosen" class="col-md-12">Mata Kuliah</label>
                         <div class="col-md-12">
-                            <input id="jabatan" type="text" name="jabatan" class="form-control form-control-line" required> 
+                            <?php echo form_dropdown('matkul[]', $matkul, null, 'class="form-control select2" multiple="multiple"'); ?>
                         </div>
                     </div>
                     <div class="form-group">

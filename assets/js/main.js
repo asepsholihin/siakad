@@ -35,4 +35,6 @@ $(document).ready(function() {
         "order": [[ 3, "desc" ]],
         "info": false
     });
+
+    $('.select2').select2();
 });

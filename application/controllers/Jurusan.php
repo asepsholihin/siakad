@@ -1,11 +1,10 @@
 <?php 
  defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Prodi extends MY_Controller {
+class Jurusan extends MY_Controller {
  
 	function __construct(){
 		parent::__construct();
-		$this->load->model('M_Prodi');
 		$this->load->model('M_Jurusan');
 		$this->load->helper('url');
 	
@@ -16,59 +15,54 @@ class Prodi extends MY_Controller {
 	}
  
 	public function index() {
-		$data['prodi'] = $this->M_Prodi->get_data()->result();
-		$this->render_page('pages/prodi/v_prodi', $data);
+		$data['jurusan'] = $this->M_Jurusan->get_data()->result();
+		$this->render_page('pages/jurusan/v_jurusan', $data);
 	}
 
 	function input() {
-		$data['jurusan'] = $this->M_Jurusan->ambil_jurusan();
-		$this->render_page('pages/prodi/v_input_prodi', $data);
+		$this->render_page('pages/jurusan/v_input_jurusan');
 	}
  
 	function proses_input() {
 		$nama 		= $this->input->post('nama');
-		$id_jurusan	= $this->input->post('id_jurusan');
  
 		$data = array(
-			'nama'		=> $nama,
-			'id_jurusan'=> $id_jurusan
-		);
+			'nama'		=> $nama
+			);
 
-		$this->M_Prodi->input_data($data, 'prodi');
+		$this->M_Jurusan->input_data($data, 'jurusan');
 		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
-		redirect('prodi');
+		redirect('jurusan');
 	}
 
 	function edit($id){
-		$where = array('id' => $id);
-		$data['jurusan'] = $this->M_Jurusan->ambil_jurusan();
-        $data['prodi'] = $this->M_Prodi->edit_data($where, 'prodi')->result();
-        $this->render_page('pages/prodi/v_edit_prodi', $data);
+        $where = array('id' => $id);
+        $data['jurusan'] = $this->M_Jurusan->edit_data($where, 'jurusan')->result();
+        $this->render_page('pages/jurusan/v_edit_jurusan', $data);
 	}
 	
 	function proses_edit() {
 		$id 		= $this->input->post('id');
 		$nama 		= $this->input->post('nama');
-		$id_jurusan	= $this->input->post('id_jurusan');
  
 		$data = array(
-			'nama'		=> $nama,
-			'id_jurusan'=> $id_jurusan
-		);
+			'id' 		=> $id,
+			'nama'		=> $nama
+			);
 
 		$where = array(
 			'id' => $id
 		);
 
-		$this->M_Prodi->update_data($where, $data, 'prodi');
+		$this->M_Jurusan->update_data($where, $data, 'jurusan');
 		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
-		redirect('prodi');
+		redirect('jurusan');
 	}
 
 	function hapus($id){
 		$where = array('id' => $id);
-		$this->M_Prodi->hapus_data($where, 'prodi');
+		$this->M_Jurusan->hapus_data($where, 'jurusan');
 		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil dihapus.</div>');
-		redirect('prodi');
+		redirect('jurusan');
 	}
 }

@@ -27,9 +27,9 @@ class M_Matkul extends CI_Model{
         $this->db->delete($table);
 	}
 
-	function ambil_prodi() {
+	function ambil_matkul() {
 		$this->db->select('id, nama');
-		$this->db->from('prodi');
+		$this->db->from('matkul');
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{

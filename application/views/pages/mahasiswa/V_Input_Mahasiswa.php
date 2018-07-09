@@ -53,29 +53,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_prodi" class="col-md-12">Program Studi</label>
+                        <label for="id_kelas" class="col-md-12">Kelas</label>
                         <div class="col-md-12">
-                            <?php echo form_dropdown('id_prodi', $prodi, null, 'class="form-control"'); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_dosen" class="col-md-12">Dosen Wali </label>
-                        <div class="col-md-12">
-                            <?php echo form_dropdown('id_dosen', $dosen, null, 'class="form-control"'); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="semester" class="col-md-12">Semester</label>
-                        <div class="col-md-12">
-                            <select class="form-control" id="semester" name="semester" required>
-                                <option value="">Pilih Semester</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
+                            <?php echo form_dropdown('id_kelas', $kelas, null, 'class="form-control"'); ?>
                         </div>
                     </div>
                     <div class="form-group">

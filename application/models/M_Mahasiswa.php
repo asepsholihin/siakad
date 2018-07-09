@@ -2,20 +2,20 @@
  
 class M_Mahasiswa extends CI_Model{	
 	function get_data(){
-		$this->db->select('mahasiswa.*, prodi.nama as prodi, dosen.nama as dosen_wali');
+		$this->db->select('mahasiswa.*, prodi.nama as prodi, kelas.nama as kelas');
 		$this->db->from('mahasiswa');
-		$this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
-		$this->db->join('dosen', 'dosen.nidn = mahasiswa.id_dosen');
+		$this->db->join('kelas', 'kelas.id = mahasiswa.id_kelas');
+		$this->db->join('prodi', 'prodi.id = kelas.id_prodi');
 		$this->db->order_by('mahasiswa.nim'); 
 		$query = $this->db->get();
 		return $query->result();
 	}
 
 	function profil($id) {
-		$this->db->select('mahasiswa.*, prodi.nama as prodi, dosen.nama as dosen_wali');
+		$this->db->select('mahasiswa.*, prodi.nama as prodi, kelas.nama as kelas');
 		$this->db->from('mahasiswa');
 		$this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
-		$this->db->join('dosen', 'dosen.nidn = mahasiswa.id_dosen');
+		$this->db->join('kelas', 'kelas.id = mahasiswa.id_kelas');
 		$this->db->where('mahasiswa.nim', $id);
 		$this->db->order_by('mahasiswa.nim'); 
 		$query = $this->db->get();
@@ -38,35 +38,5 @@ class M_Mahasiswa extends CI_Model{
     function hapus_data($where, $table){
         $this->db->where($where);
         $this->db->delete($table);
-	}
-	
-	function ambil_prodi() {
-		$this->db->select('id, nama');
-		$this->db->from('prodi');
-		$query = $this->db->get();
-		foreach ($query->result() as $row)
-		{
-			$return[$row->id] = $row->nama;
-		}
-		if($query->num_rows() > 0) {
-			return $return;
-		} else {
-			return null;
-		}
-	}
-
-	function ambil_dosen() {
-		$this->db->select('nidn, nama');
-		$this->db->from('dosen');
-		$query = $this->db->get();
-		foreach ($query->result() as $row)
-		{
-			$return[$row->nidn] = $row->nama;
-		}
-		if($query->num_rows() > 0) {
-			return $return;
-		} else {
-			return null;
-		}
 	}
 }

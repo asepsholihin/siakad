@@ -6,6 +6,7 @@ class Matkul extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('M_Matkul');
+		$this->load->model('M_Prodi');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -19,7 +20,7 @@ class Matkul extends MY_Controller {
 	}
 
 	function input() {
-		$data['prodi'] = $this->M_Matkul->ambil_prodi();
+		$data['prodi'] = $this->M_Prodi->ambil_prodi();
 		$this->render_page('pages/matkul/v_input_matkul', $data);
 	}
  
@@ -45,7 +46,7 @@ class Matkul extends MY_Controller {
 
 	function edit($id){
 		$where = array('id' => $id);
-		$data['prodi'] = $this->M_Matkul->ambil_prodi();
+		$data['prodi'] = $this->M_Prodi->ambil_prodi();
         $data['matkul'] = $this->M_Matkul->edit_data($where, 'matkul')->result();
         $this->render_page('pages/matkul/v_edit_matkul', $data);
 	}

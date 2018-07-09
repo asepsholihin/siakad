@@ -23,6 +23,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Program Studi</th>
+                                <th>Jurusan</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -34,6 +35,7 @@
                         <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $u->nama ?></td>
+                            <td><?php echo $u->jurusan ?></td>
                             <td>
                                 <a href="<?php echo base_url('prodi/edit/'.$u->id.'');?>" class="btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('prodi/hapus/'.$u->id.'');?>" class="btn btn-outline-danger">Hapus</a>

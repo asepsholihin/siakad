@@ -60,15 +60,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="id_dosen" class="col-md-12">Mata Kuliah</label>
+                        <label for="jabatan" class="col-md-12">Jabatan</label>
                         <div class="col-md-12">
-                            <?php echo form_dropdown('id_matkul', $matkul, $u->id_matkul, 'class="form-control"'); ?>
+                            <?php echo form_dropdown('jabatan', $jabatan, $u->jabatan, 'class="form-control"'); ?>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="jabatan" class="col-md-12">Jabatan</label>
+                        <label for="id_dosen" class="col-md-12">Mata Kuliah</label>
                         <div class="col-md-12">
-                            <input id="jabatan" type="text" name="jabatan" value="<?php echo $u->jabatan; ?>" class="form-control form-control-line" required> 
+                            <?php echo form_dropdown('matkul[]', $matkul, explode(',',$u->matkul), 'class="form-control select2" multiple="multiple"'); ?>
                         </div>
                     </div>
                     <div class="form-group">

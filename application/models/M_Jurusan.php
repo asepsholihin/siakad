@@ -1,11 +1,8 @@
 <?php 
  
-class M_Prodi extends CI_Model{	
+class M_Jurusan extends CI_Model{	
 	function get_data(){
-		$this->db->select('prodi.*, jurusan.nama as jurusan');
-		$this->db->from('prodi');
-		$this->db->join('jurusan', 'jurusan.id = prodi.id_jurusan');
-		return $this->db->get();
+		return $this->db->get('jurusan');
 	}
  
 	function input_data($data, $table){
@@ -26,9 +23,9 @@ class M_Prodi extends CI_Model{
         $this->db->delete($table);
 	}
 	
-	function ambil_prodi() {
+	function ambil_jurusan() {
 		$this->db->select('id, nama');
-		$this->db->from('prodi');
+		$this->db->from('jurusan');
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{

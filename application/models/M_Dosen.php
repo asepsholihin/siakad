@@ -2,10 +2,9 @@
  
 class M_Dosen extends CI_Model{	
 	function get_data(){
-		$this->db->select('dosen.*, prodi.nama as prodi, matkul.nama as matkul');
+		$this->db->select('dosen.*, prodi.nama as prodi');
 		$this->db->from('dosen');
 		$this->db->join('prodi', 'prodi.id = dosen.id_prodi');
-		$this->db->join('matkul', 'matkul.id = dosen.id_matkul');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -28,42 +27,21 @@ class M_Dosen extends CI_Model{
         $this->db->delete($table);
     }
 
-    function ambil_prodi() {
-		$this->db->select('id, nama');
-		$this->db->from('prodi');
-		$query = $this->db->get();
+	function ambil_dosen() {
+		$query = $this->db->get('dosen');
 		foreach ($query->result() as $row)
 		{
-			$return[$row->id] = $row->nama;
-		}
-		return $return;
-	}
-	
-	function ambil_matkul() {
-		$this->db->select('id, nama');
-		$this->db->from('matkul');
-		$query = $this->db->get();
-		foreach ($query->result() as $row)
-		{
-			$return[$row->id] = $row->nama;
+			$return[$row->nidn] = $row->nama;
 		}
 		return $return;
 	}
 
-	function ambil_matkul_() {
-		$dosen = $this->db->get_where('dosen', array("nidn" => $this->session->userdata('id_user')))->row();
-		//
-		$this->db->select('id, nama');
-		$this->db->from('matkul');
-		// if($this->session->userdata('role') != 'admin'){
-		// 	$this->db->where("id IN ($dosen->matkul)");
-		// }
-		$query = $this->db->get();
-		foreach ($query->result() as $row)
-		{
-			$return[0] = "Pilih Mata Kuliah";
-			$return[$row->id] = $row->nama;
-		}
-		return $return;
+	function ambil_jabatan() {
+		return array(
+			'Dosen' => 'Dosen',
+			'Wali Kelas' => 'Wali Kelas',
+			'Ketua Jurusan' => 'Ketua Jururan',
+			'Wakil Direktur 1' => 'Wakil Direktur 1'
+		);
 	}
 }

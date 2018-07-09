@@ -114,17 +114,6 @@ class M_Nilai extends CI_Model{
         $this->db->where($where);
         $this->db->delete($table);
 	}
-
-	function ambil_prodi() {
-		$this->db->select('id, nama');
-		$this->db->from('prodi');
-		$query = $this->db->get();
-		foreach ($query->result() as $row)
-		{
-			$return[$row->id] = $row->nama;
-		}
-		return $return;
-	}
 	
 	function ambil_matkul() {
 		$this->db->select('id, matkul.nama');

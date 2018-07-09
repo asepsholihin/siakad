@@ -24,8 +24,7 @@
                                 <th>NIM</th>
                                 <th>Nama</th>
                                 <th>Program Studi</th>
-                                <th>Dosen Wali</th>
-                                <th>Semester</th>
+                                <th>Kelas</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -39,8 +38,7 @@
                             <td><?php echo $u->nim ?></td>
                             <td><?php echo $u->nama ?></td>
                             <td><?php echo $u->prodi ?></td>
-                            <td><?php echo $u->dosen_wali ?></td>
-                            <td><?php echo $u->semester ?></td>
+                            <td><?php echo $u->kelas ?></td>
                             <td>
                                 <a href="<?php echo base_url('mahasiswa/edit/'.$u->nim.'');?>" class="btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('mahasiswa/hapus/'.$u->nim.'');?>" class="btn btn-outline-danger">Hapus</a>

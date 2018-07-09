@@ -6,6 +6,8 @@ class Dosen extends MY_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('M_Dosen');
+		$this->load->model('M_Prodi');
+		$this->load->model('M_Matkul');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -19,8 +21,9 @@ class Dosen extends MY_Controller {
 	}
 
 	function input() {
-		$data['prodi'] = $this->M_Dosen->ambil_prodi();
-		$data['matkul'] = $this->M_Dosen->ambil_matkul();
+		$data['prodi'] = $this->M_Prodi->ambil_prodi();
+		$data['matkul'] = $this->M_Matkul->ambil_matkul();
+		$data['jabatan'] = $this->M_Dosen->ambil_jabatan();
 		$this->render_page('pages/dosen/v_input_dosen', $data);
 	}
  
@@ -32,8 +35,8 @@ class Dosen extends MY_Controller {
 		$jk 		= $this->input->post('jk');
 		$alamat 	= $this->input->post('alamat');
 		$id_prodi 	= $this->input->post('id_prodi');
-		$id_matkul 	= $this->input->post('id_matkul');
 		$jabatan 	= $this->input->post('jabatan');
+		$matkul 	= $this->input->post('matkul');
  
 		$data = array(
 			'nidn' 		=> $nidn,
@@ -42,10 +45,11 @@ class Dosen extends MY_Controller {
 			'tmp_lahir'	=> $tmp_lahir,
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
-			'id_matkul' => $id_matkul,
 			'id_prodi'  => $id_prodi,
-			'jabatan'  => $jabatan
+			'jabatan'  => $jabatan,
+			'matkul'	=> implode(',',$matkul)
 			);
+
 
 		$this->M_Dosen->input_data($data, 'dosen');
 		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
@@ -54,8 +58,9 @@ class Dosen extends MY_Controller {
     
     function edit($id){
 		$where = array('nidn' => $id);
-		$data['prodi'] = $this->M_Dosen->ambil_prodi();
-		$data['matkul'] = $this->M_Dosen->ambil_matkul();
+		$data['prodi'] = $this->M_Prodi->ambil_prodi();
+		$data['matkul'] = $this->M_Matkul->ambil_matkul();
+		$data['jabatan'] = $this->M_Dosen->ambil_jabatan();
         $data['dosen'] = $this->M_Dosen->edit_data($where, 'dosen')->result();
         $this->render_page('pages/dosen/v_edit_dosen', $data);
     }
@@ -68,8 +73,8 @@ class Dosen extends MY_Controller {
 		$jk 		= $this->input->post('jk');
 		$alamat 	= $this->input->post('alamat');
 		$id_prodi 	= $this->input->post('id_prodi');
-		$id_matkul 	= $this->input->post('id_matkul');
 		$jabatan 	= $this->input->post('jabatan');
+		$matkul 	= $this->input->post('matkul');
      
         $data = array(
 			'nidn' 		=> $nidn,
@@ -78,9 +83,9 @@ class Dosen extends MY_Controller {
 			'tmp_lahir'	=> $tmp_lahir,
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
-			'id_matkul' => $id_matkul,
 			'id_prodi'  => $id_prodi,
-			'jabatan'   => $jabatan
+			'jabatan'   => $jabatan,
+			'matkul'	=> implode(',',$matkul)
 			);
      
         $where = array(

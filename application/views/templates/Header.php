@@ -32,23 +32,20 @@
             if($this->session->userdata("role") == "admin") { 
             ?>
             <li>
+                <a href="<?php echo base_url('jurusan'); ?>">Jurusan</a>
+            </li>
+            <li>
                 <a href="<?php echo base_url('prodi'); ?>">Program Studi</a>
             </li>
-            <?php }
-            if($this->session->userdata("role") == "admin") { 
-            ?>
+            <li>
+                <a href="<?php echo base_url('kelas'); ?>">Kelas</a>
+            </li>
             <li>
                 <a href="<?php echo base_url('matkul'); ?>">Mata Kuliah</a>
             </li>
-            <?php }
-            if($this->session->userdata("role") == "admin") { 
-            ?>
             <li>
                 <a href="<?php echo base_url('dosen'); ?>">Dosen</a>
             </li>
-            <?php }
-            if($this->session->userdata("role") == "admin") { 
-            ?>
             <li>
                 <a href="<?php echo base_url('mahasiswa'); ?>"></i>Mahasiswa</a>
             </li>
