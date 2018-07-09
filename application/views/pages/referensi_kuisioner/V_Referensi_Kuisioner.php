@@ -24,6 +24,7 @@
                                 <th>No</th>
                                 <th>Kategori</th>
                                 <th>Pertanyaan</th>
+                                <th>Jenis</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $u->kategori ?></td>
                             <td><?php echo $u->pertanyaan ?></td>
+                            <td><?php echo $u->jenis ?></td>
                             <td class="text-center">
                                 <a href="<?php echo base_url('referensi_kuisioner/edit/'.$u->id.'');?>" class="mb-2 btn btn-outline-warning">Edit</a>
                                 <a href="<?php echo base_url('referensi_kuisioner/hapus/'.$u->id.'');?>" class="btn btn-outline-danger">Hapus</a>

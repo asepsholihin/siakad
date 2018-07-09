@@ -63,8 +63,11 @@ class Laporan_Nilai extends MY_Controller {
 			$where = "mahasiswa.id_dosen LIKE '%".$this->session->userdata("id_user")."%' AND ";	
 		} else if($this->session->userdata('role') == "kajur") {	
 			$join = "JOIN dosen ON dosen.id_prodi = mahasiswa.id_prodi";	
-			$group = "GROUP BY nilai.id_matkul";	
-		}	
+			$group = "GROUP BY mahasiswa.nim";	
+		} else if($this->session->userdata('role') == "wadir1" || $this->session->userdata('role') == "admin") {
+			$join = "";	
+			$group = "GROUP BY mahasiswa.nim";	
+		}
 	
 		$data = $this->db->query("	
 		SELECT	
@@ -79,8 +82,7 @@ class Laporan_Nilai extends MY_Controller {
 		JOIN matkul ON matkul.id = nilai.id_matkul	
 		RIGHT JOIN mahasiswa ON nilai.id_mahasiswa = mahasiswa.nim	
 		".$join."	
-		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."
-		GROUP BY mahasiswa.nim");	
+		JOIN kriteria ON nilai.id_matkul = kriteria.id_matkul AND nilai.id_matkul='".$id_matkul."' WHERE ".$where." nilai.semester='".$semester."' ".$group."");	
 	
 		$tambah_field = array('NIM','Nama', 'Mata Kuliah', 'SKS', 'UTS', 'UAS', 'Tugas', 'Nilai Akhir', 'Nilai Mutu');	
 		$tambah = array('nilai_akhir', 'nilai_mutu');	

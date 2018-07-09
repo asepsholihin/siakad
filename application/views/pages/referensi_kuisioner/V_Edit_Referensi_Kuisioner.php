@@ -24,6 +24,19 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="jk" class="col-md-12">Jenis Pertanyaan</label>
+                        <div class="col-md-12">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" checked name="jenis" id="pilihan" value="pilihan" checked>
+                                <label class="form-check-label" for="pilihan">Pilihan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="jenis" id="esai" value="esai">
+                                <label class="form-check-label" for="esai">Esai</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
                             <a href="<?php echo base_url('referensi_kuisioner')?>" class="btn btn-danger">Batal</a>
