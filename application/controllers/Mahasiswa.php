@@ -9,7 +9,7 @@ class Mahasiswa extends MY_Controller {
 		$this->load->model('M_Prodi');
 		$this->load->model('M_Dosen');
 		$this->load->model('M_Kelas');
-		$this->load->model('M_Mahasiswa');
+		$this->load->model('M_Matkul');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -27,6 +27,7 @@ class Mahasiswa extends MY_Controller {
 		$data['prodi'] = $this->M_Prodi->ambil_prodi();
 		$data['dosen'] = $this->M_Dosen->ambil_dosen();
 		$data['kelas'] = $this->M_Kelas->ambil_kelas();
+		$data['matkul'] = $this->M_Matkul->ambil_matkul();
 		$this->render_page('pages/mahasiswa/v_input_mahasiswa', $data);
 	}
  
@@ -38,6 +39,7 @@ class Mahasiswa extends MY_Controller {
 		$jk 		= $this->input->post('jk');
 		$alamat 	= $this->input->post('alamat');
 		$id_kelas 	= $this->input->post('id_kelas');
+		$matkul 	= $this->input->post('matkul');
  
 		$post = array(
 			'nim' 		=> $nim,
@@ -47,6 +49,7 @@ class Mahasiswa extends MY_Controller {
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
 			'id_kelas'	=> $id_kelas,
+			'matkul'	=> implode(',',$matkul)
 			);
 		
 		$this->M_Mahasiswa->input_data($post, 'mahasiswa');
@@ -59,6 +62,7 @@ class Mahasiswa extends MY_Controller {
 		$data['prodi'] = $this->M_Prodi->ambil_prodi();
 		$data['dosen'] = $this->M_Dosen->ambil_dosen();
 		$data['kelas'] = $this->M_Kelas->ambil_kelas();
+		$data['matkul'] = $this->M_Matkul->ambil_matkul();
         $data['mahasiswa'] = $this->M_Mahasiswa->edit_data($where, 'mahasiswa')->result();
         $this->render_page('pages/mahasiswa/v_edit_mahasiswa', $data);
 	}
@@ -71,6 +75,7 @@ class Mahasiswa extends MY_Controller {
 		$jk 		= $this->input->post('jk');
 		$alamat 	= $this->input->post('alamat');
 		$id_kelas 	= $this->input->post('id_kelas');
+		$matkul 	= $this->input->post('matkul');
  
 		$post = array(
 			'nim' 		=> $nim,
@@ -79,7 +84,8 @@ class Mahasiswa extends MY_Controller {
 			'tmp_lahir'	=> $tmp_lahir,
 			'jk'		=> $jk,
 			'alamat'	=> $alamat,
-			'id_kelas'	=> $id_kelas
+			'id_kelas'	=> $id_kelas,
+			'matkul'	=> implode(',',$matkul)
 			);
 
 		$where = array(

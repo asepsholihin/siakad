@@ -14,6 +14,7 @@ class Laporan_Nilai extends MY_Controller {
 		$this->load->model('M_Kelas');
 		$this->load->model('M_Prodi');
 		$this->load->model('M_Kriteria_Nilai');
+		$this->load->model('M_Matkul');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -36,11 +37,21 @@ class Laporan_Nilai extends MY_Controller {
 	public function matkul($id_kelas='',$id_matkul='') {
 		if($this->session->userdata('role') == 'admin') {
 			$data['kelas'] = $this->M_Kelas->ambil_kelas();
-		} else {
+			$data['matkul'] = $this->M_Matkul->ambil_matkul();
+		} else if($this->session->userdata('role') == 'dosen'){
 			$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+			$data['matkul'] = $this->M_Matkul->ambil_matkul_dosen($this->session->userdata('id_user'));
+		} else if($this->session->userdata('role') == 'kajur') {
+			$id_prodi = $this->db->get_where('dosen', array('nidn' => $this->session->userdata('id_user')))->row()->id_prodi;
+			$data['matkul'] = $this->M_Matkul->ambil_matkul_jurusan($id_prodi);
+			$data['kelas'] = $this->M_Kelas->ambil_kelas_jurusan($id_prodi);
+		} else if($this->session->userdata('role') == 'wadir1') {
+			$data['matkul'] = $this->M_Matkul->ambil_matkul();
+			$data['kelas'] = $this->M_Kelas->ambil_kelas();
 		}
+
 		$data['mahasiswa'] = $this->M_Nilai->get_data_kelas($id_matkul,$id_kelas);
-		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
+		//echo $this->db->last_query();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 	}
 

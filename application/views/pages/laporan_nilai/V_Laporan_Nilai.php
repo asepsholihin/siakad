@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Data Nilai</h4> 
+            <h4 class="page-title">Data Laporan Nilai</h4> 
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
 
-                <h3 class="box-title float-left mt-1 mb-4">Mata Kuliah</h3>
+                <h3 class="box-title float-left mt-1 mb-4">Mata Laporan Kuliah</h3>
                 <div class="pull-right mb-3 ml-3">
                     <?php
                         $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url().'laporan_nilai/matkul/\' + $(\'#id_kelas\').val()+\'/\'+$(this).val()"'; 
@@ -26,7 +26,7 @@
                     <!-- <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download/'+$('#semester').val()+''); w.print();" class="btn btn-outline-success pull-right">Download</a> -->
                     <a href="javascript: w=window.location.href ='<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Download</a>
                 <?php } else if($this->session->userdata('role') == 'admin') { ?>
-                    <a href="javascript: w=window.location.href = '<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Laporan</a>
+                    <a href="javascript: w=window.location.href = '<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Transkirp</a>
                 <?php } else {
                     if($this->uri->segment(3) && $this->uri->segment(4 && count($mahasiswa) > 0)) { ?>
                     <a href="<?php echo base_url('laporan_nilai') ?>/export/<?php echo $this->uri->segment(3); ?>/<?php echo $this->uri->segment(4); ?>" class="btn btn-outline-success pull-right">Download</a>

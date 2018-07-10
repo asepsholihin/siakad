@@ -21,7 +21,7 @@ class Kuisioner extends MY_Controller {
     public function index() {
         $data['prodi'] = $this->M_Prodi->ambil_prodi();
 		$data['dosen'] = $this->M_Dosen->ambil_dosen();
-        $data['matkul'] = $this->M_Matkul->ambil_matkul();
+        $data['matkul'] = $this->M_Matkul->ambil_matkul_mahasiswa($this->session->userdata('id_user'));
         
         $sql = $this->db->query("SELECT referensi_kuisioner.id_kategori, kategori_kuisioner.nama as kategori FROM referensi_kuisioner JOIN kategori_kuisioner ON kategori_kuisioner.id=referensi_kuisioner.id_kategori WHERE jenis !='esai' GROUP BY id_kategori");
         

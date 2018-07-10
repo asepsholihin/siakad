@@ -34,6 +34,22 @@ class M_Kelas extends CI_Model{
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{
+			$return[''] = 'Pilih Kelas';
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
+	}
+
+	function ambil_kelas_jurusan($id_prodi) {
+		$this->db->select('kelas.id, kelas.nama');
+		$this->db->from('kelas');
+		$this->db->join('prodi', 'prodi.id = kelas.id_prodi');
+		$this->db->join('jurusan', 'jurusan.id = prodi.id_jurusan');
+		$this->db->where('kelas.id_prodi', $id_prodi);
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[''] = 'Pilih Kelas';
 			$return[$row->id] = $row->nama;
 		}
 		return $return;

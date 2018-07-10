@@ -19,12 +19,7 @@ class M_Nilai extends CI_Model{
 	}
 
 	function get_data_kelas($id_matkul, $id_kelas){
-		if($this->session->userdata('role') == "admin" || $this->session->userdata('role') == "wadir1") {
-			$where = "";
-		} else {
-			$where = "WHERE mahasiswa.id_kelas='".$id_kelas."'";
-		}
-			
+		$where = "WHERE mahasiswa.id_kelas='".$id_kelas."'";	
 
 		$query = $this->db->query("
 		SELECT nilai.uts, nilai.uas, nilai.tugas,

@@ -122,7 +122,7 @@
                             <td><?php echo $lulus; ?></td>
                             <td>
                             <?php if($bbt > 0) {?>
-                            <a href="<?php echo base_url('laporan_nilai').'/transkrip_nilai/'.$row->nim.'/'.$this->uri->segment(3).'/'.$id_prodi ?>" target="_blank">Print</a>
+                            <a class="btn btn-outline btn-info" href="<?php echo base_url('laporan_nilai').'/transkrip_nilai/'.$row->nim.'/'.$this->uri->segment(3).'/'.$id_prodi ?>" target="_blank">Print</a>
                             <?php } ?>
                             </td>
                         </tr>

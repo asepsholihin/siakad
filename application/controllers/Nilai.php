@@ -20,7 +20,7 @@ class Nilai extends MY_Controller {
  
 	public function index() {
 		$data['mahasiswa'] = array();
-		$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		$data['kelas'] = $this->M_Kelas->ambil_kelas();
 		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
 		$data['cek_kriteria'] = $this->db->get_where('kriteria_nilai', array('id_dosen' => $this->session->userdata('id_user')))->num_rows();
 		$this->render_page('pages/nilai/v_nilai', $data);
@@ -29,7 +29,7 @@ class Nilai extends MY_Controller {
 	public function matkul($kelas='',$id_matkul='') {
 		$data['mahasiswa'] = $this->M_Nilai->get_data($id_matkul, $kelas);
 		//echo $this->db->last_query();
-		$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+		$data['kelas'] = $this->M_Kelas->ambil_kelas();
 		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
 		if($id_matkul) {
 			$data['cek_kriteria'] = $this->db->get_where('kriteria_nilai', array('id_dosen' => $this->session->userdata('id_user'), 'id_matkul' => $id_matkul))->num_rows();

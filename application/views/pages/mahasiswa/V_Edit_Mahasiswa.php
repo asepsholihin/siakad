@@ -61,6 +61,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="id_dosen" class="col-md-12">Mata Kuliah</label>
+                        <div class="col-md-12">
+                            <?php echo form_dropdown('matkul[]', $matkul, explode(',',$row->matkul), 'class="form-control select2" multiple="multiple"'); ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Simpan</button>
                             <a href="<?php echo base_url('mahasiswa')?>" class="btn btn-danger">Batal</a>

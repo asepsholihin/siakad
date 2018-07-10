@@ -54,4 +54,36 @@ class M_Matkul extends CI_Model{
 		}
 		return $return;
 	}
+
+	function ambil_matkul_mahasiswa($id_mahasiswa) {
+		$mahasiswa = $this->db->get_where('mahasiswa', array('nim'=>$id_mahasiswa))->row();
+
+		$this->db->select('DISTINCT(id), matkul.nama');
+		$this->db->from('matkul');
+		if($this->session->userdata('role') != 'admin') {
+			$this->db->where('matkul.id IN ('.$mahasiswa->matkul.')');
+		}
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[''] = 'Pilih Mata Kuliah';
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
+	}
+
+	function ambil_matkul_jurusan($id_prodi) {
+		$this->db->select('DISTINCT(matkul.id), matkul.nama');
+		$this->db->from('matkul');
+		$this->db->join('prodi','prodi.id=matkul.id_prodi');
+		$this->db->join('jurusan','jurusan.id=prodi.id_jurusan');
+		$this->db->where("matkul.id_prodi='".$id_prodi."'");
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[''] = 'Pilih Mata Kuliah';
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
+	}
 }
