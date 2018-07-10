@@ -1,10 +1,4 @@
-<?php
-    $this->db->select('mahasiswa.*, prodi.nama as prodi');
-    $this->db->from('mahasiswa');
-    $this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id');
-    $this->db->where('mahasiswa.nim', $this->session->userdata("id_user"));
-    $user = $this->db->get()->row();
-?>
+<?php foreach($profil as $profil) { ?>
 
 <div class="container-fluid">
     <div class="row bg-title">
@@ -16,12 +10,12 @@
         <div class="col-md-12">
             <div class="white-box">
                 <!-- <div class="col-md-12 my-4 text-right">
-                    <a class="btn btn btn-rounded btn-info btn-outline" href="<?php echo base_url("nilai"); ?>/print_transkrip/<?php echo $user->nim ?>">Print Transkrip</a>
+                    <a class="btn btn btn-rounded btn-info btn-outline" href="<?php echo base_url("nilai"); ?>/print_transkrip/<?php echo $profil->nim ?>">Print Transkrip</a>
                 </div> -->
                 <div class="col-md-2 offset-md-10 my-4 text-right">
                     <?php
                         $p_semester = array(''=>'Pilih Semester','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
-                        $js = 'class="form-control" id="semester" onChange="window.location = \''.base_url().'nilai/transkrip_nilai/\' + \''.$user->nim.'\'+\'/\'+$(this).val()"'; 
+                        $js = 'class="form-control" id="semester" onChange="window.location = \''.base_url().'nilai/transkrip_nilai/\' + \''.$profil->nim.'\'+\'/\'+$(this).val()"'; 
                         echo form_dropdown('semester', $p_semester, $this->uri->segment(4), $js);
                     ?>
                 </div>
@@ -31,10 +25,10 @@
                             <div class="user-bg">
                                 <div class="overlay-box">
                                     <div class="user-content">
-    <a href="javascript:void(0)"><img src="<?php echo base_url()?>assets/images/<?php if($user->jk == "L") { ?>male<?php } else { ?>female<?php } ?>.png" class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white mt-2"><?php echo $user->nama ?></h4>
-                                        <h5 class="text-white mt-1"><?php echo $user->nim ?></h5>
-                                        <h5 class="text-white mt-1">Program Studi <?php echo $user->prodi ?></h5>
+    <a href="javascript:void(0)"><img src="<?php echo base_url()?>assets/images/<?php if($profil->jk == "L") { ?>male<?php } else { ?>female<?php } ?>.png" class="thumb-lg img-circle" alt="img"></a>
+                                        <h4 class="text-white mt-2"><?php echo $profil->nama ?></h4>
+                                        <h5 class="text-white mt-1"><?php echo $profil->nim ?></h5>
+                                        <h5 class="text-white mt-1">Program Studi <?php echo $profil->prodi ?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +74,7 @@
                             </table>
                             
                             <?php 
-                                $nilais = $this->M_Nilai->print_transkrip($user->nim, $semester)->result();
+                                $nilais = $this->M_Nilai->print_transkrip($profil->nim, $semester)->result();
                                 $jml_matkul = count($nilais);
                                 $nilai = array();
                                 $nilai_matkul = array();
@@ -137,3 +131,5 @@
         </div>
     </div>
 </div>
+
+<?php } ?>

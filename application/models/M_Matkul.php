@@ -37,4 +37,21 @@ class M_Matkul extends CI_Model{
 		}
 		return $return;
 	}
+
+	function ambil_matkul_dosen($id_dosen) {
+		$dosen = $this->db->get_where('dosen', array('nidn'=>$id_dosen))->row();
+
+		$this->db->select('DISTINCT(id), matkul.nama');
+		$this->db->from('matkul');
+		if($this->session->userdata('role') != 'admin') {
+			$this->db->join('dosen', 'matkul.id IN ('.$dosen->matkul.')');
+		}
+		$query = $this->db->get();
+		foreach ($query->result() as $row)
+		{
+			$return[''] = 'Pilih Mata Kuliah';
+			$return[$row->id] = $row->nama;
+		}
+		return $return;
+	}
 }

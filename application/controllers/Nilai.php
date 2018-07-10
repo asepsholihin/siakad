@@ -10,6 +10,7 @@ class Nilai extends MY_Controller {
 		$this->load->model('M_Upload');
 		$this->load->model('M_Dosen');
 		$this->load->model('M_Kelas');
+		$this->load->model('M_Mahasiswa');
 		$this->load->helper('url');
 	
 		if($this->session->userdata('status') != "login"){
@@ -77,6 +78,7 @@ class Nilai extends MY_Controller {
 
 	function transkrip_nilai($nim,$semester) {
 		$data['semester'] = $semester;
+		$data['profil'] = $this->M_Mahasiswa->profil($this->session->userdata('id_user'));
 		$data['transkrip'] = $this->M_Nilai->print_transkrip($nim, $semester)->result();
 		$this->render_page('pages/nilai/v_transkrip', $data);
 	}
@@ -190,11 +192,10 @@ class Nilai extends MY_Controller {
 				$uts 	= isset($row['F']) ? $row['F'] : '';
 				$uas 	= isset($row['G']) ? $row['G'] : '';
 				$tugas 	= isset($row['H']) ? $row['H'] : '';
-				$semester 	= isset($row['I']) ? $row['I'] : '';
 		
 				if($numrow > 1){
 
-				$get_matkul = $this->db->query("SELECT id FROM matkul WHERE kode='".$kodematkul."'")->row();
+				$get_matkul = $this->db->query("SELECT id,semester FROM matkul WHERE kode='".$kodematkul."'")->row();
 				
 				array_push($data, [
 					'id_mahasiswa'=>$nis,
@@ -203,7 +204,7 @@ class Nilai extends MY_Controller {
 					'uts'=>$uts,
 					'uas'=>$uas,
 					'tugas'=>$tugas,
-					'semester'=>$semester,
+					'semester'=>$get_matkul->semester
 				]);
 				}
 				

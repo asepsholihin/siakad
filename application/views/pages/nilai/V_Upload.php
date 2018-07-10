@@ -55,7 +55,6 @@
                                         <th>UTS</th>
                                         <th>UAS</th>
                                         <th>Tugas</th>
-                                        <th>Semester</th>
                                     </tr>
                                 </thead>
                                 <tbody>";
@@ -72,7 +71,6 @@
                             $F = isset($row['F']) ? $row['F'] : '';
                             $G = isset($row['G']) ? $row['G'] : '';
                             $H = isset($row['H']) ? $row['H'] : '';
-                            $I = isset($row['I']) ? $row['I'] : '';
                             
                             $nis = $A;
                             $nama = $B;
@@ -82,10 +80,9 @@
                             $uts = $F;
                             $uas = $G;
                             $tugas = $H;
-                            $semester = $I;
                             
                             
-                            if(empty($nis) && empty($nama) && empty($kodematkul) && empty($nidn) && empty($dosen) && empty($uts) && empty($uas) && empty($tugas) && empty($semester))
+                            if(empty($nis) && empty($nama) && empty($kodematkul) && empty($nidn) && empty($dosen) && empty($uts) && empty($uas) && empty($tugas))
                                 continue; 
                             
                             if($numrow > 1){
@@ -97,9 +94,8 @@
                                 $uts_td = ( ! empty($uts))? "" : " class=\"bg-danger\"";
                                 $uas_td = ( ! empty($uas))? "" : " class=\"bg-danger\"";
                                 $tugas_td = ( ! empty($tugas))? "" : " class=\"bg-danger\"";
-                                $semester_td = ( ! empty($semester))? "" : " class=\"bg-danger\"";
                             
-                                if(empty($nis) or empty($nama) or empty($kodematkul) or empty($nidn) or empty($dosen) or empty($uts) or empty($uas) or empty($tugas) or empty($semester)){
+                                if(empty($nis) or empty($nama) or empty($kodematkul) or empty($nidn) or empty($dosen) or empty($uts) or empty($uas) or empty($tugas)){
                                     $kosong++;
                                 }
                                 
@@ -112,7 +108,6 @@
                                 echo "<td".$uts_td.">".$uts."</td>";
                                 echo "<td".$uas_td.">".$uas."</td>";
                                 echo "<td".$tugas_td.">".$tugas."</td>";
-                                echo "<td".$semester_td.">".$semester."</td>";
                                 echo "</tr>";
                             }
                             

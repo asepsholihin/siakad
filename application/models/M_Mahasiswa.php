@@ -14,8 +14,8 @@ class M_Mahasiswa extends CI_Model{
 	function profil($id) {
 		$this->db->select('mahasiswa.*, prodi.nama as prodi, kelas.nama as kelas');
 		$this->db->from('mahasiswa');
-		$this->db->join('prodi', 'prodi.id = mahasiswa.id_prodi');
 		$this->db->join('kelas', 'kelas.id = mahasiswa.id_kelas');
+		$this->db->join('prodi', 'prodi.id = kelas.id_prodi');
 		$this->db->where('mahasiswa.nim', $id);
 		$this->db->order_by('mahasiswa.nim'); 
 		$query = $this->db->get();
