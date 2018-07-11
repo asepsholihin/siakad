@@ -10,6 +10,12 @@
 
                 <form class="form-horizontal form-material" autocomplete="off" action="<?php echo base_url('mahasiswa/proses_input'); ?>" method="post">
                     <div class="form-group">
+                        <label for="tahun_masuk" class="col-md-12">Tahun Masuk</label>
+                        <div class="col-md-12">
+                            <input id="tahun_masuk" type="text" name="tahun_masuk" class="form-control form-control-line" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="nim" class="col-md-12">NIM</label>
                         <div class="col-md-12">
                             <input id="nim" type="text" name="nim" class="form-control form-control-line" required>

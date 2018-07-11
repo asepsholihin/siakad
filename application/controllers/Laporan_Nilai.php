@@ -27,10 +27,14 @@ class Laporan_Nilai extends MY_Controller {
 		$data['mahasiswa'] = array();
 		if($this->session->userdata('role') == 'admin') {
 			$data['kelas'] = $this->M_Kelas->ambil_kelas();
-		} else {
-			$data['kelas'] = $this->M_Nilai->ambil_kelas($this->session->userdata('id_user'));
+			$data['matkul'] = $this->M_Matkul->ambil_matkul();
+		} else if($this->session->userdata('role') == 'dosen' || $this->session->userdata('role') == 'walikelas'){
+			redirect('laporan_nilai/laporan');
+		} else if($this->session->userdata('role') == 'kajur') {
+			redirect('laporan_nilai/laporan');
+		} else if($this->session->userdata('role') == 'wadir1') {
+			redirect('laporan_nilai/laporan');
 		}
-		$data['matkul'] = $this->M_Kriteria_Nilai->ambil_matkul($this->session->userdata('id_user'));
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai', $data);
 	}
 
@@ -59,7 +63,22 @@ class Laporan_Nilai extends MY_Controller {
 		$data['semester'] = $semester;
 		$data['id_prodi'] = $id_prodi;
 		$data['prodi'] = $this->M_Prodi->ambil_prodi();
-		$data['mahasiswa'] = $this->db->query("SELECT mahasiswa.* FROM mahasiswa JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim JOIN kelas ON kelas.id = mahasiswa.id_kelas WHERE kelas.id_prodi='".$id_prodi."' GROUP BY mahasiswa.nim")->result();
+		$data['mahasiswa'] = $this->db->query("SELECT mahasiswa.* FROM mahasiswa JOIN kelas ON kelas.id = mahasiswa.id_kelas WHERE kelas.id_prodi='".$id_prodi."' GROUP BY mahasiswa.nim")->result();
+		$this->load->view('pages/laporan_nilai/v_print_nilai', $data);   
+	}
+
+	public function download_kelas($semester='',$id_kelas='',$id_prodi='') {
+		$data['mahasiswa'] = $this->db->query("SELECT mahasiswa.* FROM mahasiswa JOIN kelas ON kelas.id = mahasiswa.id_kelas WHERE kelas.id='".$id_kelas."' GROUP BY mahasiswa.nim")->result();
+		//echo $this->db->last_query();
+
+		if($id_prodi == '') {
+			$prodi = $this->db->query("SELECT * FROM kelas JOIN prodi ON kelas.id_prodi = prodi.id WHERE kelas.id='".$id_kelas."'")->row();
+			redirect('laporan_nilai/download_kelas/'.$semester.'/'.$id_kelas.'/'.$prodi->id.'');
+		}
+
+		$data['id_prodi'] = $id_prodi;
+		$data['semester'] = $semester;
+		$data['id_kelas'] = $id_kelas;
 		$this->load->view('pages/laporan_nilai/v_print_nilai', $data);   
 	}
 
@@ -68,11 +87,12 @@ class Laporan_Nilai extends MY_Controller {
 		$data['id_prodi'] = $id_prodi;
 		
 		if($this->session->userdata('role') == 'kajur') {
-			$data['prodi'] = $this->M_Prodi->ambil_prodi();
+			$data['prodi'] = $this->M_Prodi->ambil_prodi_jurusan($this->session->userdata('id_user'));
 		} else {
 			$data['prodi'] = $this->M_Prodi->ambil_prodi();
 		}
 
+		$data['kelas'] = $this->M_Kelas->ambil_kelas();
 		
 		$data['mahasiswa'] = $this->db->query("SELECT mahasiswa.* FROM mahasiswa JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim JOIN kelas ON kelas.id = mahasiswa.id_kelas WHERE kelas.id_prodi='".$id_prodi."' GROUP BY mahasiswa.nim")->result();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai_admin', $data);   

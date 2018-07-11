@@ -42,7 +42,7 @@ $(document).ready(function() {
 </script>
 
 <?php
-    $q_prodi = $this->db->get_where('prodi', array('id'=> $this->uri->segment(4)));
+    $q_prodi = $this->db->get_where('prodi', array('id'=> $id_prodi));
 ?>
 
 <div class="text-center">
@@ -81,8 +81,8 @@ $(document).ready(function() {
     $peringkat = 1;
     foreach($mahasiswa as $row) { 
     
-        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $semester, $this->uri->segment(4))->result();
-        //echo json_encode($nilais);
+        $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $this->uri->segment(3), $id_prodi)->result();
+        //echo $this->db->last_query();
         $sks = array();
         $nilai = array();
         $nilai_matkul = array();
@@ -109,17 +109,22 @@ $(document).ready(function() {
         }
         $jml_d = array_sum($arr_nilai_D);
         $jml_e = array_sum($arr_nilai_E);
-        if($jml_d <= 4 && $jml_e <= 0) {
-            $lulus = "Tetap";
-        } else if($jml_d >= 8 && $jml_e <= 0) {
-            $lulus = "Percobaan";
-        } else if($jml_d > 8 || $jml_e > 0) {
-            $lulus = "Tidak Lulus";
-        } else if($jml_e > 0) {
-            $lulus = "Tidak Lulus";
-        }
         $bbt = array_sum($nilai);
         $jml_sks = array_sum($sks);
+
+        if($bbt != 0) {
+            if($jml_d <=4 && $jml_e == 0) {
+                $lulus = "Tetap";
+            } else if($jml_d >= 8 && $jml_e == 0) {
+                $lulus = "Percobaan";
+            } else if($jml_d > 8 || $jml_e > 0) {
+                $lulus = "Tidak Lulus";
+            } else if($jml_e > 0) {
+                $lulus = "Tidak Lulus";
+            }
+        } else {
+            $lulus = "";
+        }
     ?>
         <tr class="text-center">
             <td class="text-left"><?php echo $row->nama; ?></td>

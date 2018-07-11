@@ -34,6 +34,7 @@ class Mahasiswa extends MY_Controller {
 	function proses_input() {
 		$nim 		= $this->input->post('nim');
 		$nama 		= $this->input->post('nama');
+		$tahun_masuk 	= $this->input->post('tahun_masuk');
 		$tgl_lahir 	= $this->input->post('tgl_lahir');
 		$tmp_lahir 	= $this->input->post('tmp_lahir');
 		$jk 		= $this->input->post('jk');
@@ -44,6 +45,7 @@ class Mahasiswa extends MY_Controller {
 		$post = array(
 			'nim' 		=> $nim,
 			'nama'		=> $nama,
+			'tahun_masuk'	=> $tahun_masuk,
 			'tgl_lahir'	=> $tgl_lahir,
 			'tmp_lahir'	=> $tmp_lahir,
 			'jk'		=> $jk,
@@ -70,6 +72,7 @@ class Mahasiswa extends MY_Controller {
 	function proses_edit() {
 		$nim 		= $this->input->post('nim');
 		$nama 		= $this->input->post('nama');
+		$tahun_masuk 	= $this->input->post('tahun_masuk');
 		$tgl_lahir 	= $this->input->post('tgl_lahir');
 		$tmp_lahir 	= $this->input->post('tmp_lahir');
 		$jk 		= $this->input->post('jk');
@@ -80,6 +83,7 @@ class Mahasiswa extends MY_Controller {
 		$post = array(
 			'nim' 		=> $nim,
 			'nama'		=> $nama,
+			'tahun_masuk'	=> $tahun_masuk,
 			'tgl_lahir'	=> $tgl_lahir,
 			'tmp_lahir'	=> $tmp_lahir,
 			'jk'		=> $jk,

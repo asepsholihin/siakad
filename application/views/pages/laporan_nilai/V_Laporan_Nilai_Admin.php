@@ -9,6 +9,7 @@
             <div class="white-box">
 
                 <div class="row">
+                    
                     <div class="col-md-2 offset-md-3 mb-4">
                         <?php
                             $p_semester = array('0'=>'Pilih Semester','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6');
@@ -16,6 +17,7 @@
                             echo form_dropdown('semester', $p_semester, $this->uri->segment(3), $js);
                         ?>
                     </div>
+                    <?php if($this->session->userdata('role') != 'walikelas' && $this->session->userdata('role') != 'dosen') { ?>
                     <div class="col-md-2 mb-4">
                         <?php
                             $js = 'class="form-control" id="prodi"'; 
@@ -23,13 +25,33 @@
                             echo form_dropdown('prodi', $prodi, $this->uri->segment(4), $js);
                         ?>
                     </div>
+                    <?php } ?>
+
+                    <?php if($this->session->userdata('role') == 'dosen') { ?>
                     <div class="col-md-2 mb-4">
-                        <?php if($this->session->userdata('role') == 'wadir1') { ?>
+                        <?php
+                            $js = 'class="form-control" id="prodi"'; 
+                            $prodi[''] = 'Pilih Kelas';
+                            echo form_dropdown('prodi', $kelas, $this->uri->segment(4), $js);
+                        ?>
+                    </div>
+                    <?php } ?>
+
+                    <div class="col-md-2 mb-4">
+                        <?php if($this->session->userdata('role') == 'wadir1' || $this->session->userdata('role') == 'kajur') { ?>
                             <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download/'+$('#semester').val()+'/'+$('#prodi').val()+''); w.print();" class="btn btn-outline-success btn-block">Download</a>
+                        <?php } else if($this->session->userdata('role') == 'walikelas') { ?>
+                            <?php
+                            $r_kelas = $this->db->query("SELECT kelas.id, kelas.id_prodi as id_prodi FROM dosen JOIN kelas on kelas.id_dosen=dosen.nidn WHERE dosen.nidn='".$this->session->userdata('id_user')."'")->row();
+                            ?>
+                            <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download_kelas/'+$('#semester').val()+'/<?php echo $r_kelas->id ?>/<?php echo $r_kelas->id_prodi ?>'); w.print();" class="btn btn-outline-success btn-block">Download</a>
+                        <?php } else if($this->session->userdata('role') == 'dosen') { ?>
+                            <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download_kelas/'+$('#semester').val()+'/'+$('#prodi').val()+''); w.print();" class="btn btn-outline-success btn-block">Download</a>
                         <?php } else { ?>
                             <button class="btn btn-block btn-outline-success" onclick="lihat()">Lihat</button>
                         <?php } ?>
                     </div>
+
                 </div>
                 <?php
                     $q_prodi = $this->db->get_where('prodi', array('id'=> $this->uri->segment(4)));

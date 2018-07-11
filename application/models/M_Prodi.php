@@ -57,8 +57,7 @@ class M_Prodi extends CI_Model{
 
 		$this->db->select('prodi.id, prodi.nama');
 		$this->db->from('prodi');
-		$this->db->join('jurusan', 'jurusan.id = prodi.id');
-		$this->db->where(array('jurusan.id'=>$id_jurusan));
+		$this->db->where(array('prodi.id_jurusan'=>$id_jurusan));
 		$query = $this->db->get();
 		foreach ($query->result() as $row)
 		{
