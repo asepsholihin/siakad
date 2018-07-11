@@ -23,7 +23,11 @@ foreach($query as $row) {
     }
     
     
-    $query3[] = $this->db->query("SELECT (".rtrim($fields, '+').")/".$per." as jumlah  FROM kuisioner WHERE id_dosen LIKE '%".$this->session->userdata('id_user')."%' AND id_matkul='".$id_matkul."'")->row()->jumlah;
+    if($this->session->userdata('role') == 'admin') {
+        $query3[] = $this->db->query("SELECT (".rtrim($fields, '+').")/".$per." as jumlah  FROM kuisioner WHERE id_dosen LIKE '%".$this->uri->segment(3)."%' AND id_matkul='".$id_matkul."'")->row()->jumlah;
+    } else {
+        $query3[] = $this->db->query("SELECT (".rtrim($fields, '+').")/".$per." as jumlah  FROM kuisioner WHERE id_dosen LIKE '%".$this->session->userdata('id_user')."%' AND id_matkul='".$id_matkul."'")->row()->jumlah;
+    }
 }
 ?>
 
@@ -39,11 +43,30 @@ foreach($query as $row) {
                 
                 <h3 class="box-title text-center">Grafik Kuisioner</h3>
 
-                <div class="col-md-4 offset-md-4 mb-4">
-                <?php
-                    $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url('laporan_kuisioner').'/matkul/\' + $(this).val()"'; 
-                    echo form_dropdown('id_matkul', $matkul, $id_matkul, $js);
-                ?>
+                <div class="row">
+                    <?php if($this->session->userdata('role') == 'admin') { ?>
+                    <div class="col-md-2 offset-md-4 mb-4">
+                    <?php
+                        $js = 'class="form-control" id="id_dosen" onChange="window.location = \''.base_url('laporan_kuisioner').'/matkul/\' + $(this).val()+\'/\'+$(\'#id_matkul\').val()"'; 
+                        $dosen[''] = 'Pilih Dosen';
+                        echo form_dropdown('id_dosen', $dosen, $this->uri->segment(3), $js);
+                    ?>
+                    </div>
+                    <div class="col-md-2 mb-4">
+                    <?php
+                        $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url('laporan_kuisioner').'/matkul/\' + $(\'#id_dosen\').val()+\'/\'+$(this).val()"'; 
+                        echo form_dropdown('id_matkul', $matkul, $this->uri->segment(4), $js);
+                    ?>
+                    </div>
+                    <?php } ?>
+                    <?php if($this->session->userdata('role') != 'admin') { ?>
+                        <div class="col-md-4  offset-md-4  mb-4">
+                        <?php
+                            $js = 'class="form-control" id="id_matkul" onChange="window.location = \''.base_url('laporan_kuisioner').'/matakuliah/\' + $(this).val()"'; 
+                            echo form_dropdown('id_matkul', $matkul, $this->uri->segment(3), $js);
+                        ?>
+                        </div>
+                    <?php } ?>
                 </div>
 
                 <canvas id="myChart"></canvas>

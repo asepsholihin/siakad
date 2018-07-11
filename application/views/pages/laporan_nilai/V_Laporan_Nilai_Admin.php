@@ -95,19 +95,27 @@
                                 $jml_e = array_sum($arr_nilai_E);
                             }
                         }
-                        $jml_d = array_sum($arr_nilai_D);
-                        $jml_e = array_sum($arr_nilai_E);
-                        if($jml_d <= 4 && $jml_e <= 0) {
-                            $lulus = "Tetap";
-                        } else if($jml_d >= 8 && $jml_e <= 0) {
-                            $lulus = "Percobaan";
-                        } else if($jml_d > 8 || $jml_e > 0) {
-                            $lulus = "Tidak Lulus";
-                        } else if($jml_e > 0) {
-                            $lulus = "Tidak Lulus";
-                        }
+
                         $bbt = array_sum($nilai);
                         $jml_sks = array_sum($sks);
+
+                        $jml_d = array_sum($arr_nilai_D);
+                        $jml_e = array_sum($arr_nilai_E);
+
+                        if($bbt != 0) {
+                            if($jml_d <=4 && $jml_e == 0) {
+                                $lulus = "Tetap";
+                            } else if($jml_d >= 8 && $jml_e == 0) {
+                                $lulus = "Percobaan";
+                            } else if($jml_d > 8 || $jml_e > 0) {
+                                $lulus = "Tidak Lulus";
+                            } else if($jml_e > 0) {
+                                $lulus = "Tidak Lulus";
+                            }
+                        } else {
+                            $lulus = "";
+                        }
+
                     ?>
                         <tr class="text-center">
                             <td class="text-left"><?php echo $row->nama; ?><br><?php echo $row->nim; ?></td>

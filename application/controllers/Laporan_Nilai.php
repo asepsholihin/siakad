@@ -66,7 +66,14 @@ class Laporan_Nilai extends MY_Controller {
 	public function laporan($semester='', $id_prodi='') {
 		$data['semester'] = $semester;
 		$data['id_prodi'] = $id_prodi;
-		$data['prodi'] = $this->M_Prodi->ambil_prodi();
+		
+		if($this->session->userdata('role') == 'kajur') {
+			$data['prodi'] = $this->M_Prodi->ambil_prodi();
+		} else {
+			$data['prodi'] = $this->M_Prodi->ambil_prodi();
+		}
+
+		
 		$data['mahasiswa'] = $this->db->query("SELECT mahasiswa.* FROM mahasiswa JOIN nilai ON nilai.id_mahasiswa = mahasiswa.nim JOIN kelas ON kelas.id = mahasiswa.id_kelas WHERE kelas.id_prodi='".$id_prodi."' GROUP BY mahasiswa.nim")->result();
 		$this->render_page('pages/laporan_nilai/v_laporan_nilai_admin', $data);   
 	}

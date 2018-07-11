@@ -1,10 +1,38 @@
 $(document).ready(function() {
     $.fn.editable.defaults.mode = 'inline';
     
-    $('.uts').editable();
-    $('.uas').editable();
-    $('.tugas').editable();
-    $('.grade').editable();
+    $('.uts').editable({
+        type: 'text', 
+        validate: function(value) {
+            if ($.isNumeric(value) == '') {
+                return 'Hanya boleh diisi dengan angka';
+            }
+        }
+    });
+    $('.uas').editable({
+        type: 'text', 
+        validate: function(value) {
+            if ($.isNumeric(value) == '') {
+                return 'Hanya boleh diisi dengan angka';
+            }
+        }
+    });
+    $('.tugas').editable({
+        type: 'text', 
+        validate: function(value) {
+            if ($.isNumeric(value) == '') {
+                return 'Hanya boleh diisi dengan angka';
+            }
+        }
+    });
+    $('.grade').editable({
+        type: 'text', 
+        validate: function(value) {
+            if ($.isNumeric(value) == '') {
+                return 'Hanya boleh diisi dengan angka';
+            }
+        }
+    });
 
     $('.semester').editable();
 
@@ -37,4 +65,9 @@ $(document).ready(function() {
     });
 
     $('.select2').select2();
+
+    
+    
+    
 });
+

@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label for="id_dosen" class="col-md-12">Mata Kuliah <span class="text-danger">*</span></label>
                                 <div class="col-md-12">
-                                    <?php echo form_dropdown('id_matkul', $matkul, null, 'class="form-control"'); ?>
+                                    <?php echo form_dropdown('id_matkul', $matkul, null, 'class="form-control" required'); ?>
                                 </div>
                             </div>
                             <div class="form-group">

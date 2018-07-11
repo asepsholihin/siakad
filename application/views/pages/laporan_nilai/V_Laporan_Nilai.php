@@ -22,8 +22,8 @@
                     ?>
                 </div>
 
-                <?php if($this->session->userdata('role') == 'wadir1') { ?>
-                    <!-- <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download/'+$('#semester').val()+''); w.print();" class="btn btn-outline-success pull-right">Download</a> -->
+                <!-- <?php if($this->session->userdata('role') == 'wadir1') { ?>
+                    <a href="javascript: w=window.open('<?php echo base_url('laporan_nilai'); ?>/download/'+$('#semester').val()+''); w.print();" class="btn btn-outline-success pull-right">Download</a>
                     <a href="javascript: w=window.location.href ='<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Download</a>
                 <?php } else if($this->session->userdata('role') == 'admin') { ?>
                     <a href="javascript: w=window.location.href = '<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Transkirp</a>
@@ -31,7 +31,9 @@
                     if($this->uri->segment(3) && $this->uri->segment(4 && count($mahasiswa) > 0)) { ?>
                     <a href="<?php echo base_url('laporan_nilai') ?>/export/<?php echo $this->uri->segment(3); ?>/<?php echo $this->uri->segment(4); ?>" class="btn btn-outline-success pull-right">Download</a>
                 <?php } 
-                }?>
+                }?> -->
+                
+                <a href="javascript: w=window.location.href = '<?php echo base_url('laporan_nilai'); ?>/laporan'" class="btn btn-outline-success pull-right">Transkirp</a>
 
                 <div class="table-responsive">
                     <table id="data" class="display table pt-3">

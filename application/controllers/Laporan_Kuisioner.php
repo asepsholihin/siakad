@@ -22,21 +22,28 @@ class Laporan_Kuisioner extends MY_Controller {
 	public function index() {
         $id_matkul = 0;
         $data['laporan_kuisioner'] = $this->M_Laporan_Kuisioner->get_data($id_matkul)->result();
+        $data['dosen'] = $this->M_Dosen->ambil_dosen();
         $data['matkul'] = $this->M_Matkul->ambil_matkul_dosen($this->session->userdata('id_user'));
         $data['id_matkul'] = $id_matkul;
 		$this->render_page('pages/laporan_kuisioner/v_laporan_kuisioner', $data);
     }
 
-    public function matkul($id_matkul='') {
-        if($id_matkul == 0) {
-            redirect('laporan_kuisioner');
-        } else {
-            $data['laporan_kuisioner'] = $this->M_Laporan_Kuisioner->get_data($id_matkul)->result();
-            $data['matkul'] = $this->M_Matkul->ambil_matkul_dosen($this->session->userdata('id_user'));
-            $data['id_matkul'] = $id_matkul;
-            //echo $this->db->last_query();
-            $this->render_page('pages/laporan_kuisioner/v_laporan_kuisioner', $data);
-        }
+    public function matkul($id_dosen='',$id_matkul='') {
+        $data['dosen'] = $this->M_Dosen->ambil_dosen();
+        $data['matkul'] = $this->M_Matkul->ambil_matkul_dosen($this->session->userdata('id_user'));
+        $data['id_matkul'] = $id_matkul;
+        $data['laporan_kuisioner'] = $this->M_Laporan_Kuisioner->get_data($id_dosen,$id_matkul)->result();
+        //echo $this->db->last_query();
+        $this->render_page('pages/laporan_kuisioner/v_laporan_kuisioner', $data);
+    }
+
+    public function matakuliah($id_matkul='') {
+        $data['dosen'] = $this->M_Dosen->ambil_dosen();
+        $data['matkul'] = $this->M_Matkul->ambil_matkul_dosen($this->session->userdata('id_user'));
+        $data['id_matkul'] = $id_matkul;
+        $data['laporan_kuisioner'] = $this->M_Laporan_Kuisioner->get_data_dosen($id_matkul)->result();
+        //echo $this->db->last_query();
+        $this->render_page('pages/laporan_kuisioner/v_laporan_kuisioner', $data);
     }
 
     public function hasil_kuisioner() {

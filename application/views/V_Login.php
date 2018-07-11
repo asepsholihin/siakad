@@ -33,8 +33,8 @@
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+					<div class="container-login100-form-btn mt-4">
+						<button class="login100-form-btn btn-block">
 							Login
 						</button>
 					</div>
