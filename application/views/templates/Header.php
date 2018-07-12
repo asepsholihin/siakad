@@ -1,9 +1,9 @@
 <nav class="navbar navbar-default navbar-static-top m-b-0">
     <div class="navbar-header">
-        <div class="top-left-part text-center">
-            <a class="text-dark" href="index.html">
+        <div class="top-left-part">
+            <a class="text-dark" href="">
                 <b>
-                    SIAKAD
+                    <img class="logo-icon" src="<?php echo base_url('assets/images/logo.png') ?>" alt="Logo"> SIAKAD POLSUB
                 </b>
             </a>
         </div>
@@ -62,7 +62,7 @@
                 <a href="<?php echo base_url('nilai'); ?>">Nilai</a>
             </li>
             <?php }
-            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "dosen" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "walikelas" || $this->session->userdata("role") == "wadir1") { 
+            if($this->session->userdata("role") == "admin" || $this->session->userdata("role") == "kajur" || $this->session->userdata("role") == "walikelas" || $this->session->userdata("role") == "wadir1") { 
             ?>
             <li>
                 <a href="<?php echo base_url('laporan_nilai'); ?>">Laporan Nilai</a>

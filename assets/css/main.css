@@ -643,3 +643,8 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
 .white-box {
   min-height: 20vh!important;
 }
+
+.logo-icon {
+  height: 32px;
+  margin: 4px 6px 4px 18px;
+}

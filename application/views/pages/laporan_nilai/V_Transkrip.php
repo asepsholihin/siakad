@@ -12,6 +12,7 @@
     body {
         min-height:100vh;
         height:100vh;
+        font-size: 12px;
     }
     table {
         border: 1px solid #ccc;
@@ -21,6 +22,7 @@
         background: transparent !important;
     }
     th,td {
+        font-size: 12px;
         border: 0;
     }
     table.no-border,table.no-border td {
@@ -62,16 +64,16 @@ function tanggal_indo($tanggal)
 }
 ?>
 
-<div class="row" style="padding:4em; height:100vh;background:url(<?php echo base_url(); ?>assets/images/bg.png) no-repeat center;">
-    <div class="col-md-12 p-5" style="border: 5px double #62bf72;">
-        <div class="col-md-12 text-center mb-5" style="border: 2px solid #62bf72;">
+<div class="row" style="padding:0em 1em; height:100vh;background:url(<?php echo base_url(); ?>assets/images/bg.png) no-repeat center;">
+    <div class="col-md-12 p-5" style="border: 5px double #5ca969;">
+        <div class="col-md-12 text-center mb-5" style="border: 2px solid #5ca969;">
             <div class="row">
                 <div class="col-md-2">
                     <img src="<?php echo base_url(); ?>assets/images/logo.png" style="height:84px;width: 84px;margin: 10px;" class="img-fluid" alt="">
                 </div>
                 <div class="col-md-8 pt-3">
-                    <h4 class="mt-2">POLITEKNIK NEGERI SUBANG</h4>
-                    <h5 class="mt-1">LAPORAN NILAI SEMESTER</h5>
+                    <h5 class="mt-2">POLITEKNIK NEGERI SUBANG</h5>
+                    <h6 class="mt-1">LAPORAN NILAI SEMESTER</h6>
                 </div>
             </div>
         </div>
@@ -193,7 +195,7 @@ function tanggal_indo($tanggal)
                     </tr>
                 </table>
             </div>
-            <div class="col-md-4 offset-md-7 mt-5">
+            <div class="col-md-4 offset-md-7 mt-1">
                 <p>Subang, <?php echo tanggal_indo(date('Y-m-d')); ?></p>
                 <p>Wakil Direktur 1,</p>
                 <br><br><br>

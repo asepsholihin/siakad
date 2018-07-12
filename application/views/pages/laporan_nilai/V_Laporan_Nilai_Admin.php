@@ -59,8 +59,10 @@
 
                 <?php if($semester != 0 && $q_prodi->num_rows() > 0) { ?>
                 <div class="text-center">
-                    <h4>EVALUASI KELULUSAN PROGRAM PENDIDIKAN</h4>
-                    <h5>JURUSAN/PROGRAM STUDI : <?php echo strtoupper($q_prodi->row()->nama); ?></h5>
+                    <h6><img class="logo-icon" src="<?php echo base_url('assets/images/logo.png') ?>" alt="Logo"> Politeknik Negeri Subang</h6>
+                    <hr  style="margin: 30px;border: 1px double #5ca969;">
+                    <h5>EVALUASI KELULUSAN PROGRAM PENDIDIKAN</h5>
+                    <h6>JURUSAN/PROGRAM STUDI : <?php echo strtoupper($q_prodi->row()->nama); ?></h6>
                     <p>Tahun Akademik <?php echo date('Y') ;?>/<?php echo date('Y')+1; ?></p>
                 </div>
 

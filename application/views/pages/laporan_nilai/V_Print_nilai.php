@@ -2,21 +2,28 @@
 <style>
     body {
         margin: 1em;
+        font-size: 12px;
     }
     table {
         border: 1px solid #ccc;
     }
     th,td {
+        font-size: 12px;
         border: 1px solid #ccc;
     }
     table.no-border,table.no-border td {
         border: none;
+    }
+    .logo-icon {
+        height: 28px;
+        margin: 0 6px 4px 0;
     }
 </style>
 <script src="<?php echo base_url(); ?>assets/js/jquery-3.3.1.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script>
 $(document).ready(function() {
+    window.print();
 
     $.extend( $.fn.dataTable.defaults, {
         "language": {
@@ -46,8 +53,13 @@ $(document).ready(function() {
 ?>
 
 <div class="text-center">
-    <h4>EVALUASI KELULUSAN PROGRAM PENDIDIKAN</h4>
-    <h5>JURUSAN/PROGRAM STUDI : <?php echo strtoupper($q_prodi->row()->nama); ?></h5>
+
+    <h6><img class="logo-icon" src="<?php echo base_url('assets/images/logo.png') ?>" alt="Logo"> Politeknik Negeri Subang</h6>
+
+    <hr  style="margin: 30px;border: 1px double #5ca969;">
+
+    <h5>EVALUASI KELULUSAN PROGRAM PENDIDIKAN</h5>
+    <h6>JURUSAN/PROGRAM STUDI : <?php echo strtoupper($q_prodi->row()->nama); ?></h6>
     <p>Tahun Akademik <?php echo date('Y') ;?>/<?php echo date('Y')+1; ?></p>
 </div>
 
@@ -79,6 +91,7 @@ $(document).ready(function() {
     <tbody>
     <?php 
     $peringkat = 1;
+    $ips = array();
     foreach($mahasiswa as $row) { 
     
         $nilais = $this->M_Laporan_Nilai->print_transkrip($row->nim, $this->uri->segment(3), $id_prodi)->result();
@@ -86,7 +99,6 @@ $(document).ready(function() {
         $sks = array();
         $nilai = array();
         $nilai_matkul = array();
-        $ips = array();
         $arr_nilai_D = array();
         $arr_nilai_E = array();
         foreach($nilais as $row1) {
@@ -107,10 +119,14 @@ $(document).ready(function() {
                 $jml_e = array_sum($arr_nilai_E);
             }
         }
+        
         $jml_d = array_sum($arr_nilai_D);
         $jml_e = array_sum($arr_nilai_E);
         $bbt = array_sum($nilai);
         $jml_sks = array_sum($sks);
+
+        $ips[] = ($bbt/$jml_sks);
+        
 
         if($bbt != 0) {
             if($jml_d <=4 && $jml_e == 0) {
@@ -145,44 +161,70 @@ $(document).ready(function() {
     <?php 
     $peringkat++;
     } ?>
+        <?php 
+            $ttl_ips = array_sum($ips);
+            $ttl_mhs = count($mahasiswa);
+
+            
+        ?>
+        <tr>
+            <td colspan="2">Total IPS</td>
+            <td colspan="9"><?php echo number_format($ttl_ips,2, ',', '') ?></td>
+        </tr>
+        <tr>
+            <td colspan="2">Rata-rata IPS</td>
+            <td colspan="9"><?php echo number_format($ttl_ips/$ttl_mhs,2, ',', '');?></td>
+        </tr>
     </tbody>
 </table>
 
-<table cellpadding="6" class="no-border">
+
+
+<table cellpadding="30" class="no-border">
     <tr>
-        <td>IPP</td>
-        <td>:</td>
-        <td>Indeks Prestasi Praktik</td>
-    </tr>
-    <tr>
-        <td>IPT</td>
-        <td>:</td>
-        <td>Indeks Prestasi Praktik</td>
-    </tr>
-    <tr>
-        <td>IPS</td>
-        <td>:</td>
-        <td>Indeks Prestasi Praktik</td>
-    </tr>
-    <tr>
-        <td>STA</td>
-        <td>:</td>
-        <td>Status Kelulusan</td>
-    </tr>
-    <tr>
-        <td>PER</td>
-        <td>:</td>
-        <td>Peringkat</td>
-    </tr>
-    <tr>
-        <td>PL</td>
-        <td>:</td>
-        <td>Peringatan Lisan</td>
-    </tr>
-    <tr>
-        <td>PT</td>
-        <td>:</td>
-        <td>Peringatan Tertulis</td>
+        <td valign="top">
+            <table cellpadding="6" class="no-border">
+                <tr>
+                    <td>IPP</td>
+                    <td>:</td>
+                    <td>Indeks Prestasi Praktik</td>
+                </tr>
+                <tr>
+                    <td>IPT</td>
+                    <td>:</td>
+                    <td>Indeks Prestasi Praktik</td>
+                </tr>
+                <tr>
+                    <td>IPS</td>
+                    <td>:</td>
+                    <td>Indeks Prestasi Praktik</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table cellpadding="6" class="no-border">
+                <tr>
+                    <td>STA</td>
+                    <td>:</td>
+                    <td>Status Kelulusan</td>
+                </tr>
+                <tr>
+                    <td>PER</td>
+                    <td>:</td>
+                    <td>Peringkat</td>
+                </tr>
+                <tr>
+                    <td>PL</td>
+                    <td>:</td>
+                    <td>Peringatan Lisan</td>
+                </tr>
+                <tr>
+                    <td>PT</td>
+                    <td>:</td>
+                    <td>Peringatan Tertulis</td>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 </div>

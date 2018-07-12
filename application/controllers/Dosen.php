@@ -50,9 +50,27 @@ class Dosen extends MY_Controller {
 			'matkul'	=> implode(',',$matkul)
 			);
 
+		if($jabatan == 'Ketua Jurusan') {
+			$jurusan = $this->db->query("SELECT jurusan.* FROM jurusan JOIN prodi on prodi.id_jurusan=jurusan.id WHERE prodi.id='".$id_prodi."'")->row();
+			$udah_ada = $this->db->query("SELECT * FROM dosen JOIN prodi ON dosen.id_prodi=prodi.id JOIN jurusan ON prodi.id_jurusan=jurusan.id AND jurusan.id='".$jurusan->id."'")->num_rows();
+			if($udah_ada > 0) {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Ketua Jurusan <strong>'.$jurusan->nama.'</strong> sudah ada.</div>');
+			} else {
+				$this->M_Dosen->input_data($data, 'dosen');
+				$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+			}
+		}
 
-		$this->M_Dosen->input_data($data, 'dosen');
-		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+		if($jabatan == 'Wakil Direktur 1') {
+			$udah_ada_wadir = $this->db->get_where('dosen', array('jabatan'=>'Wakil Direktur 1'))->num_rows();
+			if($udah_ada_wadir > 0) {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center"><strong>Wakil Direktur 1</strong> sudah ada.</div>');
+			} else {
+				$this->M_Dosen->input_data($data, 'dosen');
+				$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+			}
+		}
+		
 		redirect('dosen');
     }
     
@@ -90,10 +108,29 @@ class Dosen extends MY_Controller {
      
         $where = array(
             'nidn' => $nidn
-        );
+		);
 
-		$this->M_Dosen->update_data($where, $data, 'dosen');
-		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+		if($jabatan == 'Ketua Jurusan') {
+			$jurusan = $this->db->query("SELECT jurusan.* FROM jurusan JOIN prodi on prodi.id_jurusan=jurusan.id WHERE prodi.id='".$id_prodi."'")->row();
+			$udah_ada = $this->db->query("SELECT * FROM dosen JOIN prodi ON dosen.id_prodi=prodi.id JOIN jurusan ON prodi.id_jurusan=jurusan.id AND jurusan.id='".$jurusan->id."'")->num_rows();
+			if($udah_ada > 0) {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Ketua Jurusan <strong>'.$jurusan->nama.'</strong> sudah ada.</div>');
+			} else {
+				$this->M_Dosen->update_data($where, $data, 'dosen');
+				$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+			}
+		}
+
+		if($jabatan == 'Wakil Direktur 1') {
+			$udah_ada_wadir = $this->db->get_where('dosen', array('jabatan'=>'Wakil Direktur 1'))->num_rows();
+			if($udah_ada_wadir > 0) {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center"><strong>Wakil Direktur 1</strong> sudah ada.</div>');
+			} else {
+				$this->M_Dosen->update_data($where, $data, 'dosen');
+				$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+			}
+		}
+		
 		redirect('dosen');
     }
 

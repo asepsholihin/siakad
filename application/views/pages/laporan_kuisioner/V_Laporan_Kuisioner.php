@@ -1,8 +1,9 @@
 <?php
 
-$query = $this->db->query("SELECT id_kategori FROM referensi_kuisioner WHERE jenis='pilihan' GROUP BY id_kategori")->result();
+$query = $this->db->query("SELECT id_kategori, kategori_kuisioner.nama as kategori FROM referensi_kuisioner JOIN kategori_kuisioner ON referensi_kuisioner.id_kategori=kategori_kuisioner.id WHERE jenis='pilihan' GROUP BY id_kategori")->result();
 
 $kategori = array();
+$query3 = array();
 foreach($query as $row) {
     
     $query1 = $this->db->query("SELECT concat(kode, id) as field FROM referensi_kuisioner WHERE jenis='pilihan' AND id_kategori='".$row->id_kategori."'")->result();
@@ -12,7 +13,7 @@ foreach($query as $row) {
         $field[] = $row1;
 
     }
-    $kategori[] = $row->id_kategori;
+    $kategori[] = $row->kategori;
 
     $fields = '';
     $per = '';
@@ -28,6 +29,7 @@ foreach($query as $row) {
     } else {
         $query3[] = $this->db->query("SELECT (".rtrim($fields, '+').")/".$per." as jumlah  FROM kuisioner WHERE id_dosen LIKE '%".$this->session->userdata('id_user')."%' AND id_matkul='".$id_matkul."'")->row()->jumlah;
     }
+    
 }
 ?>
 

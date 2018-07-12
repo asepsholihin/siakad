@@ -25,10 +25,28 @@ class User extends MY_Controller {
  
 	function proses_input() {
         $data = $this->input->post();
-        $data['password'] = md5($this->input->post('password'));
+		$data['password'] = md5($this->input->post('password'));
+		
+		if($data['role'] == 'kajur') {
+			$udah_ada_kajur = $this->db->get_where('users', array('role'=>'kajur'))->num_rows();
+			if($udah_ada_kajur == 2) {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center"><strong>Ketua Jurusan</strong> sudah ada.</div>');
+			} else {
+				$this->M_User->input_data($data, 'users');
+				$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+			}
+		}
 
-		$this->M_User->input_data($data, 'users');
-		$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+		if($data['role'] == 'wadir1') {
+			$udah_ada_wadir = $this->db->get_where('users', array('role'=>'kajur'))->num_rows();
+			if($udah_ada_wadir > 0) {
+				$this->session->set_flashdata('msg','<div class="alert alert-danger text-center"><strong>Wakil Direktur 1</strong> sudah ada.</div>');
+			} else {
+				$this->M_User->input_data($data, 'users');
+				$this->session->set_flashdata('msg','<div class="alert alert-success text-center">Berhasil disimpan.</div>');
+			}
+		}
+
 		redirect('user');
 	}
 
